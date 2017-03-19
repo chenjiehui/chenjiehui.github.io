@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
   <title>重温PHP【1】——基础句法和类型 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。">
+  <meta name="description" content="前言：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师的基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重温PHP【1】——基础句法和类型">
 <meta property="og:url" content="http://www.tenpercent.top/2017/03/11/review-php-01/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="前言：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。">
-<meta property="og:updated_time" content="2017-03-19T15:25:08.000Z">
+<meta property="og:description" content="前言：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师的基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。">
+<meta property="og:updated_time" content="2017-03-19T15:27:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重温PHP【1】——基础句法和类型">
-<meta name="twitter:description" content="前言：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。">
+<meta name="twitter:description" content="前言：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师的基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -177,7 +177,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>前言</strong>：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。</p>
+        <p><strong>前言</strong>：最近想开始好好提升一下自己的英语水平，因为感觉熟练的英语是每一个优秀软件工程师的基本功，虽然是一枚过了六级的选手，但是感觉英文阅读和写作都还是有些压力。正巧听闻有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以第一步我打算开始重温PHP手册，在加强自己英语水平的同时来达到温故而知新的目的。</p>
 <a id="more"></a>
 <h2 id="1、PHP-tags"><a href="#1、PHP-tags" class="headerlink" title="1、PHP tags"></a>1、PHP tags</h2><p>When PHP parses a file, it look for opening and closing tags, which are <code>&lt;?php</code>and <code>?&gt;</code> which tell PHP to start and stop interpreting the code between them.<br>if a file is pure PHP code, it is preferable to omit the PHP closing tag at the end of the file. This prevents accidental whitespace or new lines being added after the PHP closing tag, which may cause unwanted effects because PHP will start output buffering when there is no intention from the programmer to send any output at that point in the script.</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">    <span class="keyword">echo</span> <span class="string">"hello chenjiehui!"</span>;</div><div class="line">    <span class="comment">//...more code </span></div><div class="line">    <span class="keyword">echo</span> <span class="string">"last statement."</span>;</div><div class="line">    <span class="comment">// the script ends here with no PHP closing tag</span></div></pre></td></tr></table></figure>
