@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>Archives: 2017/3 | 陈杰辉写字的地方</title>
+  <title>重温PHP【1】——基础语法和类型 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈杰辉写字的地方">
-<meta property="og:url" content="http://www.tenpercent.top/archives/2017/03/index.html">
+  <meta name="description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。
+1、PHP tagsWhen PHP parses a file, it look for opening and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重温PHP【1】——基础语法和类型">
+<meta property="og:url" content="http://www.tenpercent.top/2017/03/18/review-php-01/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。
+1、PHP tagsWhen PHP parses a file, it look for opening and">
+<meta property="og:updated_time" content="2017-03-19T15:08:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈杰辉写字的地方">
+<meta name="twitter:title" content="重温PHP【1】——基础语法和类型">
+<meta name="twitter:description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。
+1、PHP tagsWhen PHP parses a file, it look for opening and">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -153,36 +160,78 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-review-php-01" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/18/review-php-01/" class="archive-article-date">
-  	<time datetime="2017-03-17T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/18/review-php-01/">重温PHP【1】——基础语法和类型</a>
+    <h1 class="article-title" itemprop="name">
+      重温PHP【1】——基础语法和类型
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/03/18/review-php-01/" class="archive-article-date">
+  	<time datetime="2017-03-17T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>前言</strong>：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。</p>
+<h2 id="1、PHP-tags"><a href="#1、PHP-tags" class="headerlink" title="1、PHP tags"></a>1、PHP tags</h2><p>When PHP parses a file, it look for opening and closing tags, which are <code>&lt;?php</code>and <code>?&gt;</code> which tell PHP to start and stop interpreting the code between them.<br>if a file is pure PHP code, it is preferable to omit the PHP closing tag at the end of the file. This prevents accidental whitespace or new lines being added after the PHP closing tag, which may cause unwanted effects because PHP will start output buffering when there is no intention from the programmer to send any output at that point in the script.</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">    <span class="keyword">echo</span> <span class="string">"hello chenjiehui!"</span>;</div><div class="line">    <span class="comment">//...more code </span></div><div class="line">    <span class="keyword">echo</span> <span class="string">"last statement."</span>;</div><div class="line">    <span class="comment">// the script ends here with no PHP closing tag</span></div></pre></td></tr></table></figure>
+<h2 id="2、Escaping-from-HTML"><a href="#2、Escaping-from-HTML" class="headerlink" title="2、Escaping from HTML"></a>2、Escaping from HTML</h2><p>Everything outside of a pair of opening and closing tags is ignored by the PHP parser which allows PHP files to have mixed content. This allows PHP to be embedded in HTML documents.<br>But there is one exception that in the middle of a conditional statement in which case the interpreter will determine the outcome of the confitional before making a decision of what to skip over. See the next example. Using structures with conditions.</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">if</span>($expression == <span class="keyword">true</span>) : <span class="meta">?&gt;</span></div><div class="line">    This will show <span class="keyword">if</span> the expression is <span class="keyword">true</span>.</div><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">else</span> : <span class="meta">?&gt;</span></div><div class="line">    Otherwise this will show.</div><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">endif</span>; <span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>In this example PHP will ship the blocks where the condition is not met, even though they are outside of the PHP open/close tags;<br>For outputting large blocks of text, dropping out of PHP parsing mode is generally more effcient than sending all of text through <code>echo</code> or <code>print</code>.</p>
+<blockquote>
+<p>Starting with PHP 5.4, short echo tag <code>&lt;?=</code> is always recongnized and vaild, regardless of the <em>short_open_tag</em> setting.</p>
+</blockquote>
+<h2 id="3、Comments"><a href="#3、Comments" class="headerlink" title="3、Comments"></a>3、Comments</h2><p>PHP support ‘C’,’C++’ and Unix shell-style(Perl style) comments. For example:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">    <span class="keyword">echo</span> <span class="string">'this is a test'</span>; <span class="comment">//this is a one line c++ style comment</span></div><div class="line">    <span class="comment">/* This is a multi line comment</span></div><div class="line">        yet another line of comment */</div><div class="line">    <span class="keyword">echo</span> <span class="string">'This is yet another test'</span>;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'one Final Test'</span>; <span class="comment"># This is a one-line shell-style comment</span></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>##4、type<br>PHP supports eight primitive types(原始数据类型):</p>
+<p><strong>Four scalar types(标量类型):</strong></p>
+<ul>
+<li>boolean</li>
+<li>integer</li>
+<li>float(aka(又称作) double)</li>
+<li>string</li>
+</ul>
+<p><strong>Three compound types:</strong></p>
+<ul>
+<li>array</li>
+<li>object</li>
+<li>callable</li>
+</ul>
+<p><strong>And finally two special types</strong></p>
+<ul>
+<li>resource </li>
+<li>NULL</li>
+</ul>
+<p>This manual also introduces some pseudo-types(伪类型) for readability reasons：</p>
+<ul>
+<li>mixed</li>
+<li>number</li>
+<li>callback</li>
+<li>array|object</li>
+<li>void</li>
+</ul>
+<p>And the pseudo-variable $…<br>The type of the variable is not usually set by programmer; rather(确切的说), it is decided at runtime by PHP depending on the context in which that variable is used.</p>
+<blockquote>
+<p>Note: To check the type and variable of the expression, use the <code>var_dump()</code> function.<br>To get a human-readable representation of a type for debugging, use the <code>gettype()</code> function. To check for a certain type, do not use <code>gettype()</code>, but rather the <code>is_type</code> functions. Some examples:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">    $a_bool = <span class="keyword">TRUE</span> ;</div><div class="line">    $a_str  = <span class="string">"foo"</span>;</div><div class="line">    $a_str2 = <span class="string">'foo'</span>;</div><div class="line">    $an_int = <span class="number">12</span>;</div><div class="line">    <span class="keyword">echo</span> gettype($a_bool);<span class="comment">//print out: boolean</span></div><div class="line">    <span class="keyword">echo</span> gettype($a_str);<span class="comment">//print out: string</span></div><div class="line">    <span class="keyword">if</span>(is_int($an_int))&#123;</div><div class="line">        $an_int+=<span class="number">4</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (is_string($a_bool)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"String: $a_bool"</span>;</div><div class="line">    &#125;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>To forcibly(强制地) convert a variable to a certain type, either cast(eg: (bool)$a_str) or use the <code>settype()</code> function on it.<br>Note that a variable may be evaluated(被评估) with diffrent values in certain situations, depending on what type it is at the time.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -194,7 +243,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -207,66 +256,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/03/18/review-php-01/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/06/operating-system-01/" class="archive-article-date">
-  	<time datetime="2017-03-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/06/operating-system-01/">操作系统【1】——导论</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/学习笔记/" class="article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/06/operating-system-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">操作系统【1】——导论</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
+
+
+
   
-  
-    </div></section>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="review-php-01" data-title="重温PHP【1】——基础语法和类型" data-url="http://www.tenpercent.top/2017/03/18/review-php-01/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"chenjiehui"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -289,8 +376,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
