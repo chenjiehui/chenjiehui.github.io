@@ -8,19 +8,16 @@
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
   <title>重温PHP【1】——基础语法和类型 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。
-1、PHP tagsWhen PHP parses a file, it look for opening and">
+  <meta name="description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重温PHP【1】——基础语法和类型">
 <meta property="og:url" content="http://www.tenpercent.top/2017/03/18/review-php-01/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。
-1、PHP tagsWhen PHP parses a file, it look for opening and">
-<meta property="og:updated_time" content="2017-03-19T15:08:07.000Z">
+<meta property="og:description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。">
+<meta property="og:updated_time" content="2017-03-19T15:11:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重温PHP【1】——基础语法和类型">
-<meta name="twitter:description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。
-1、PHP tagsWhen PHP parses a file, it look for opening and">
+<meta name="twitter:description" content="前言：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -180,7 +177,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>前言</strong>：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。</p>
+        <p><strong>前言</strong>：因为听了有个PHP高手说他把PHP官方手册读了不下8遍，深以为然，孰能生巧这个道理放在哪里都没有错。所以我打算开始重温PHP手册，鉴于自己目前的英语写作能力还不行，就先挪用官方的英语描述来总结该学习笔记，对于不懂的英文词句会特殊用中文注释，在温故知新的同时也加强自己的英语水平。<br><a id="more"></a></p>
 <h2 id="1、PHP-tags"><a href="#1、PHP-tags" class="headerlink" title="1、PHP tags"></a>1、PHP tags</h2><p>When PHP parses a file, it look for opening and closing tags, which are <code>&lt;?php</code>and <code>?&gt;</code> which tell PHP to start and stop interpreting the code between them.<br>if a file is pure PHP code, it is preferable to omit the PHP closing tag at the end of the file. This prevents accidental whitespace or new lines being added after the PHP closing tag, which may cause unwanted effects because PHP will start output buffering when there is no intention from the programmer to send any output at that point in the script.</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">    <span class="keyword">echo</span> <span class="string">"hello chenjiehui!"</span>;</div><div class="line">    <span class="comment">//...more code </span></div><div class="line">    <span class="keyword">echo</span> <span class="string">"last statement."</span>;</div><div class="line">    <span class="comment">// the script ends here with no PHP closing tag</span></div></pre></td></tr></table></figure>
 <h2 id="2、Escaping-from-HTML"><a href="#2、Escaping-from-HTML" class="headerlink" title="2、Escaping from HTML"></a>2、Escaping from HTML</h2><p>Everything outside of a pair of opening and closing tags is ignored by the PHP parser which allows PHP files to have mixed content. This allows PHP to be embedded in HTML documents.<br>But there is one exception that in the middle of a conditional statement in which case the interpreter will determine the outcome of the confitional before making a decision of what to skip over. See the next example. Using structures with conditions.</p>
