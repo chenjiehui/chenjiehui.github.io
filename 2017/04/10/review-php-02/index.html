@@ -9,21 +9,18 @@
   <title>重温PHP【2】——变量、常量、函数 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;
-这里变量$a将会在包含文件b.php中生效。但是，在用户自定义函数中，一个局部函数范围将被引入，任何用于函数内部的变量按缺省情况将被">
+1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重温PHP【2】——变量、常量、函数">
 <meta property="og:url" content="http://www.tenpercent.top/2017/04/10/review-php-02/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;
-这里变量$a将会在包含文件b.php中生效。但是，在用户自定义函数中，一个局部函数范围将被引入，任何用于函数内部的变量按缺省情况将被">
-<meta property="og:updated_time" content="2017-06-03T14:55:11.000Z">
+1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
+<meta property="og:updated_time" content="2017-06-03T14:59:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重温PHP【2】——变量、常量、函数">
 <meta name="twitter:description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;
-这里变量$a将会在包含文件b.php中生效。但是，在用户自定义函数中，一个局部函数范围将被引入，任何用于函数内部的变量按缺省情况将被">
+1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -185,6 +182,7 @@
       
         <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="变量范围"><a href="#变量范围" class="headerlink" title="变量范围"></a>变量范围</h3><p>变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	$a = <span class="number">1</span>;</div><div class="line">	<span class="keyword">include</span> <span class="string">'b.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>这里变量$a将会在包含文件b.php中生效。但是，在用户自定义函数中，一个局部函数范围将被引入，任何用于函数内部的变量按缺省情况将被限制在局部函数范围内。例如</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">	$a =<span class="number">1</span>;<span class="comment">//全局</span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">echo</span> $a; <span class="comment">//位于函数内部</span></div><div class="line">	&#125;</div><div class="line">	Test()；</div><div class="line">	</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
 <p>这个脚本将不会有任何输出，因为echo语句引用了一个局部版本的变量$a，它并没有被赋值。PHP的全局变量和C语言的有一点点不同，在C语言中，全局变量在函数中自动生效，除非被局部变量覆盖。而<strong>PHP中全局变量在函数中使用时必须声明为global。</strong></p>
