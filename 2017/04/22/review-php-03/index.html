@@ -22,7 +22,7 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
 
 具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。
 Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。">
-<meta property="og:updated_time" content="2017-06-11T14:53:01.000Z">
+<meta property="og:updated_time" content="2017-06-11T14:56:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重温PHP【3】——类与对象（-）">
 <meta name="twitter:description" content="类与对象构造函数和析构函数
@@ -216,7 +216,7 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
 <li>当对不可访问（或未定义）属性调用isset()或empty()时，__isset()会被调用</li>
 <li>当对不可访问（或未定义）属性调用unset()时，__unset()会被调用</li>
 </ul>
-<h4 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h4><p>使用<strong>call函数 和 </strong>callsStatic函数</p>
+<h4 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h4><p>使用<strong>call()函数和 </strong>callsStatic()函数</p>
 <p>在对象中调用一个不可访问方法时，__call() 会被调用。</p>
 <p>在静态上下文中调用一个不可访问方法时，__callStatic() 会被调用。</p>
 
