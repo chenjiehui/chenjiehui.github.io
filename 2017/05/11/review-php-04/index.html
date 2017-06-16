@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>重温PHP【2】——变量、常量、函数 | 陈杰辉写字的地方</title>
+  <title>重温PHP【4】——类与对象（二） | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
+  <meta name="description" content="Final关键字如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。
+NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重温PHP【2】——变量、常量、函数">
-<meta property="og:url" content="http://www.tenpercent.top/2017/04/10/review-php-02/index.html">
+<meta property="og:title" content="重温PHP【4】——类与对象（二）">
+<meta property="og:url" content="http://www.tenpercent.top/2017/05/11/review-php-04/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
-<meta property="og:updated_time" content="2017-06-03T14:59:07.000Z">
+<meta property="og:description" content="Final关键字如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。
+NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
+<meta property="og:updated_time" content="2017-06-16T14:34:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重温PHP【2】——变量、常量、函数">
-<meta name="twitter:description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
+<meta name="twitter:title" content="重温PHP【4】——类与对象（二）">
+<meta name="twitter:description" content="Final关键字如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。
+NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -160,46 +160,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-review-php-02" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-review-php-04" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      重温PHP【2】——变量、常量、函数
+      重温PHP【4】——类与对象（二）
     </h1>
   
 
         
-        <a href="/2017/04/10/review-php-02/" class="archive-article-date">
-  	<time datetime="2017-04-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
+        <a href="/2017/05/11/review-php-04/" class="archive-article-date">
+  	<time datetime="2017-05-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="变量范围"><a href="#变量范围" class="headerlink" title="变量范围"></a>变量范围</h3><p>变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	$a = <span class="number">1</span>;</div><div class="line">	<span class="keyword">include</span> <span class="string">'b.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>这里变量$a将会在包含文件b.php中生效。但是，在用户自定义函数中，一个局部函数范围将被引入，任何用于函数内部的变量按缺省情况将被限制在局部函数范围内。例如</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">	$a =<span class="number">1</span>;<span class="comment">//全局</span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">echo</span> $a; <span class="comment">//位于函数内部</span></div><div class="line">	&#125;</div><div class="line">	Test()；</div><div class="line">	</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>这个脚本将不会有任何输出，因为echo语句引用了一个局部版本的变量$a，它并没有被赋值。PHP的全局变量和C语言的有一点点不同，在C语言中，全局变量在函数中自动生效，除非被局部变量覆盖。而<strong>PHP中全局变量在函数中使用时必须声明为global。</strong></p>
-<h4 id="global关键字"><a href="#global关键字" class="headerlink" title="global关键字"></a>global关键字</h4><p>例：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;？php</div><div class="line">	$a = <span class="number">1</span>;</div><div class="line">	$b = <span class="number">2</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">global</span> $a,$b;</div><div class="line">		$b = $a + $b;</div><div class="line">	&#125;</div><div class="line">	sum();</div><div class="line">	<span class="keyword">echo</span> $b;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>以上脚本的输出将是3。</p>
-<p>在函数中声明了全局变量 $a 和 $b 之后，对任一变量的所有引用都会指向其全局版本。对于一个函数能够声明的全局变量的最大个数，PHP 没有限制。</p>
-<p>在全局范围内访问变量的第二个办法，是用特殊的 PHP 自定义 $GLOBALS 数组。</p>
-<h4 id="使用静态变量"><a href="#使用静态变量" class="headerlink" title="使用静态变量"></a>使用静态变量</h4><p>变量范围的另一个重要特性是静态变量（static variable）。静态变量仅在局部函数域中存在，但当程序执行离开此作用域时，其值并不会丢失。例如：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		$a = <span class="number">0</span>;</div><div class="line">		<span class="keyword">echo</span> $a;</div><div class="line">		$a++;</div><div class="line">	&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>该函数没什么用处，因为每次调用时都会将$a的值设为0并输出0。将变量加一的$a++没有作用，因为一旦退出本函数则变量$a就不存在了。要写一个不会丢失本次计数值的技术函数，要将变量$a定义为静态的。如下例子：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">static</span> $a = <span class="number">0</span>;</div><div class="line">		<span class="keyword">echo</span> $a;</div><div class="line">		$a++;</div><div class="line">	&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>现在，变量$a仅在第一次调用test()函数时被初始化，之后每次调用test()函数都会输出$a的值并加一。</p>
-<p>静态变量也提供了一种处理递归函数的方法。写递归函数的时候，可能会无穷递归下去。必须确保有充分的方法来终止递归。以下的简单的例子说明使用静态变量来判断何时停止。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">static</span> $count = <span class="number">0</span>;</div><div class="line">		$count++;</div><div class="line">		<span class="keyword">echo</span> $count;</div><div class="line">		<span class="keyword">if</span>($count &lt; <span class="number">10</span>)</div><div class="line">		&#123;</div><div class="line">			test();</div><div class="line">		&#125;</div><div class="line">		$count--;</div><div class="line">	&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="可变变量"><a href="#可变变量" class="headerlink" title="可变变量"></a>可变变量</h3><p>将变量名再赋予某个变量</p>
-<h2 id="可变函数"><a href="#可变函数" class="headerlink" title="可变函数"></a>可变函数</h2><p>将函数名赋予某个变量，当调用该变量外加括号时，即调用该函数。</p>
+        <h2 id="Final关键字"><a href="#Final关键字" class="headerlink" title="Final关键字"></a>Final关键字</h2><p>如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。</p>
+<p><strong>NOTE:</strong> 属性不能被定义为final,只有类和方法才能被定义为final.<br><a id="more"></a></p>
+<h2 id="类型约束"><a href="#类型约束" class="headerlink" title="类型约束"></a>类型约束</h2><p>类型约束即函数的参数可以指定必须为对象、接口、数组或者callable。如果一个类或接口。类型约束不能用于标量类型如int或string。Trait也不允许。例子如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></div><div class="line">&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">     * 测试函数</div><div class="line">     * 第一个参数必须为 OtherClass 类的一个对象</div><div class="line">     */</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(OtherClass $otherclass)</span></span>&#123;</div><div class="line">		<span class="keyword">echo</span> $otherclass-&gt;var;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	 <span class="comment">/**</span></div><div class="line">     * 另一个测试函数</div><div class="line">     * 第一个参数必须为数组 </div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test_array</span><span class="params">(array $input_array)</span> </span>&#123;</div><div class="line">        print_r($input_array);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 第一个参数必须为递归类型</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test_interface</span><span class="params">(Traversable $iterator)</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> get_class($iterator);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 第一个参数必须为回调类型</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test_callable</span><span class="params">(callable $callback, $data)</span> </span>&#123;</div><div class="line">        call_user_func($callback, $data);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当函数调用的参数与定义的参数类型不一致时，会抛出一个致命的错误。</p>
+<h2 id="后期静态绑定"><a href="#后期静态绑定" class="headerlink" title="后期静态绑定"></a>后期静态绑定</h2><p>这个目前不知道什么用处，先直接看例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">Example <span class="comment">#1 self:: 用法</span></div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">self</span>::who();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">B::test();</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">以上例程会输出：</div><div class="line"></div><div class="line">A</div><div class="line"></div><div class="line"></div><div class="line">Example <span class="comment">#2 static:: 简单用法</span></div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">static</span>::who(); <span class="comment">// 后期静态绑定从这里开始</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">B::test();</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">以上例程会输出：</div><div class="line"></div><div class="line">B</div></pre></td></tr></table></figure>
 
       
 
@@ -280,7 +267,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/04/10/review-php-02/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/05/11/review-php-04/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -294,18 +281,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/22/review-php-03/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          重温PHP【3】——类与对象（-）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/22/Computer/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">计算机组成</div>
+    <a href="/2017/04/22/review-php-03/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">重温PHP【3】——类与对象（-）</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -319,7 +297,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="review-php-02" data-title="重温PHP【2】——变量、常量、函数" data-url="http://www.tenpercent.top/2017/04/10/review-php-02/"></div>
+	<div class="ds-thread" data-thread-key="review-php-04" data-title="重温PHP【4】——类与对象（二）" data-url="http://www.tenpercent.top/2017/05/11/review-php-04/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
