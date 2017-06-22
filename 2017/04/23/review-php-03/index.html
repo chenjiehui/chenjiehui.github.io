@@ -6,21 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>重温PHP【4】——类与对象（二） | 陈杰辉写字的地方</title>
+  <title>重温PHP手册【3】——类与对象（-） | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Final关键字如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。
-NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
+  <meta name="description" content="类与对象构造函数和析构函数
+构造函数
+
+具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。
+Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重温PHP【4】——类与对象（二）">
-<meta property="og:url" content="http://www.tenpercent.top/2017/05/11/review-php-04/index.html">
+<meta property="og:title" content="重温PHP手册【3】——类与对象（-）">
+<meta property="og:url" content="http://www.tenpercent.top/2017/04/23/review-php-03/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="Final关键字如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。
-NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
-<meta property="og:updated_time" content="2017-06-16T14:34:34.000Z">
+<meta property="og:description" content="类与对象构造函数和析构函数
+构造函数
+
+具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。
+Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。">
+<meta property="og:updated_time" content="2017-06-22T16:18:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重温PHP【4】——类与对象（二）">
-<meta name="twitter:description" content="Final关键字如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。
-NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
+<meta name="twitter:title" content="重温PHP手册【3】——类与对象（-）">
+<meta name="twitter:description" content="类与对象构造函数和析构函数
+构造函数
+
+具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。
+Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -160,33 +169,56 @@ NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-review-php-04" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-review-php-03" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      重温PHP【4】——类与对象（二）
+      重温PHP手册【3】——类与对象（-）
     </h1>
   
 
         
-        <a href="/2017/05/11/review-php-04/" class="archive-article-date">
-  	<time datetime="2017-05-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
+        <a href="/2017/04/23/review-php-03/" class="archive-article-date">
+  	<time datetime="2017-04-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Final关键字"><a href="#Final关键字" class="headerlink" title="Final关键字"></a>Final关键字</h2><p>如果父类中的方法被声明为final,则子类无法继承。如果一个类被声明为final，则不能被继承。</p>
-<p><strong>NOTE:</strong> 属性不能被定义为final,只有类和方法才能被定义为final.<br><a id="more"></a></p>
-<h2 id="类型约束"><a href="#类型约束" class="headerlink" title="类型约束"></a>类型约束</h2><p>类型约束即函数的参数可以指定必须为对象、接口、数组或者callable。如果一个类或接口。类型约束不能用于标量类型如int或string。Trait也不允许。例子如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></div><div class="line">&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">     * 测试函数</div><div class="line">     * 第一个参数必须为 OtherClass 类的一个对象</div><div class="line">     */</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(OtherClass $otherclass)</span></span>&#123;</div><div class="line">		<span class="keyword">echo</span> $otherclass-&gt;var;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	 <span class="comment">/**</span></div><div class="line">     * 另一个测试函数</div><div class="line">     * 第一个参数必须为数组 </div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test_array</span><span class="params">(array $input_array)</span> </span>&#123;</div><div class="line">        print_r($input_array);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 第一个参数必须为递归类型</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test_interface</span><span class="params">(Traversable $iterator)</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> get_class($iterator);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 第一个参数必须为回调类型</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test_callable</span><span class="params">(callable $callback, $data)</span> </span>&#123;</div><div class="line">        call_user_func($callback, $data);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当函数调用的参数与定义的参数类型不一致时，会抛出一个致命的错误。</p>
-<h2 id="后期静态绑定"><a href="#后期静态绑定" class="headerlink" title="后期静态绑定"></a>后期静态绑定</h2><p>这个目前不知道什么用处，先直接看例子：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">Example <span class="comment">#1 self:: 用法</span></div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">self</span>::who();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">B::test();</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">以上例程会输出：</div><div class="line"></div><div class="line">A</div><div class="line"></div><div class="line"></div><div class="line">Example <span class="comment">#2 static:: 简单用法</span></div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">static</span>::who(); <span class="comment">// 后期静态绑定从这里开始</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">who</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">B::test();</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">以上例程会输出：</div><div class="line"></div><div class="line">B</div></pre></td></tr></table></figure>
+        <h2 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h2><h3 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h3><ul>
+<li>构造函数</li>
+</ul>
+<p>具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。</p>
+<h5 id="Note-如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用-parent-construct-。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。"><a href="#Note-如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用-parent-construct-。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。" class="headerlink" title="Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。"></a>Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。</h5><a id="more"></a>
+<ul>
+<li>析构函数</li>
+</ul>
+<p>析构函数会在某个对象的所有引用都被删除或者当对象被显式销毁时执行。</p>
+<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>被定义为公有的类成员可以在任何地方被访问。被定义为受保护的类成员则可以被其自身以及其子类和父类访问。被定义为私有的类成员则只能被其自身访问。例子如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Define MyClass</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> $public = <span class="string">'Public'</span>;</div><div class="line">    <span class="keyword">protected</span> $protected = <span class="string">'Protected'</span>;</div><div class="line">    <span class="keyword">private</span> $private = <span class="string">'Private'</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">printHello</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;public;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;protected;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;private;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$obj = <span class="keyword">new</span> MyClass();</div><div class="line"><span class="keyword">echo</span> $obj-&gt;public; <span class="comment">// 这行能被正常执行</span></div><div class="line"><span class="keyword">echo</span> $obj-&gt;protected; <span class="comment">// 这行会产生一个致命错误</span></div><div class="line"><span class="keyword">echo</span> $obj-&gt;private; <span class="comment">// 这行也会产生一个致命错误</span></div><div class="line">$obj-&gt;printHello(); <span class="comment">// 输出 Public、Protected 和 Private</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Define MyClass2</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass2</span> <span class="keyword">extends</span> <span class="title">MyClass</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 可以对 public 和 protected 进行重定义，但 private 而不能</span></div><div class="line">    <span class="keyword">protected</span> $protected = <span class="string">'Protected2'</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">printHello</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;public;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;protected;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;private;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$obj2 = <span class="keyword">new</span> MyClass2();</div><div class="line"><span class="keyword">echo</span> $obj2-&gt;public; <span class="comment">// 这行能被正常执行</span></div><div class="line"><span class="keyword">echo</span> $obj2-&gt;private; <span class="comment">// 未定义 private</span></div><div class="line"><span class="keyword">echo</span> $obj2-&gt;protected; <span class="comment">// 这行会产生一个致命错误</span></div><div class="line">$obj2-&gt;printHello(); <span class="comment">// 输出 Public、Protected2 和 Undefined</span></div></pre></td></tr></table></figure>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>定义为抽象的类不能被实例化。如果某个类里面至少有一个方法是被声明为抽象的，那么这个类就必须被声明为抽象的。被定义为抽象的方法只是声明了其调用方式（参数），不能定义其具体的功能实现。</p>
+<p>继承一个抽象类时，子类必须定义父类中的所有抽象方法；另外这些方法的访问控制必须和父类中一样（或者更为宽松）</p>
+<h3 id="Trait"><a href="#Trait" class="headerlink" title="Trait"></a>Trait</h3><p>PHP是单继承语言，trait是为这种单继承语言而准备的一种代码复用机制，Trait使开发人员可以自由的在不同层次结构内独立的类中复用方法。示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">trait</span> ezcReflectionReturnInfo &#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getReturnType</span><span class="params">()</span> </span>&#123; <span class="comment">/*1*/</span> &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getReturnDescription</span><span class="params">()</span> </span>&#123; <span class="comment">/*2*/</span> &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ezcReflectionMethod</span> <span class="keyword">extends</span> <span class="title">ReflectionMethod</span> </span>&#123;</div><div class="line">    <span class="keyword">use</span> <span class="title">ezcReflectionReturnInfo</span>;</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ezcReflectionFunction</span> <span class="keyword">extends</span> <span class="title">ReflectionFunction</span> </span>&#123;</div><div class="line">    <span class="keyword">use</span> <span class="title">ezcReflectionReturnInfo</span>;</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>优先级</strong><br>从基类继承的成员会被trait插入的成员所覆盖。优先顺序是来自当前类的成员覆盖了trait的方法，而trait则覆盖了被继承的方法。例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">trait</span> HelloWorld &#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'Hello World!'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TheWorldIsNotEnough</span> </span>&#123;</div><div class="line">    <span class="keyword">use</span> <span class="title">HelloWorld</span>;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'Hello Universe!'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$o = <span class="keyword">new</span> TheWorldIsNotEnough();</div><div class="line">$o-&gt;sayHello();</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>以上例程会输出：</p>
+<p>Hello Universe!</p>
+<h3 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h3><p>重载是指动态的”创建”类属性和方法。是通过魔术方法来实现的。</p>
+<p>当调用当前环境下未定义或不可见的类属性或方法时，重载方法会被调用。</p>
+<h4 id="属性重载"><a href="#属性重载" class="headerlink" title="属性重载"></a>属性重载</h4><ul>
+<li>在给不可访问（或未定义）属性赋值时，__set()会被调用</li>
+<li>在读取不可访问（或未定义）属性时，__get()会被调用</li>
+<li>当对不可访问（或未定义）属性调用isset()或empty()时，__isset()会被调用</li>
+<li>当对不可访问（或未定义）属性调用unset()时，__unset()会被调用</li>
+</ul>
+<h4 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h4><p>使用<strong>__call()函数</strong>和<strong>__callStatic()函数</strong></p>
+<p>在对象中调用一个不可访问方法时，__call() 会被调用。</p>
+<p>在静态上下文中调用一个不可访问方法时，__callStatic() 会被调用。</p>
 
       
 
@@ -267,7 +299,7 @@ NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/05/11/review-php-04/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/04/23/review-php-03/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -281,9 +313,18 @@ NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
   
 <nav id="article-nav">
   
+    <a href="/2017/05/10/review-php-04/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          重温PHP手册【4】——类与对象（二）
+        
+      </div>
+    </a>
   
-    <a href="/2017/04/22/review-php-03/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">重温PHP【3】——类与对象（-）</div>
+  
+    <a href="/2017/04/10/review-php-02/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">重温PHP手册【2】——变量、常量、函数</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -297,7 +338,7 @@ NOTE: 属性不能被定义为final,只有类和方法才能被定义为final.">
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="review-php-04" data-title="重温PHP【4】——类与对象（二）" data-url="http://www.tenpercent.top/2017/05/11/review-php-04/"></div>
+	<div class="ds-thread" data-thread-key="review-php-03" data-title="重温PHP手册【3】——类与对象（-）" data-url="http://www.tenpercent.top/2017/04/23/review-php-03/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
