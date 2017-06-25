@@ -6,30 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>重温PHP手册【3】——类与对象（-） | 陈杰辉写字的地方</title>
+  <title>数据库查询中的exists与in分析比较 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="类与对象构造函数和析构函数
-构造函数
-
-具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。
-Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。">
+  <meta name="description" content="最近在用laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。
+exists的用法以下图的两张表关系作为分">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重温PHP手册【3】——类与对象（-）">
-<meta property="og:url" content="http://www.tenpercent.top/2017/04/23/review-php-03/index.html">
+<meta property="og:title" content="数据库查询中的exists与in分析比较">
+<meta property="og:url" content="http://www.tenpercent.top/2017/06/08/about-exists/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="类与对象构造函数和析构函数
-构造函数
-
-具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。
-Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。">
-<meta property="og:updated_time" content="2017-06-24T08:28:31.000Z">
+<meta property="og:description" content="最近在用laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。
+exists的用法以下图的两张表关系作为分">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170626149840899878645.jpg">
+<meta property="og:updated_time" content="2017-06-25T17:20:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重温PHP手册【3】——类与对象（-）">
-<meta name="twitter:description" content="类与对象构造函数和析构函数
-构造函数
-
-具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。
-Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。">
+<meta name="twitter:title" content="数据库查询中的exists与in分析比较">
+<meta name="twitter:description" content="最近在用laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。
+exists的用法以下图的两张表关系作为分">
+<meta name="twitter:image" content="http://on2b18ek3.bkt.clouddn.com/20170626149840899878645.jpg">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -169,56 +162,49 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-review-php-03" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-about-exists" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      重温PHP手册【3】——类与对象（-）
+      数据库查询中的exists与in分析比较
     </h1>
   
 
         
-        <a href="/2017/04/23/review-php-03/" class="archive-article-date">
-  	<time datetime="2017-04-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-23</time>
+        <a href="/2017/06/08/about-exists/" class="archive-article-date">
+  	<time datetime="2017-06-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h2><h3 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h3><ul>
-<li>构造函数</li>
-</ul>
-<p>具有构造函数的类会在每次创建新对象时先调用此方法，所以适合在使用对象前做一些初始化工作。</p>
-<h5 id="Note-如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用-parent-construct-。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。"><a href="#Note-如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用-parent-construct-。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。" class="headerlink" title="Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。"></a>Note: 如果子类中定义了构造函数则不会隐式调用其父类的构造函数。要执行父类的构造函数，需要在子类的构造函数中调用 parent::__construct()。如果子类没有定义构造函数则会如同一个普通的类方法一样从父类继承。</h5><a id="more"></a>
+        <p>最近在用laravel的ORM写数据库查询时，用到了<code>whereHas</code>的写法，这个写法的背后实现的SQL语句就是select <em> from `table1` where exists(select </em> from `table2` where table1.id = table2.table1_id),于是就查清楚了一下<code>exists</code>的用法和特点，在这里记录一下。</p>
+<h2 id="exists的用法"><a href="#exists的用法" class="headerlink" title="exists的用法"></a>exists的用法</h2><p>以下图的两张表关系作为分析：<br><img src="http://on2b18ek3.bkt.clouddn.com/20170626149840899878645.jpg" alt="20170626149840899878645.jpg"></p>
+<p>exists表示存在，它常常和子查询配合使用。例如对于上图，写下下面的SQL语句</p>
+<blockquote>
+<p>SELECT <em> FROM `user`<br>    WHERE exists (SELECT </em> FROM `order` WHERE user.id = order.user_id)</p>
+</blockquote>
+<p>在这里，exists用于检查查询子查询语句是否会至少返回一行数据，如果有返回数据，则返回值是true，反之是false。</p>
+<p>放子查询返回为true时，则外层的查询语句将进行查询，反之，外层查询语句将不进行查询或者查不出任何记录。</p>
+<p>因此：上面的SQL所实现的意义在于，搜索出<strong>所有下过单的会员</strong>。</p>
+<h2 id="exists和in的区别和使用场景"><a href="#exists和in的区别和使用场景" class="headerlink" title="exists和in的区别和使用场景"></a>exists和in的区别和使用场景</h2><p>除了exitst，in的使用也可以实现上面语句的效果。如下：</p>
+<blockquote>
+<p>SELECT * FROM `user` WHERE id in (SELECT user_id FROM `order`)</p>
+</blockquote>
+<p>那么，它们之间有什么区别呢。</p>
 <ul>
-<li>析构函数</li>
+<li>in()语句只会执行一次，它查出order表中的所有user_id字段并且缓存起来，之后，检查user表的id是否和order表中的user_id相当，如果相等则加入结果期，直到遍历完user的所有记录。用程序来表示如下：</li>
 </ul>
-<p>析构函数会在某个对象的所有引用都被删除或者当对象被显式销毁时执行。</p>
-<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>被定义为公有的类成员可以在任何地方被访问。被定义为受保护的类成员则可以被其自身以及其子类和父类访问。被定义为私有的类成员则只能被其自身访问。例子如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Define MyClass</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> $public = <span class="string">'Public'</span>;</div><div class="line">    <span class="keyword">protected</span> $protected = <span class="string">'Protected'</span>;</div><div class="line">    <span class="keyword">private</span> $private = <span class="string">'Private'</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">printHello</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;public;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;protected;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;private;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$obj = <span class="keyword">new</span> MyClass();</div><div class="line"><span class="keyword">echo</span> $obj-&gt;public; <span class="comment">// 这行能被正常执行</span></div><div class="line"><span class="keyword">echo</span> $obj-&gt;protected; <span class="comment">// 这行会产生一个致命错误</span></div><div class="line"><span class="keyword">echo</span> $obj-&gt;private; <span class="comment">// 这行也会产生一个致命错误</span></div><div class="line">$obj-&gt;printHello(); <span class="comment">// 输出 Public、Protected 和 Private</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Define MyClass2</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass2</span> <span class="keyword">extends</span> <span class="title">MyClass</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 可以对 public 和 protected 进行重定义，但 private 而不能</span></div><div class="line">    <span class="keyword">protected</span> $protected = <span class="string">'Protected2'</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">printHello</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;public;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;protected;</div><div class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;private;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$obj2 = <span class="keyword">new</span> MyClass2();</div><div class="line"><span class="keyword">echo</span> $obj2-&gt;public; <span class="comment">// 这行能被正常执行</span></div><div class="line"><span class="keyword">echo</span> $obj2-&gt;private; <span class="comment">// 未定义 private</span></div><div class="line"><span class="keyword">echo</span> $obj2-&gt;protected; <span class="comment">// 这行会产生一个致命错误</span></div><div class="line">$obj2-&gt;printHello(); <span class="comment">// 输出 Public、Protected2 和 Undefined</span></div></pre></td></tr></table></figure>
-<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>定义为抽象的类不能被实例化。如果某个类里面至少有一个方法是被声明为抽象的，那么这个类就必须被声明为抽象的。被定义为抽象的方法只是声明了其调用方式（参数），不能定义其具体的功能实现。</p>
-<p>继承一个抽象类时，子类必须定义父类中的所有抽象方法；另外这些方法的访问控制必须和父类中一样（或者更为宽松）</p>
-<h3 id="Trait"><a href="#Trait" class="headerlink" title="Trait"></a>Trait</h3><p>PHP是单继承语言，trait是为这种单继承语言而准备的一种代码复用机制，Trait使开发人员可以自由的在不同层次结构内独立的类中复用方法。示例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">trait</span> ezcReflectionReturnInfo &#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getReturnType</span><span class="params">()</span> </span>&#123; <span class="comment">/*1*/</span> &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getReturnDescription</span><span class="params">()</span> </span>&#123; <span class="comment">/*2*/</span> &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ezcReflectionMethod</span> <span class="keyword">extends</span> <span class="title">ReflectionMethod</span> </span>&#123;</div><div class="line">    <span class="keyword">use</span> <span class="title">ezcReflectionReturnInfo</span>;</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ezcReflectionFunction</span> <span class="keyword">extends</span> <span class="title">ReflectionFunction</span> </span>&#123;</div><div class="line">    <span class="keyword">use</span> <span class="title">ezcReflectionReturnInfo</span>;</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p><strong>优先级</strong><br>从基类继承的成员会被trait插入的成员所覆盖。优先顺序是来自当前类的成员覆盖了trait的方法，而trait则覆盖了被继承的方法。例：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">trait</span> HelloWorld &#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'Hello World!'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TheWorldIsNotEnough</span> </span>&#123;</div><div class="line">    <span class="keyword">use</span> <span class="title">HelloWorld</span>;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'Hello Universe!'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$o = <span class="keyword">new</span> TheWorldIsNotEnough();</div><div class="line">$o-&gt;sayHello();</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>以上例程会输出：</p>
-<p>Hello Universe!</p>
-<h3 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h3><p>重载是指动态的”创建”类属性和方法。是通过魔术方法来实现的。</p>
-<p>当调用当前环境下未定义或不可见的类属性或方法时，重载方法会被调用。</p>
-<h4 id="属性重载"><a href="#属性重载" class="headerlink" title="属性重载"></a>属性重载</h4><ul>
-<li>在给不可访问（或未定义）属性赋值时，__set()会被调用</li>
-<li>在读取不可访问（或未定义）属性时，__get()会被调用</li>
-<li>当对不可访问（或未定义）属性调用isset()或empty()时，__isset()会被调用</li>
-<li>当对不可访问（或未定义）属性调用unset()时，__unset()会被调用</li>
-</ul>
-<h4 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h4><p>使用<strong>__call()函数</strong>和<strong>__callStatic()函数</strong></p>
-<p>在对象中调用一个不可访问方法时，__call() 会被调用。</p>
-<p>在静态上下文中调用一个不可访问方法时，__callStatic() 会被调用。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">$result = [];</div><div class="line">$users = <span class="string">"SELECT * FROM `user`"</span>;</div><div class="line">$orders = <span class="string">"SELECT user_id FROM `order`"</span>;</div><div class="line"><span class="keyword">for</span>($i = <span class="number">0</span>;$i &lt; $users.length;$i++)&#123;</div><div class="line">    <span class="keyword">for</span>($j = <span class="number">0</span>;$j &lt; $orders.length;$j++)&#123;</div><div class="line">        <span class="comment">// 此过程为内存操作，不涉及数据库查询。</span></div><div class="line">        <span class="keyword">if</span>($users[$i].id == $orders[$j].user_id)&#123;</div><div class="line">            $result[] = $users[$i];</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">``` </div><div class="line"></div><div class="line">从上面的程序可以明显的看出，当order表数据很大的时候不适合用in,因为最多会将order表数据全部遍历一遍。</div><div class="line"></div><div class="line">如：user表有<span class="number">10000</span>条记录,order表有<span class="number">1000000</span>条记录,那么最多有可能遍历<span class="number">10000</span>*<span class="number">1000000</span>次,这样的话效率就很差了。</div><div class="line"></div><div class="line">* 再看exists，它的查询过程类似如下：</div><div class="line"></div><div class="line">```php </div><div class="line">$result = [];</div><div class="line">$users = <span class="string">"SELECT * FROM `user`"</span>;</div><div class="line"><span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;$users.length;$i++)&#123;</div><div class="line">    <span class="keyword">if</span>(exists($users[$i].id))&#123;<span class="comment">// 执行SELECT * FROM `order` WHERE user.id = order.user_id</span></div><div class="line">        $result[] = $users[$i];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>显而易见：当order表比user表大很多的时候，使用exists是再恰当不过了，它没有那么多遍历操作,只需要再执行一次查询就行。查询次数的多少完全取决于user表的记录条数。</p>
+<p><strong>但是</strong>：如果说user表有10000条记录,order表有100条记录,那么exists()还是执行10000次,反而不如使用in()遍历10000*100次,因为in()是在内存里遍历,而exists()需要查询数据库,我们都知道查询数据库所消耗的性能比较大,而操作内存的话会比较快.</p>
+<p><strong>因此，可以得出总结</strong>：</p>
+<p>若外层查询表小于子查询表，则用<code>exists</code>。</p>
+<p>若外层查询表(记录条数很多)远大于子查询表，则考虑用<code>in</code>。</p>
 
       
 
@@ -234,6 +220,10 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -244,7 +234,7 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
         		</li>
       		
 		</ul>
@@ -299,7 +289,7 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/04/23/review-php-03/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/06/08/about-exists/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -313,18 +303,9 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
   
 <nav id="article-nav">
   
-    <a href="/2017/05/10/review-php-04/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          重温PHP手册【4】——类与对象（二）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/04/10/review-php-02/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">重温PHP手册【2】——变量、常量、函数</div>
+    <a href="/2017/05/24/php-closure/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PHP的匿名函数和闭包</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -338,7 +319,7 @@ Note: 如果子类中定义了构造函数则不会隐式调用其父类的构�
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="review-php-03" data-title="重温PHP手册【3】——类与对象（-）" data-url="http://www.tenpercent.top/2017/04/23/review-php-03/"></div>
+	<div class="ds-thread" data-thread-key="about-exists" data-title="数据库查询中的exists与in分析比较" data-url="http://www.tenpercent.top/2017/06/08/about-exists/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
