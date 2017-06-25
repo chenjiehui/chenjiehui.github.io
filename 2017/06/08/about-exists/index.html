@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
   <title>数据库查询中的exists与in分析比较 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近在用laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
+  <meta name="description" content="最近在用Laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库查询中的exists与in分析比较">
 <meta property="og:url" content="http://www.tenpercent.top/2017/06/08/about-exists/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="最近在用laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
+<meta property="og:description" content="最近在用Laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170626149840899878645.jpg">
-<meta property="og:updated_time" content="2017-06-25T17:21:19.000Z">
+<meta property="og:updated_time" content="2017-06-25T17:21:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库查询中的exists与in分析比较">
-<meta name="twitter:description" content="最近在用laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
+<meta name="twitter:description" content="最近在用Laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select  from `table1` where exists(select  from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
 <meta name="twitter:image" content="http://on2b18ek3.bkt.clouddn.com/20170626149840899878645.jpg">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
@@ -179,7 +179,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近在用laravel的ORM写数据库查询时，用到了<code>whereHas</code>的写法，这个写法的背后实现的SQL语句就是select <em> from `table1` where exists(select </em> from `table2` where table1.id = table2.table1_id),于是就查清楚了一下<code>exists</code>的用法和特点，在这里记录一下。<br><a id="more"></a></p>
+        <p>最近在用<strong>Laravel</strong>的ORM写数据库查询时，用到了<code>whereHas</code>的写法，这个写法的背后实现的SQL语句就是select <em> from `table1` where exists(select </em> from `table2` where table1.id = table2.table1_id),于是就查清楚了一下<code>exists</code>的用法和特点，在这里记录一下。<br><a id="more"></a></p>
 <h2 id="exists的用法"><a href="#exists的用法" class="headerlink" title="exists的用法"></a>exists的用法</h2><p>以下图的两张表关系作为分析：<br><img src="http://on2b18ek3.bkt.clouddn.com/20170626149840899878645.jpg" alt="20170626149840899878645.jpg"></p>
 <p>exists表示存在，它常常和子查询配合使用。例如对于上图，写下下面的SQL语句</p>
 <blockquote>
