@@ -175,30 +175,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近在用laravel的ORM写数据库查询时，用到了<code>whereHas</code>的写法，这个写法的背后实现的SQL语句就是select <em> from `table1` where exists(select </em> from `table2` where table1.id = table2.table1_id),于是就查清楚了一下<code>exists</code>的用法和特点，在这里记录一下。</p>
-<h2 id="exists的用法"><a href="#exists的用法" class="headerlink" title="exists的用法"></a>exists的用法</h2><p>以下图的两张表关系作为分析：<br><img src="http://on2b18ek3.bkt.clouddn.com/20170626149840899878645.jpg" alt="20170626149840899878645.jpg"></p>
-<p>exists表示存在，它常常和子查询配合使用。例如对于上图，写下下面的SQL语句</p>
-<blockquote>
-<p>SELECT <em> FROM `user`<br>    WHERE exists (SELECT </em> FROM `order` WHERE user.id = order.user_id)</p>
-</blockquote>
-<p>在这里，exists用于检查查询子查询语句是否会至少返回一行数据，如果有返回数据，则返回值是true，反之是false。</p>
-<p>放子查询返回为true时，则外层的查询语句将进行查询，反之，外层查询语句将不进行查询或者查不出任何记录。</p>
-<p>因此：上面的SQL所实现的意义在于，搜索出<strong>所有下过单的会员</strong>。</p>
-<h2 id="exists和in的区别和使用场景"><a href="#exists和in的区别和使用场景" class="headerlink" title="exists和in的区别和使用场景"></a>exists和in的区别和使用场景</h2><p>除了exitst，in的使用也可以实现上面语句的效果。如下：</p>
-<blockquote>
-<p>SELECT * FROM `user` WHERE id in (SELECT user_id FROM `order`)</p>
-</blockquote>
-<p>那么，它们之间有什么区别呢。</p>
-<ul>
-<li>in()语句只会执行一次，它查出order表中的所有user_id字段并且缓存起来，之后，检查user表的id是否和order表中的user_id相当，如果相等则加入结果期，直到遍历完user的所有记录。用程序来表示如下：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">$result = [];</div><div class="line">$users = <span class="string">"SELECT * FROM `user`"</span>;</div><div class="line">$orders = <span class="string">"SELECT user_id FROM `order`"</span>;</div><div class="line"><span class="keyword">for</span>($i = <span class="number">0</span>;$i &lt; $users.length;$i++)&#123;</div><div class="line">    <span class="keyword">for</span>($j = <span class="number">0</span>;$j &lt; $orders.length;$j++)&#123;</div><div class="line">        <span class="comment">// 此过程为内存操作，不涉及数据库查询。</span></div><div class="line">        <span class="keyword">if</span>($users[$i].id == $orders[$j].user_id)&#123;</div><div class="line">            $result[] = $users[$i];</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">``` </div><div class="line"></div><div class="line">从上面的程序可以明显的看出，当order表数据很大的时候不适合用in,因为最多会将order表数据全部遍历一遍。</div><div class="line"></div><div class="line">如：user表有<span class="number">10000</span>条记录,order表有<span class="number">1000000</span>条记录,那么最多有可能遍历<span class="number">10000</span>*<span class="number">1000000</span>次,这样的话效率就很差了。</div><div class="line"></div><div class="line">* 再看exists，它的查询过程类似如下：</div><div class="line"></div><div class="line">```php </div><div class="line">$result = [];</div><div class="line">$users = <span class="string">"SELECT * FROM `user`"</span>;</div><div class="line"><span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;$users.length;$i++)&#123;</div><div class="line">    <span class="keyword">if</span>(exists($users[$i].id))&#123;<span class="comment">// 执行SELECT * FROM `order` WHERE user.id = order.user_id</span></div><div class="line">        $result[] = $users[$i];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>显而易见：当order表比user表大很多的时候，使用exists是再恰当不过了，它没有那么多遍历操作,只需要再执行一次查询就行。查询次数的多少完全取决于user表的记录条数。</p>
-<p><strong>但是</strong>：如果说user表有10000条记录,order表有100条记录,那么exists()还是执行10000次,反而不如使用in()遍历10000*100次,因为in()是在内存里遍历,而exists()需要查询数据库,我们都知道查询数据库所消耗的性能比较大,而操作内存的话会比较快.</p>
-<p><strong>因此，可以得出总结</strong>：</p>
-<p>若外层查询表小于子查询表，则用<code>exists</code>。</p>
-<p>若外层查询表(记录条数很多)远大于子查询表，则考虑用<code>in</code>。</p>
-
+        <p>最近在用laravel的ORM写数据库查询时，用到了<code>whereHas</code>的写法，这个写法的背后实现的SQL语句就是select <em> from `table1` where exists(select </em> from `table2` where table1.id = table2.table1_id),于是就查清楚了一下<code>exists</code>的用法和特点，在这里记录一下。<br>
+        
       
 
       
