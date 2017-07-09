@@ -155,6 +155,56 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Singleton-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是单例模式"><a href="#什么是单例模式" class="headerlink" title="什么是单例模式"></a>什么是单例模式</h2><h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3><p>单例模式是一种对象的创建模式，它用来确保某一个类只有一个实例，而且自行实例化并向整个系统全局的提供这个实例。</p>
+<h3 id="单例模式的特点"><a href="#单例模式的特点" class="headerlink" title="单例模式的特点"></a>单例模式的特点</h3><p>1、有一个保存类的唯一实例的静态成员变量</p>
+<p>2、有一个定义为私有的构造函数，表明这个类是不可能形成实例的，防止出现这个类有多个实例的情况出现（有时也可添加个声明为私有的克隆函数）。</p>
+<p>3、提供一个能访问这个实例的声明为公共的静态方法（通常为getInstance方法），用来作为返回唯一实例的引用。</p>
+<p>具体实现代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Preferences</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> $props = <span class="keyword">array</span>();</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $instance;</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="keyword">self</span>::$instance))&#123;</div><div class="line">            <span class="keyword">self</span>::$instance = <span class="keyword">new</span> Preferences();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::$instance;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setProperty</span><span class="params">($key,$val)</span></span>&#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;props[$key] = $val;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getProperty</span><span class="params">($key)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;props[$key];</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//调用单例</span></div><div class="line">    $pref = Preferences::getInstance();</div><div class="line">    $pref-&gt;setProperty(<span class="string">'name'</span>,<span class="string">'cjhlfy'</span>);</div><div class="line">    <span class="keyword">unset</span>($pref);</div><div class="line">    $pref2 = Preferences::getInstance();</div><div class="line">    <span class="keyword">echo</span> $pref2-&gt;getProperty(<span class="string">'name'</span>); <span class="comment">//name的属性值不会丢失,因为实例引用$instance是静态属性</span></div></pre></td></tr></table></figure>
+<h2 id="为什么要用单例模式"><a href="#为什么要用单例模式" class="headerlink" title="为什么要用单例模式"></a>为什么要用单例模式</h2><p>全局变量是面向对象程序员遇到的引发bug的主要原因之一，这是因为全局变量将捆绑于特定的环境，破坏了封装。如果新的应用程序无法保证一开始就定义了相同的全局变量，那么一个依赖于全局变量的类就无法就无法从一个应用程序中提取出来并应用到新的应用程序中。所以单例模式是一种对于全局变量的改进。</p>
+<p><em>不过，单例模式的使用也有不利的地方，它可能导致很难调试的依赖关系。如果改变一个实例，那么所有使用改单例的类可能都会受到影响。当单例被使用时，依赖便会隐藏在方法内部，而且并不会出现在方法声明里。这使得系统中的依赖关系更难以追踪，因此需要谨慎小心的部署单例类</em></p>
+<h2 id="单例模式应用"><a href="#单例模式应用" class="headerlink" title="单例模式应用"></a>单例模式应用</h2><h3 id="应用场合"><a href="#应用场合" class="headerlink" title="应用场合"></a>应用场合</h3><p>1、应用程序与数据库的交互</p>
+<p>一个应用中会存在大量的数据库操作，比如通过数据库句柄来连接数据库这一行为，使用单例模式可以避免大量的new操作，因为每一次new操作都会消耗内存资源和系统资源。</p>
+<p>2、控制配置信息</p>
+<p>如果系统中有有一个类来全局控制某些配置信息，那么使用单例模式就可以很方便实现，并且可以对配置进行同意管理。</p>
+<h3 id="以数据库操作为例深入理解"><a href="#以数据库操作为例深入理解" class="headerlink" title="以数据库操作为例深入理解"></a>以数据库操作为例深入理解</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DB</span>  </span>&#123;      </div><div class="line">	<span class="keyword">private</span> $db;     </div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> $instance;        </div><div class="line">	<span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;          </div><div class="line">		<span class="comment">//进行数据库连接</span></div><div class="line">	&#125;        </div><div class="line">	<span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span> </span>&#123;</div><div class="line">	</div><div class="line">	&#125;;   </div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">	      <span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="keyword">self</span>::$instance) &#123;  </div><div class="line">				<span class="keyword">self</span>::$instance = <span class="keyword">new</span> <span class="keyword">self</span>();</div><div class="line">	  		&#125; </div><div class="line">		<span class="keyword">return</span> <span class="keyword">self</span>::$instance;</div><div class="line">	&#125;            </div><div class="line">	<span class="comment">//数据库查询操作</span></div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">select</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="comment">//...</span></div><div class="line">	&#125;     </div><div class="line">	<span class="comment">//数据库插入操作</span></div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">insert</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="comment">//...</span></div><div class="line">	&#125;&#125;</div><div class="line">	<span class="comment">//数据库编辑操作</span></div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="comment">//...</span></div><div class="line">	&#125;&#125;</div><div class="line">	</div><div class="line"><span class="comment">//获取数据库单例类实例化之后，便可对数据库进行操作</span></div><div class="line"></div><div class="line">$db = DB::getInstance();</div><div class="line">$db-&gt;select();</div><div class="line">$db-&gt;insert();</div><div class="line">$db-&gt;update();</div></pre></td></tr></table></figure>
+<p>单例模式的总结就到这里。</p>
+<p><em>参考：《面向对象、模式与实践》</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/09/Singleton-Pattern/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-about-exists" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -906,7 +956,7 @@
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">年少无为，卖码为生。&lt;br&gt; 一步一个脚印。&lt;br&gt; 坚持不懈，终成大牛。</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">年少无为，卖码为生。&lt;br&gt; 热爱技术，向往自由。&lt;br&gt; 坚持不懈，终成大牛。</div>
   	  	
     	</section>
     
