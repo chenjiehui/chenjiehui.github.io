@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>记一个问题的解决：Can&#39;t connect to MySQL server on &#39;xxxx&#39; (61) | 陈杰辉写字的地方</title>
+  <title>记一个问题的解决：Can&#39;t connect to MySQL server on &#39;x.x.x.x&#39; (61) | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。
 遇到的问题是这样Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误
-搜了，找到了这个答案一下
-即Linux系统里的MySQL">
+搜了一下，找到了这个答案">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一个问题的解决：Can't connect to MySQL server on 'xxxx' (61)">
+<meta property="og:title" content="记一个问题的解决：Can't connect to MySQL server on 'x.x.x.x' (61)">
 <meta property="og:url" content="http://www.tenpercent.top/2017/08/20/ubuntu-mysql/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。
 遇到的问题是这样Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误
-搜了，找到了这个答案一下
-即Linux系统里的MySQL">
+搜了一下，找到了这个答案">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323183453024.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323189677326.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323199546700.png">
@@ -29,13 +27,12 @@
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323448379491.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323236490421.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323244241334.png">
-<meta property="og:updated_time" content="2017-08-20T13:55:10.000Z">
+<meta property="og:updated_time" content="2017-08-20T13:58:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一个问题的解决：Can't connect to MySQL server on 'xxxx' (61)">
+<meta name="twitter:title" content="记一个问题的解决：Can't connect to MySQL server on 'x.x.x.x' (61)">
 <meta name="twitter:description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。
 遇到的问题是这样Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误
-搜了，找到了这个答案一下
-即Linux系统里的MySQL">
+搜了一下，找到了这个答案">
 <meta name="twitter:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323183453024.png">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
@@ -183,7 +180,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      记一个问题的解决：Can&#39;t connect to MySQL server on &#39;xxxx&#39; (61)
+      记一个问题的解决：Can&#39;t connect to MySQL server on &#39;x.x.x.x&#39; (61)
     </h1>
   
 
@@ -198,7 +195,7 @@
       
         <p>最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。</p>
 <h4 id="遇到的问题是这样"><a href="#遇到的问题是这样" class="headerlink" title="遇到的问题是这样"></a>遇到的问题是这样</h4><p>Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323183453024.png" alt="20170820150323183453024.png"></p>
-<p>搜了，找到了这个答案一下<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323189677326.png" alt="20170820150323189677326.png"></p>
+<p>搜了一下，找到了这个答案<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323189677326.png" alt="20170820150323189677326.png"><br><a id="more"></a></p>
 <p>即Linux系统里的MySQL是默认监听127.0.0.1的，也就是说，只有在这个Linux本身才能访问到。</p>
 <p>运行了下<code>netstat -tulpen</code>这个命令，该命令可以查看端口的监听情况，如下图。</p>
 <p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323199546700.png" alt="20170820150323199546700.png"></p>
@@ -352,7 +349,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="ubuntu-mysql" data-title="记一个问题的解决：Can&#39;t connect to MySQL server on &#39;xxxx&#39; (61)" data-url="http://www.tenpercent.top/2017/08/20/ubuntu-mysql/"></div>
+	<div class="ds-thread" data-thread-key="ubuntu-mysql" data-title="记一个问题的解决：Can&#39;t connect to MySQL server on &#39;x.x.x.x&#39; (61)" data-url="http://www.tenpercent.top/2017/08/20/ubuntu-mysql/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -162,7 +162,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/20/ubuntu-mysql/">记一个问题的解决：Can&#39;t connect to MySQL server on &#39;xxxx&#39; (61)</a>
+      <a class="article-title" href="/2017/08/20/ubuntu-mysql/">记一个问题的解决：Can&#39;t connect to MySQL server on &#39;x.x.x.x&#39; (61)</a>
     </h1>
   
 
@@ -177,43 +177,8 @@
       
         <p>最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。</p>
 <h4 id="遇到的问题是这样"><a href="#遇到的问题是这样" class="headerlink" title="遇到的问题是这样"></a>遇到的问题是这样</h4><p>Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323183453024.png" alt="20170820150323183453024.png"></p>
-<p>搜了，找到了这个答案一下<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323189677326.png" alt="20170820150323189677326.png"></p>
-<p>即Linux系统里的MySQL是默认监听127.0.0.1的，也就是说，只有在这个Linux本身才能访问到。</p>
-<p>运行了下<code>netstat -tulpen</code>这个命令，该命令可以查看端口的监听情况，如下图。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323199546700.png" alt="20170820150323199546700.png"></p>
-<p>这里可以看到3306的端口是绑定着127.0.0.1的。</p>
-<p>要更改这个端口绑定，需要修改<code>/etc/mysql/my.cnf</code> 这个MySQL配置文件。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323206225990.png" alt="20170820150323206225990.png"></p>
-<p>在my.cnf文件中找到 <code>bind-address  = 127.0.0.1</code> 这一行，然后将127.0.0.1改成 0.0.0.0 ，0.0.0.0的意思就是指任何ip地址。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323211355317.png" alt="20170820150323211355317.png"></p>
-<p>修改之后重启一下MySQL，这时我们再看一下端口绑定情况就可以看到3306这个端口已经绑定成0.0.0.0了。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323221135764.png" alt="20170820150323221135764.png"></p>
-<h4 id="但是，还没有大功告成"><a href="#但是，还没有大功告成" class="headerlink" title="但是，还没有大功告成"></a>但是，还没有大功告成</h4><p>在本地主机再次尝试连接MySQL，却出现<strong>“Host ‘192.168.100.100’ is not allowed to connect to this MySQL server”</strong></p>
-<p>这个问题是在本地主机使用的登录账户不被允许远程登录到虚拟机的Linux上。<br>可以先看一下虚拟机里Linux的MySQL用户情况</p>
-<p>运行以下命令可以看到：</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323448379491.png" alt="20170820150323448379491.png"><br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323236490421.png" alt="20170820150323236490421.png"></p>
-<p>这里的登录账户都是在localhost的。</p>
-<p>所以我们需要手动添加一个可以远程访问的账户。</p>
-<p>添加的方法如下：</p>
-<ul>
-<li>添加用户root使用password从任何主机连接到MySQL服务器的话。语句如下：</li>
-</ul>
-<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;password&#39; WITH GRANT OPTION;</code></p>
-<ul>
-<li>添加用户root从ip为192.168.1.1的主机连接到mysql服务器，并使用password作为密码</li>
-</ul>
-<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;192.168.1.1&#39; IDENTIFIED BY &#39;password&#39; WITH GRANT OPTION;</code></p>
-<ul>
-<li>添加你想允许用户root从ip为192.168.1.1的主机连接到mysql服务器的dk数据库，并使用password作为密码</li>
-</ul>
-<p><code>GRANT ALL PRIVILEGES ON dk.* TO &#39;root&#39;@&#39;192.168.1.1&#39; IDENTIFIED BY &#39;mypassword&#39; WITH GRANT OPTION;</code></p>
-<p>这里我使用的是第一条语句，执行完之后，再查看Linux的用户情况就可以看到多出了一个root账户，并且其主机ip是任意的。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323244241334.png" alt="20170820150323244241334.png"></p>
-<p>到这里，就可以在本地主机的MySQL客户端上愉快的访问到虚拟机里的MySQL啦！！</p>
-<p><em>后记</em>：</p>
-<p>最近折腾了一下vagrant配置虚拟机上的开发环境（具体过程找时间会再写下来），又配了一遍LAMP的环境，对Linux的系统又更熟悉了一点。虽然期间会被各种问题卡住，不过解决了问题之后，就会又多懂了一些知识。感觉收获满满，哈哈^_^。</p>
-<p>生命的乐趣还是在于折腾呀！！ </p>
-
+<p>搜了一下，找到了这个答案<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323189677326.png" alt="20170820150323189677326.png"><br>
+        
       
 
       
