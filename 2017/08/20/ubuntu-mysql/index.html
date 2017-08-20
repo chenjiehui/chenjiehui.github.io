@@ -6,21 +6,37 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>重温PHP手册【2】——变量、常量、函数 | 陈杰辉写字的地方</title>
+  <title>记一个问题的解决：Can&#39;t connect to MySQL server on &#39;xxxx&#39; (61) | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
+  <meta name="description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。
+遇到的问题是这样Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误
+搜了，找到了这个答案一下
+即Linux系统里的MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重温PHP手册【2】——变量、常量、函数">
-<meta property="og:url" content="http://www.tenpercent.top/2017/04/10/review-php-02/index.html">
+<meta property="og:title" content="记一个问题的解决：Can't connect to MySQL server on 'xxxx' (61)">
+<meta property="og:url" content="http://www.tenpercent.top/2017/08/20/ubuntu-mysql/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
-<meta property="og:updated_time" content="2017-06-24T08:28:21.000Z">
+<meta property="og:description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。
+遇到的问题是这样Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误
+搜了，找到了这个答案一下
+即Linux系统里的MySQL">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323183453024.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323189677326.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323199546700.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323206225990.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323211355317.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323221135764.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323448379491.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323236490421.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323244241334.png">
+<meta property="og:updated_time" content="2017-08-20T13:55:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重温PHP手册【2】——变量、常量、函数">
-<meta name="twitter:description" content="变量变量范围变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：
-1234&amp;lt;?php	$a = 1;	include &apos;b.php&apos;;?&amp;gt;">
+<meta name="twitter:title" content="记一个问题的解决：Can't connect to MySQL server on 'xxxx' (61)">
+<meta name="twitter:description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。
+遇到的问题是这样Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误
+搜了，找到了这个答案一下
+即Linux系统里的MySQL">
+<meta name="twitter:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323183453024.png">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -160,46 +176,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-review-php-02" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ubuntu-mysql" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      重温PHP手册【2】——变量、常量、函数
+      记一个问题的解决：Can&#39;t connect to MySQL server on &#39;xxxx&#39; (61)
     </h1>
   
 
         
-        <a href="/2017/04/10/review-php-02/" class="archive-article-date">
-  	<time datetime="2017-04-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
+        <a href="/2017/08/20/ubuntu-mysql/" class="archive-article-date">
+  	<time datetime="2017-08-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="变量范围"><a href="#变量范围" class="headerlink" title="变量范围"></a>变量范围</h3><p>变量的范围即它定义的上下文背景（也就是它的生效范围）。大部分的PHP变量只有一个单独的范围。这个单独的范围跨度同样包含了include和require引入的文件。例如：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	$a = <span class="number">1</span>;</div><div class="line">	<span class="keyword">include</span> <span class="string">'b.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>这里变量$a将会在包含文件b.php中生效。但是，在用户自定义函数中，一个局部函数范围将被引入，任何用于函数内部的变量按缺省情况将被限制在局部函数范围内。例如</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">	$a =<span class="number">1</span>;<span class="comment">//全局</span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">echo</span> $a; <span class="comment">//位于函数内部</span></div><div class="line">	&#125;</div><div class="line">	Test()；</div><div class="line">	</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>这个脚本将不会有任何输出，因为echo语句引用了一个局部版本的变量$a，它并没有被赋值。PHP的全局变量和C语言的有一点点不同，在C语言中，全局变量在函数中自动生效，除非被局部变量覆盖。而<strong>PHP中全局变量在函数中使用时必须声明为global。</strong></p>
-<h4 id="global关键字"><a href="#global关键字" class="headerlink" title="global关键字"></a>global关键字</h4><p>例：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;？php</div><div class="line">	$a = <span class="number">1</span>;</div><div class="line">	$b = <span class="number">2</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">global</span> $a,$b;</div><div class="line">		$b = $a + $b;</div><div class="line">	&#125;</div><div class="line">	sum();</div><div class="line">	<span class="keyword">echo</span> $b;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>以上脚本的输出将是3。</p>
-<p>在函数中声明了全局变量 $a 和 $b 之后，对任一变量的所有引用都会指向其全局版本。对于一个函数能够声明的全局变量的最大个数，PHP 没有限制。</p>
-<p>在全局范围内访问变量的第二个办法，是用特殊的 PHP 自定义 $GLOBALS 数组。</p>
-<h4 id="使用静态变量"><a href="#使用静态变量" class="headerlink" title="使用静态变量"></a>使用静态变量</h4><p>变量范围的另一个重要特性是静态变量（static variable）。静态变量仅在局部函数域中存在，但当程序执行离开此作用域时，其值并不会丢失。例如：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		$a = <span class="number">0</span>;</div><div class="line">		<span class="keyword">echo</span> $a;</div><div class="line">		$a++;</div><div class="line">	&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>该函数没什么用处，因为每次调用时都会将$a的值设为0并输出0。将变量加一的$a++没有作用，因为一旦退出本函数则变量$a就不存在了。要写一个不会丢失本次计数值的技术函数，要将变量$a定义为静态的。如下例子：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">static</span> $a = <span class="number">0</span>;</div><div class="line">		<span class="keyword">echo</span> $a;</div><div class="line">		$a++;</div><div class="line">	&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<p>现在，变量$a仅在第一次调用test()函数时被初始化，之后每次调用test()函数都会输出$a的值并加一。</p>
-<p>静态变量也提供了一种处理递归函数的方法。写递归函数的时候，可能会无穷递归下去。必须确保有充分的方法来终止递归。以下的简单的例子说明使用静态变量来判断何时停止。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">static</span> $count = <span class="number">0</span>;</div><div class="line">		$count++;</div><div class="line">		<span class="keyword">echo</span> $count;</div><div class="line">		<span class="keyword">if</span>($count &lt; <span class="number">10</span>)</div><div class="line">		&#123;</div><div class="line">			test();</div><div class="line">		&#125;</div><div class="line">		$count--;</div><div class="line">	&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="可变变量"><a href="#可变变量" class="headerlink" title="可变变量"></a>可变变量</h3><p>将变量名再赋予某个变量</p>
-<h2 id="可变函数"><a href="#可变函数" class="headerlink" title="可变函数"></a>可变函数</h2><p>将函数名赋予某个变量，当调用该变量外加括号时，即调用该函数。</p>
+        <p>最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时，却出现了问题，Google了一圈解决了问题，在此记录下。</p>
+<h4 id="遇到的问题是这样"><a href="#遇到的问题是这样" class="headerlink" title="遇到的问题是这样"></a>遇到的问题是这样</h4><p>Sequel软件提示”Can’t connect to MySQL servet on ‘x.x.x.x’ (61)”错误<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323183453024.png" alt="20170820150323183453024.png"></p>
+<p>搜了，找到了这个答案一下<br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323189677326.png" alt="20170820150323189677326.png"></p>
+<p>即Linux系统里的MySQL是默认监听127.0.0.1的，也就是说，只有在这个Linux本身才能访问到。</p>
+<p>运行了下<code>netstat -tulpen</code>这个命令，该命令可以查看端口的监听情况，如下图。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323199546700.png" alt="20170820150323199546700.png"></p>
+<p>这里可以看到3306的端口是绑定着127.0.0.1的。</p>
+<p>要更改这个端口绑定，需要修改<code>/etc/mysql/my.cnf</code> 这个MySQL配置文件。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323206225990.png" alt="20170820150323206225990.png"></p>
+<p>在my.cnf文件中找到 <code>bind-address  = 127.0.0.1</code> 这一行，然后将127.0.0.1改成 0.0.0.0 ，0.0.0.0的意思就是指任何ip地址。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323211355317.png" alt="20170820150323211355317.png"></p>
+<p>修改之后重启一下MySQL，这时我们再看一下端口绑定情况就可以看到3306这个端口已经绑定成0.0.0.0了。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323221135764.png" alt="20170820150323221135764.png"></p>
+<h4 id="但是，还没有大功告成"><a href="#但是，还没有大功告成" class="headerlink" title="但是，还没有大功告成"></a>但是，还没有大功告成</h4><p>在本地主机再次尝试连接MySQL，却出现<strong>“Host ‘192.168.100.100’ is not allowed to connect to this MySQL server”</strong></p>
+<p>这个问题是在本地主机使用的登录账户不被允许远程登录到虚拟机的Linux上。<br>可以先看一下虚拟机里Linux的MySQL用户情况</p>
+<p>运行以下命令可以看到：</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323448379491.png" alt="20170820150323448379491.png"><br><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323236490421.png" alt="20170820150323236490421.png"></p>
+<p>这里的登录账户都是在localhost的。</p>
+<p>所以我们需要手动添加一个可以远程访问的账户。</p>
+<p>添加的方法如下：</p>
+<ul>
+<li>添加用户root使用password从任何主机连接到MySQL服务器的话。语句如下：</li>
+</ul>
+<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;password&#39; WITH GRANT OPTION;</code></p>
+<ul>
+<li>添加用户root从ip为192.168.1.1的主机连接到mysql服务器，并使用password作为密码</li>
+</ul>
+<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;192.168.1.1&#39; IDENTIFIED BY &#39;password&#39; WITH GRANT OPTION;</code></p>
+<ul>
+<li>添加你想允许用户root从ip为192.168.1.1的主机连接到mysql服务器的dk数据库，并使用password作为密码</li>
+</ul>
+<p><code>GRANT ALL PRIVILEGES ON dk.* TO &#39;root&#39;@&#39;192.168.1.1&#39; IDENTIFIED BY &#39;mypassword&#39; WITH GRANT OPTION;</code></p>
+<p>这里我使用的是第一条语句，执行完之后，再查看Linux的用户情况就可以看到多出了一个root账户，并且其主机ip是任意的。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323244241334.png" alt="20170820150323244241334.png"></p>
+<p>到这里，就可以在本地主机的MySQL客户端上愉快的访问到虚拟机里的MySQL啦！！</p>
+<p><em>后记</em>：</p>
+<p>最近折腾了一下vagrant配置虚拟机上的开发环境（具体过程找时间会再写下来），又配了一遍LAMP的环境，对Linux的系统又更熟悉了一点。虽然期间会被各种问题卡住，不过解决了问题之后，就会又多懂了一些知识。感觉收获满满，哈哈^_^。</p>
+<p>生命的乐趣还是在于折腾呀！！ </p>
 
       
 
@@ -213,7 +247,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Ubuntu</a>
         		</li>
       		
 		</ul>
@@ -225,7 +267,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
         		</li>
       		
 		</ul>
@@ -280,7 +322,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/04/10/review-php-02/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/08/20/ubuntu-mysql/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -294,18 +336,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/23/review-php-03/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          重温PHP手册【3】——类与对象（-）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/22/Computer/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">计算机组成</div>
+    <a href="/2017/08/13/php-standard/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">现代化PHP的标准</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -319,7 +352,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="review-php-02" data-title="重温PHP手册【2】——变量、常量、函数" data-url="http://www.tenpercent.top/2017/04/10/review-php-02/"></div>
+	<div class="ds-thread" data-thread-key="ubuntu-mysql" data-title="记一个问题的解决：Can&#39;t connect to MySQL server on &#39;xxxx&#39; (61)" data-url="http://www.tenpercent.top/2017/08/20/ubuntu-mysql/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
