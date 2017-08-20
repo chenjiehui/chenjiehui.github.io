@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323448379491.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323236490421.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323244241334.png">
-<meta property="og:updated_time" content="2017-08-20T14:04:40.000Z">
+<meta property="og:updated_time" content="2017-08-20T15:12:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一个问题的解决：Can't connect to MySQL server on 'x.x.x.x' (61)">
 <meta name="twitter:description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时却出现了问题，Google了一圈解决了问题，在此记录下。
@@ -222,9 +222,9 @@
 </ul>
 <p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;192.168.1.1&#39; IDENTIFIED BY &#39;password&#39; WITH GRANT OPTION;</code></p>
 <ul>
-<li>添加你想允许用户root从ip为192.168.1.1的主机连接到mysql服务器的dk数据库，并使用password作为密码</li>
+<li>添加用户root从ip为192.168.1.1的主机连接到mysql服务器的dk数据库，并使用password作为密码</li>
 </ul>
-<p><code>GRANT ALL PRIVILEGES ON dk.* TO &#39;root&#39;@&#39;192.168.1.1&#39; IDENTIFIED BY &#39;mypassword&#39; WITH GRANT OPTION;</code></p>
+<p><code>GRANT ALL PRIVILEGES ON dk.* TO &#39;root&#39;@&#39;192.168.1.1&#39; IDENTIFIED BY &#39;password&#39; WITH GRANT OPTION;</code></p>
 <p>这里我使用的是第一条语句，执行完之后，再查看MySQL的用户情况就可以看到多出了一个root账户，并且其主机ip是任意的。</p>
 <p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323244241334.png" alt="20170820150323244241334.png"></p>
 <p>到这里，就可以在本地主机的MySQL客户端上愉快的访问到虚拟机里的MySQL啦！！</p>
