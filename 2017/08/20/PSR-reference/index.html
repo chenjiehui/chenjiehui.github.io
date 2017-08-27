@@ -6,14 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>Tag: Ubuntu | 陈杰辉写字的地方</title>
+  <title>PSR编程规范摘录 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈杰辉写字的地方">
-<meta property="og:url" content="http://www.tenpercent.top/tags/Ubuntu/index.html">
+  <meta name="description" content="这篇文章记录一下代码风格规范，做一个规范的coder。
+PSR：即PHP Standards recommendation(PHP推荐标准)。
+PSR-1:基本的代码风格
+PHP标签： PHP标签只使用&amp;lt;?php ?&amp;gt;和&amp;lt;?= ?&amp;gt;，不得使用其他PHP标签句法。
+编码： PHP所有文件都必须使用UTF-8字符集编码。
+目的： 一个PHP文件可以定义符号（类、性状、函数和常量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PSR编程规范摘录">
+<meta property="og:url" content="http://www.tenpercent.top/2017/08/20/PSR-reference/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:description" content="这篇文章记录一下代码风格规范，做一个规范的coder。
+PSR：即PHP Standards recommendation(PHP推荐标准)。
+PSR-1:基本的代码风格
+PHP标签： PHP标签只使用&amp;lt;?php ?&amp;gt;和&amp;lt;?= ?&amp;gt;，不得使用其他PHP标签句法。
+编码： PHP所有文件都必须使用UTF-8字符集编码。
+目的： 一个PHP文件可以定义符号（类、性状、函数和常量">
+<meta property="og:updated_time" content="2017-08-27T17:11:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈杰辉写字的地方">
+<meta name="twitter:title" content="PSR编程规范摘录">
+<meta name="twitter:description" content="这篇文章记录一下代码风格规范，做一个规范的coder。
+PSR：即PHP Standards recommendation(PHP推荐标准)。
+PSR-1:基本的代码风格
+PHP标签： PHP标签只使用&amp;lt;?php ?&amp;gt;和&amp;lt;?= ?&amp;gt;，不得使用其他PHP标签句法。
+编码： PHP所有文件都必须使用UTF-8字符集编码。
+目的： 一个PHP文件可以定义符号（类、性状、函数和常量">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -153,56 +172,91 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PSR-reference" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/20/ubuntu-mysql/" class="archive-article-date">
-  	<time datetime="2017-08-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/20/ubuntu-mysql/">记一个问题的解决：Can&#39;t connect to MySQL server on &#39;x.x.x.x&#39; (61)</a>
+    <h1 class="article-title" itemprop="name">
+      PSR编程规范摘录
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/08/20/PSR-reference/" class="archive-article-date">
+  	<time datetime="2017-08-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章记录一下代码风格规范，做一个规范的coder。</p>
+<p>PSR：即PHP Standards recommendation(PHP推荐标准)。</p>
+<h2 id="PSR-1-基本的代码风格"><a href="#PSR-1-基本的代码风格" class="headerlink" title="PSR-1:基本的代码风格"></a>PSR-1:基本的代码风格</h2><ul>
+<li>PHP标签： PHP标签只使用&lt;?php ?&gt;和&lt;?= ?&gt;，不得使用其他PHP标签句法。</li>
+<li>编码： PHP所有文件都必须使用UTF-8字符集编码。</li>
+<li>目的： 一个PHP文件可以定义符号（类、性状、函数和常量），或者执行有副作用的操作（例如，生成结果或处理数据），但是不能同时做这两件事。</li>
+<li>自动加载： PHP命名空间和类必须遵守PSR-4自动加载器标准。</li>
+<li>类的名称： PHP类的名称必须使用<code>CamelCase</code>这种驼峰式。</li>
+<li>常量的名称：PHP常量的名称必须全部使用大写字母。如果需要，可以使用下划线把单词分开。例如：THIS_VARIABLE</li>
+<li>方法的命名： PHP方法的名称必须使用<code>camelCase</code>这种驼峰式，首字母是小写的，后续的所有单词的首字母都是大写的。如：phpIsAwesome</li>
+</ul>
+<a id="more"></a>
+<h2 id="PSR-2-严格的代码风格"><a href="#PSR-2-严格的代码风格" class="headerlink" title="PSR-2:严格的代码风格"></a>PSR-2:严格的代码风格</h2><p>PSR-2是在PSR-1的基础上进一步的要求。</p>
+<ul>
+<li>缩进 PSR-2推荐的规范要求是使用4个空格缩进（因为空格最可靠，在不同的代码编辑器中渲染的效果基本一致）</li>
+<li>文件和代码 PHP文件的最后一行要有一个空行，而且不能使用PHP关闭标签<code>?&gt;</code>，每行末尾都不能有空格。（这些要求大多数编辑器能帮你做好）</li>
+</ul>
+<blockquote>
+<p>注：PHP文件不写关闭标签的目的是能避免意料之外的输出错误。如果加上关闭标签<code>?&gt;</code>，而且在关闭标签后有空行。那么这个空行会被当成输出导致错误。（例如，设定HTTP头部时）</p>
+</blockquote>
+<ul>
+<li>关键字 对于ture,false和null,PSR-2推荐这些关键字都要使用小写字母的形式。</li>
+<li>命名空间 每个命名空间声明语句后面必须跟着一个空行。使用use关键字导入命名空间时，在一系列的use声明语句后要加一个空行。</li>
+<li>类 PSR-2推荐类定义体的起始括号应该在类名之后新起一行写。如下代码所示：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">example</span> </span></div><div class="line">&#123;</div><div class="line">	<span class="comment">//类的定义</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>方法 （直接代码示例如下）</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namespace Animals //注意这里的命名空间首字母需要大写</div><div class="line"></div><div class="line">class example</div><div class="line">&#123;</div><div class="line">    public function test($params = 1, $params = 'two')//注意这里起始括号和结束括号两边都没有空格</div><div class="line">    &#123;</div><div class="line">    	//方法的定义</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>可见性 类中的每个属性和方法都要声明可见性。<code>abstract</code>和<code>final</code>这俩关键字要放在可见性关键字前面。<code>static</code>关键字要放在可见性关键字后面。代码如下</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">example</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> $number = <span class="number">0</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">static</span>::$number++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>控制结构 控制结构中如if else switch foreach等这些关键字后面都要有一个空格。示例代码如下</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> (a == b)&#123;  <span class="comment">//注意这里的花括号不用新起一行</span></div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>虽然现在有挺多的编辑器支持根据PSR-1和PSR-2来格式化代码了，不过这些写代码中的规范还是需要记住一下，尽量让自己的代码风格规范一些，这样在日常的工作中也方便团队交流。</p>
+</blockquote>
+<h2 id="PSR-3：日志记录器接口"><a href="#PSR-3：日志记录器接口" class="headerlink" title="PSR-3：日志记录器接口"></a>PSR-3：日志记录器接口</h2><h2 id="PSR-4：自动加载器"><a href="#PSR-4：自动加载器" class="headerlink" title="PSR-4：自动加载器"></a>PSR-4：自动加载器</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Ubuntu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PSR</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -215,17 +269,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/08/20/PSR-reference/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/08/20/ubuntu-mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">记一个问题的解决：Can&#39;t connect to MySQL server on &#39;x.x.x.x&#39; (61)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="PSR-reference" data-title="PSR编程规范摘录" data-url="http://www.tenpercent.top/2017/08/20/PSR-reference/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"chenjiehui"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -248,9 +389,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
