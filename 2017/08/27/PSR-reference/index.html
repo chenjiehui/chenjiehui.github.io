@@ -24,7 +24,7 @@ PSR-1:基本的代码风格
 PHP标签： PHP标签只使用&amp;lt;?php ?&amp;gt;和&amp;lt;?= ?&amp;gt;，不得使用其他PHP标签句法。
 编码： PHP所有文件都必须使用UTF-8字符集编码。
 目的： 一个PHP文件可以定义符号（类、性状、函">
-<meta property="og:updated_time" content="2017-08-27T17:17:22.000Z">
+<meta property="og:updated_time" content="2017-09-03T16:40:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PSR编程规范摘录">
 <meta name="twitter:description" content="这篇文章记录一下PHP的编程代码规范，做一个规范的PHPer。
@@ -233,7 +233,18 @@ PHP标签： PHP标签只使用&amp;lt;?php ?&amp;gt;和&amp;lt;?= ?&amp;gt;，�
 <blockquote>
 <p>虽然现在有挺多的编辑器支持根据PSR-1和PSR-2来格式化代码了，不过这些写代码中的规范还是需要记住一下，尽量让自己的代码风格规范一些，这样在日常的工作中也方便团队交流。</p>
 </blockquote>
-<h2 id="PSR-3：日志记录器接口"><a href="#PSR-3：日志记录器接口" class="headerlink" title="PSR-3：日志记录器接口"></a>PSR-3：日志记录器接口</h2><h2 id="PSR-4：自动加载器"><a href="#PSR-4：自动加载器" class="headerlink" title="PSR-4：自动加载器"></a>PSR-4：自动加载器</h2>
+<h2 id="PSR-3：日志记录器接口"><a href="#PSR-3：日志记录器接口" class="headerlink" title="PSR-3：日志记录器接口"></a>PSR-3：日志记录器接口</h2><p>PSR-3与前面得规范不同，它是一个接口，规定PHP日志记录器组件可以实现得方法。</p>
+<p>大多数PHP框架都在某种程度上实现了日志功能。为了实现互操作性和专业化，PHP-FIG制定了PSR-3日志记录器接口。若想使用符合PSR-3规范得日志记录器，框架要做到两件重要得事：日志功能委托给第三方库实现；最终用户能选择使用他们喜欢得日志记录器组件。</p>
+<h3 id="编写PSR-3日志记录器"><a href="#编写PSR-3日志记录器" class="headerlink" title="编写PSR-3日志记录器"></a>编写PSR-3日志记录器</h3><p>符合PSR-3推荐规范的PHP日志记录器组件，必须包含一个实现Psr\Log|LoggerInterface接口得PHP类。PSR-3接口复用了系统日志协议，规定要实现以下九个方法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">namespace</span> <span class="title">Psr</span>\<span class="title">Log</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">LoggerInterface</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">emergency</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">alert</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">critial</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">error</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">warning</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">notice</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">info</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">debug</span><span class="params">($message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">($level,$message,array $context = array<span class="params">()</span>)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是，我们现在已经不需要自己去编写一个日志记录器了，因为已经有了<strong>Monolog</strong>(可访问packagist这个网站查看介绍)这个十分出色的PHP日志记录器组件了，它几乎提供了开发过程中所有需要的功能。</p>
+<h2 id="PSR-4：自动加载器"><a href="#PSR-4：自动加载器" class="headerlink" title="PSR-4：自动加载器"></a>PSR-4：自动加载器</h2><p>PSR-4描述了一个标准的自动加载器策略。自动加载器策略是指，在运行时按需查找PHP类、接口或者性状，并将其载入PHP解释器。支持PSR-4自动加载器标准的PHP组件和框架，使用同一个自动加载器就能找到相关代码</p>
+<p>在PHP-FIG发布PSR-4推荐规范之前，PHP组件和框架的作者使用<code>__autoload()</code>和<code>spl_autoload_register()</code>函数注册自定义的自动加载器策略。可是，每个PHP组件和框架都使用独特的自动加载器，而且每个加载器使用不同的逻辑查找并加载PHP类、性状和接口。使用这些组件和框架的开发者，在引导会PHP应用时必须调用每个组件各自的自动加载器时必须调用每个组件各自的自动加载器。这样在开发中会很麻烦。</p>
+<p>得益于PSR-4，我们只需要使用一个自动加载器就能自动加载应用中的所有PHP组件。大多数现代的PHP组件和框架都符合PSR-4规范。</p>
+<h3 id="PSR自动加载策略"><a href="#PSR自动加载策略" class="headerlink" title="PSR自动加载策略"></a>PSR自动加载策略</h3><p>PSR-4自动加载策略依赖PHP命名空间和文件系统目录结构查找并加载PHP类、接口，性状。</p>
+<p>PSR-4的精髓是把命名空间的前缀和文件系统中的目录对应起来。例如，<code>\Oreilly\ModernPHP\Chapter1</code>命名空间对应与<code>src/chapter1</code>目录，<code>\Oreilly\ModernPHP\Chapter1\Example</code>类对应于<code>src/Chapter1/Example</code>。</p>
+<p>在现在，我们也无须自己编写一个PSR-4自动加载器了，因为我们可以使用依赖管理器<strong>Composer</strong>自动生成PSR-4自动加载器。</p>
+
       
 
       
