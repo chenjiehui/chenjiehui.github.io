@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323448379491.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323236490421.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170820150323244241334.png">
-<meta property="og:updated_time" content="2017-08-20T15:12:45.000Z">
+<meta property="og:updated_time" content="2017-09-03T08:45:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一个问题的解决：Can't connect to MySQL server on 'x.x.x.x' (61)">
 <meta name="twitter:description" content="最近在电脑上安装了虚拟机并且使用vagrant配置了基于Ubuntu的LAMP环境，然后在使用本地主机的MySQL客户端连接虚拟机的MySQL时却出现了问题，Google了一圈解决了问题，在此记录下。
@@ -201,6 +201,7 @@
 <p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323199546700.png" alt="20170820150323199546700.png"></p>
 <p>这里可以看到3306的端口是绑定着127.0.0.1的。</p>
 <p>要更改这个端口绑定，需要修改<code>/etc/mysql/my.cnf</code> 这个MySQL配置文件。</p>
+<p><strong>注意：MySQL 7.0以上版本得，该配置文件得路径是/etc/mysql/mysql.conf.d/mysqld.cnf 这个地址</strong></p>
 <p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323206225990.png" alt="20170820150323206225990.png"></p>
 <p>在my.cnf文件中找到 <code>bind-address  = 127.0.0.1</code> 这一行，然后将127.0.0.1改成 0.0.0.0 ，0.0.0.0的意思就是指任何ip地址。</p>
 <p><img src="http://on2b18ek3.bkt.clouddn.com/20170820150323211355317.png" alt="20170820150323211355317.png"></p>
