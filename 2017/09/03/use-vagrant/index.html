@@ -6,14 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>Tag: Ubuntu | 陈杰辉写字的地方</title>
+  <title>使用 Vagrant 并搭建 LNMP 环境 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈杰辉写字的地方">
-<meta property="og:url" content="http://www.tenpercent.top/tags/Ubuntu/index.html">
+  <meta name="description" content="vagrant介绍
+Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
+在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Vagrant 并搭建 LNMP 环境">
+<meta property="og:url" content="http://www.tenpercent.top/2017/09/03/use-vagrant/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:description" content="vagrant介绍
+Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
+在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454262960769.png">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454225325210.jpg">
+<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454221966157.jpg">
+<meta property="og:updated_time" content="2017-09-09T08:04:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈杰辉写字的地方">
+<meta name="twitter:title" content="使用 Vagrant 并搭建 LNMP 环境">
+<meta name="twitter:description" content="vagrant介绍
+Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
+在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
+<meta name="twitter:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454262960769.png">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -153,79 +167,229 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-use-vagrant" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/20/ubuntu-mysql/" class="archive-article-date">
-  	<time datetime="2017-08-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/20/ubuntu-mysql/">记一个问题的解决：Can&#39;t connect to MySQL server on &#39;x.x.x.x&#39; (61)</a>
+    <h1 class="article-title" itemprop="name">
+      使用 Vagrant 并搭建 LNMP 环境
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/03/use-vagrant/" class="archive-article-date">
+  	<time datetime="2017-09-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="vagrant介绍"><a href="#vagrant介绍" class="headerlink" title="vagrant介绍"></a>vagrant介绍</h2><p><img src="http://on2b18ek3.bkt.clouddn.com/20170905150454262960769.png" alt="20170905150454262960769.png"></p>
+<p>Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。</p>
+<p>在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个vagrant box ,供团队的同事使用，这样就能最大程度的保证开发环境一致，避免出现一些没必要的问题从而浪费精力去解决。<br><a id="more"></a></p>
+<h2 id="安装vagrant"><a href="#安装vagrant" class="headerlink" title="安装vagrant"></a>安装vagrant</h2><p>1、安装 virtualBox ,具体安装包直接从官网下载（要下载顺畅的话需翻墙）：<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">https://www.virtualbox.org/wiki/Downloads</a></p>
+<p>2、安装 vagrant，下载地址：<a href="https://releases.hashicorp.com/vagrant" target="_blank" rel="external">https://releases.hashicorp.com/vagrant/</a></p>
+<p>3、下载box镜像，这里我是下载的Ubuntu的box,可以到这个网址上去查找想下载的box：<a href="https://app.vagrantup.com/boxes/search" target="_blank" rel="external">https://app.vagrantup.com/boxes/search</a></p>
+<p>切换到自己的文件夹下，初始化vagrant环境，生成一个vagrantfile文件，命令如下：</p>
+<ul>
+<li>用 vagrant  命令加 box</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant box add testUbuntu ~/Downloads/ubuntu-14.04-amd64.box</div></pre></td></tr></table></figure>
+<ul>
+<li>初始化虚拟机</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant init testUbuntu</div></pre></td></tr></table></figure>
+<ul>
+<li>启动虚拟机</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant up</div></pre></td></tr></table></figure>
+<ul>
+<li>进入虚拟机的 Ubuntu 系统</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant ssh</div></pre></td></tr></table></figure>
+<p>接下来还要对虚拟机进行一些配置。</p>
+<p>打开 vagrantfile 文件进行配置，我的配置如下：</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20170905150454225325210.jpg" alt="20170905150454225325210.jpg"><br><img src="http://on2b18ek3.bkt.clouddn.com/20170905150454221966157.jpg" alt="20170905150454221966157.jpg"></p>
+<p>到这里，利用 vagrant 搭建虚拟机环境就基本完成了。</p>
+<ul>
+<li>vagrant 常用命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vagrant box add     添加box，自动帮你生成vagrantfile</div><div class="line">vagrant init        初始化vagrantfile</div><div class="line">vagrant halt        关闭虚拟机</div><div class="line">vagrant destroy     销毁虚拟机</div><div class="line">vagrant ssh         连接虚拟机</div><div class="line">vagrant reload      重新加载vagarntfile文件</div><div class="line">vagrant suspend     暂时挂起虚拟机</div><div class="line">vagrant status      查看虚拟机运行状态</div><div class="line">vagrant package  --output  打包导出box</div></pre></td></tr></table></figure>
+<h2 id="搭建-LNMP-环境"><a href="#搭建-LNMP-环境" class="headerlink" title="搭建 LNMP 环境"></a>搭建 LNMP 环境</h2><p>使用 vagrant ssh 登录到虚拟机的 Linux 系统上，就可以开始搭建 LNMP 的环境了。</p>
+<p>在安装软件之前，需要对 Ubuntu 系统的镜像源文件 source.list 进行修改一下，可以在网上找一下网易的镜像源或者是阿里搜狐等的镜像源，然后写入 source.list 文件夹里（对源文件先进行下备份）。修改完之后还要运行一下 <code>apt-get update</code> 命令来更新一下镜像源。</p>
+<h3 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h3><p>使用<code>apt-get install nginx</code>便可以安装nginx。非常简单。<br>安转完之后，可以使用 <code>curl -I &#39;127.0.0.1&#39;</code>访问一下，看看是否安装成功。</p>
+<h3 id="安装-MySQL"><a href="#安装-MySQL" class="headerlink" title="安装 MySQL"></a>安装 MySQL</h3><p>使用 <code>apt-get install mysql-server mysql-cli</code>  安装MySQL的服务端可客户端，安装的时候需要设置一下密码。安装完之后，通过命令 <code>mysql -uroot -ppassword</code> 命令来登录数据库。</p>
+<h3 id="安装PHP-7-0"><a href="#安装PHP-7-0" class="headerlink" title="安装PHP 7.0"></a>安装PHP 7.0</h3><p>在这里，我使用 Ubuntu 的 PPA 来安装 PHP 7.0。</p>
+<ul>
+<li>先介绍一下 PPA</li>
+</ul>
+<blockquote>
+<p>PPA 全称为 Personal Package（个人软件包档案），是 Ubuntu Launchpad 网站提供的一项服务，当然不仅限于 Launchpad 。它允许个人用户上传软件源代码，通过 Launchpad 进行编译并发布为二进制软件包，作为 apt/新立得源供其他用户下载和更新。在Launchpad网站上的每一个用户和团队都可以拥有一个或多个PPA。<br>通常 PPA 源里的软件是官方源里没有的，或者是最新版本的软件。相对于通过 Deb 包安装来说，使用 PPA 的好处是，一旦软件有更新，通过 sudo apt-get upgrade 这样命令就可以直接升级到新版本。</p>
+</blockquote>
+<ul>
+<li>如何通过 PPA 源来安装软件：</li>
+</ul>
+<blockquote>
+<p>我们可以通过 Google 来搜索一些常用软件的 PPA 源，通常的搜索方法是软件名称关键字 + PPA ，或者也可直接到 launchpad.net 上去搜索，搜索到后我们就可以直接用 sudo apt-add-repository 命令把 PPA 源添加到 Source list 中了。<br>比如 FireFox PPA 源：<a href="https://launchpad.net/~ubuntu-mozilla-daily/+archive/ppa" target="_blank" rel="external">https://launchpad.net/~ubuntu-mozilla-daily/+archive/ppa</a> ，我们可以在这里找到 ppa:ubuntu-mozilla-daily/ppa 的字样，然后我们通过以下命令把这个源加入到 source list 中。</p>
+</blockquote>
+<p><code>sudo apt-add-repository ppa:ubuntu-mozilla-daily/ppa</code></p>
+<ul>
+<li>开始安装 PHP 7.0</li>
+</ul>
+<p>第一次使用PPA时，需要先安装一下 python-software-properties 和 software-properties-common</p>
+<p><code>apt-get install python-software-properties software-properties-common</code></p>
+<p>然后便可以开始安装PHP 7.0 了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ add-apt-repository ppa:ondrej/php</div><div class="line"></div><div class="line">$ apt-get update</div></pre></td></tr></table></figure>
+<p>安装PHP的一些扩展</p>
+<p><code>$ apt-get install php7.0-fpm php7.0-mysql php7.0-common php7.0-curl php7.0-cli php7.0-mbstring php7.0-dom</code></p>
+<p>打开 php.ini进行配置</p>
+<p><code>vim /etc/php/7.0/fpm/php.ini</code></p>
+<p>将cgi.fix<strong>pathinfo=1 改成cgi.fix</strong>pathinfo=0,这个配置是为了避免 nginx 产生某个漏洞。具体参考鸟哥的文章<a href="http://www.laruence.com/2010/05/20/1495.html" target="_blank" rel="external">http://www.laruence.com/2010/05/20/1495.html</a></p>
+<p><code>cgi.fix_pathinfo=0</code></p>
+<p>然后重启一下 php-fpm 服务。</p>
+<p>到这里就成功搭建好了 LNMP环境了。</p>
+<p><em>happy codding ! ^_^</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Ubuntu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Vagrant</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟机</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
+        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/09/03/use-vagrant/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/08/27/PSR-reference/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PSR编程规范摘录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="use-vagrant" data-title="使用 Vagrant 并搭建 LNMP 环境" data-url="http://www.tenpercent.top/2017/09/03/use-vagrant/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"chenjiehui"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -248,9 +412,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
