@@ -10,23 +10,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Vagrant介绍
 Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
-在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
+在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Vagrant 并搭建 LNMP 环境">
 <meta property="og:url" content="http://www.tenpercent.top/2017/09/03/use-vagrant/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="Vagrant介绍
 Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
-在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
+在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454262960769.png">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454225325210.jpg">
 <meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454221966157.jpg">
-<meta property="og:updated_time" content="2017-09-09T08:09:26.000Z">
+<meta property="og:updated_time" content="2017-09-09T08:10:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Vagrant 并搭建 LNMP 环境">
 <meta name="twitter:description" content="Vagrant介绍
 Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
-在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
+在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过">
 <meta name="twitter:image" content="http://on2b18ek3.bkt.clouddn.com/20170905150454262960769.png">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
@@ -189,7 +189,7 @@ Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可
       
         <h2 id="Vagrant介绍"><a href="#Vagrant介绍" class="headerlink" title="Vagrant介绍"></a>Vagrant介绍</h2><p><img src="http://on2b18ek3.bkt.clouddn.com/20170905150454262960769.png" alt="20170905150454262960769.png"></p>
 <p>Vagrant 是一个软件，是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。</p>
-<p>在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个Vagrant box ,供团队的同事使用，这样就能最大程度的保证开发环境一致，避免出现一些没必要的问题从而浪费精力去解决。<br><a id="more"></a></p>
+<p>在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个Vagrant box ,供团队的同事使用，这样就能最大程度的保证开发环境一致，避免出现一些没必要的问题从而浪费精力去解决。<br><a id="more"></a></p>
 <h2 id="安装-Vagrant"><a href="#安装-Vagrant" class="headerlink" title="安装 Vagrant"></a>安装 Vagrant</h2><p>1、安装 VirtualBox ,具体安装包直接从官网下载（要下载顺畅的话需翻墙）：<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">https://www.virtualbox.org/wiki/Downloads</a></p>
 <p>2、安装 Vagrant，下载地址：<a href="https://releases.hashicorp.com/vagrant" target="_blank" rel="external">https://releases.hashicorp.com/vagrant/</a></p>
 <p>3、下载box镜像，这里我是下载的Ubuntu的box,可以到这个网址上去查找想下载的box：<a href="https://app.vagrantup.com/boxes/search" target="_blank" rel="external">https://app.vagrantup.com/boxes/search</a></p>
