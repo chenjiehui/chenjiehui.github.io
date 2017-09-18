@@ -6,14 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>Archives: 2017 | 陈杰辉写字的地方</title>
+  <title>设计模式之装饰器模式 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈杰辉写字的地方">
-<meta property="og:url" content="http://www.tenpercent.top/archives/2017/page/2/index.html">
+  <meta name="description" content="从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。
+先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。
+1234abstract class Land&amp;#123;	abstract function cost();&amp;#125;
+Land已经定义好了在这块地上盖房需要花钱的这个规则了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之装饰器模式">
+<meta property="og:url" content="http://www.tenpercent.top/2017/09/17/Decorator-Pattern/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:description" content="从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。
+先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。
+1234abstract class Land&amp;#123;	abstract function cost();&amp;#125;
+Land已经定义好了在这块地上盖房需要花钱的这个规则了">
+<meta property="og:updated_time" content="2017-09-18T15:00:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈杰辉写字的地方">
+<meta name="twitter:title" content="设计模式之装饰器模式">
+<meta name="twitter:description" content="从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。
+先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。
+1234abstract class Land&amp;#123;	abstract function cost();&amp;#125;
+Land已经定义好了在这块地上盖房需要花钱的这个规则了">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -169,36 +182,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Decorator-Pattern" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式之装饰器模式
+    </h1>
+  
+
+        
+        <a href="/2017/09/17/Decorator-Pattern/" class="archive-article-date">
+  	<time datetime="2017-09-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="从一个情景开始"><a href="#从一个情景开始" class="headerlink" title="从一个情景开始"></a>从一个情景开始</h2><p>我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。</p>
+<p>先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Land已经定义好了在这块地上盖房需要花钱的这个规则了，但是盖一间房间具体花多少钱呢？<br><a id="more"></a><br>此时我们再定义一个Room类，这个类具体的定义了一个房间建造的基本费用（一个最简单房间，里面啥也没有的）。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Room</span> <span class="keyword">extends</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">private</span> $money = <span class="number">1000</span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">	    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;money;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后开始建造房间，我们建了两个房间，分别是客厅和餐厅，用LivingRoom类和DiningRoom类来表示</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LivingRoom</span> <span class="keyword">extends</span> <span class="title">Room</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">parent</span>::cost()+<span class="number">200</span>; <span class="comment">//客厅的建造费用在房屋建造费用的基础上多200，比如要买沙发，电视</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DiningRoom</span> <span class="keyword">extends</span> <span class="title">Room</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">parent</span>::cost()+<span class="number">100</span>; <span class="comment">//餐厅的建造费用在房屋建造费用的基础上多100，比如买餐桌</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在，我们很容易就能得到建造一间客厅所需的花费</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$livingRoomCost = <span class="keyword">new</span> LivingRoom();</div><div class="line"><span class="keyword">echo</span> $livingRoomCost-&gt;cost();</div></pre></td></tr></table></figure>
+<h2 id="问题的产生"><a href="#问题的产生" class="headerlink" title="问题的产生"></a>问题的产生</h2><p>不过，这样的结构并不具备灵活性，虽然我们可以很容易的分别得出建造一间客厅和建造一间餐厅的费用，但是，如果我买的地比较小，只能把餐厅和客厅建在同一个房间里，那要怎么去计算费用？难道还要很麻烦的去创建一个包含客厅和餐厅的LivingDiningRoom类？这样做的话除了麻烦，还会使代码产生重复。</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>为了更好的解决这个问题，我们得做一些调整，同样先声明Land类和Room类，不同的是，引入了一个房间的装饰类RoomDecorator，它继承了Land类，因为没有实现Land类的cost()方法，所以需将它声明为抽象类，并且定义了一个以Land类的对象为参数的构造方法，传入的对象会保存在$land属性中，该属性声明为protected，以便子类访问。具体如下。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">RoomDecorator</span> <span class="keyword">extends</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $land;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(Land $land)</span></span></div><div class="line">    &#123;</div><div class="line">    	<span class="keyword">$this</span>-&gt;land = $land;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后我们再重新定义客厅类和餐厅类</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LivingRoom</span> <span class="keyword">extends</span> <span class="title">RoomDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;land-&gt;cost()+<span class="number">200</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DiningRoom</span> <span class="keyword">extends</span> <span class="title">RoomDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;land-&gt;cost()+<span class="number">100</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这两个类都扩展自RoomDecorator类，这意味着它们都拥有指向Land对象的引用。当它们的cost()方法被调用时，都会先调用所引用的Land类对象的cost()方法，然后再执行自己特有的操作。</p>
+<p>所以这时候，建造一间客厅所需的费用是这样计算</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$livingRoomCost = <span class="keyword">new</span> LivingRoom(<span class="keyword">new</span> Room());</div><div class="line"><span class="keyword">echo</span> $livingRoomCost-&gt;cost(); <span class="comment">//输出1200</span></div></pre></td></tr></table></figure>
+<p>建造一间餐厅所需的费用是这样计算</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$diningRoomCost = <span class="keyword">new</span> DiningRoom(<span class="keyword">new</span> Room());</div><div class="line"><span class="keyword">echo</span> $diningRoomCost-&gt;cost(); <span class="comment">//输出1100</span></div></pre></td></tr></table></figure>
+<p>回到刚才的问题，如果我们需计算建造一间包含客厅餐厅的房间所需费用，代码如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$livingRoom = <span class="keyword">new</span> DiningRoom(<span class="keyword">new</span> LivingRoom(<span class="keyword">new</span> Room()));</div><div class="line"><span class="keyword">echo</span> $livingRoom-&gt;cost(); <span class="comment">//输出1300</span></div></pre></td></tr></table></figure>
+<p>看，我们现在计算建造费用的思路是：计算出基础房间的费用 –&gt; 在基础房间上装饰成客厅的费用 –&gt; 在客厅的基础上加装饰餐厅的费用 –&gt; 得到包含客厅餐厅的房间费用。已经不需要麻烦的通过创建一个LivingDiningRoom类来计算包含客厅餐厅的房间建造费用了。</p>
+<p>这便是装饰模式，通过一层一层的装饰，我们可以灵活的得到我们想要的结果。可以轻松的添加新的装饰器类或者新的组件来创建灵活的结构。</p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Room</span> <span class="keyword">extends</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">private</span> $money = <span class="number">1000</span>;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">	&#123;</div><div class="line">	    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;money;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//装饰器</span></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">RoomDecorator</span> <span class="keyword">extends</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $land;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(Land $land)</span></span></div><div class="line">    &#123;</div><div class="line">    	<span class="keyword">$this</span>-&gt;land = $land;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LivingRoom</span> <span class="keyword">extends</span> <span class="title">RoomDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;land-&gt;cost()+<span class="number">200</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DiningRoom</span> <span class="keyword">extends</span> <span class="title">RoomDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;land-&gt;cost()+<span class="number">100</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$livingRoomCost = <span class="keyword">new</span> LivingRoom(<span class="keyword">new</span> Room());</div><div class="line"><span class="keyword">echo</span> $livingRoomCost-&gt;cost(); <span class="comment">//输出1200</span></div><div class="line"></div><div class="line">$diningRoomCost = <span class="keyword">new</span> DiningRoom(<span class="keyword">new</span> Room());</div><div class="line"><span class="keyword">echo</span> $diningRoomCost-&gt;cost(); <span class="comment">//输出1100</span></div><div class="line"></div><div class="line">$livingDining = <span class="keyword">new</span> DiningRoom(<span class="keyword">new</span> LivingRoom(<span class="keyword">new</span> Room()));</div><div class="line"><span class="keyword">echo</span> $livingDining-&gt;cost(); <span class="comment">//输出1300</span></div></pre></td></tr></table></figure>
+<p>the end.</p>
+<p>happy codding! ^_^</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/23/review-php-03/" class="archive-article-date">
-  	<time datetime="2017-04-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/23/review-php-03/">重温PHP手册【3】——类与对象（-）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -206,234 +243,125 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2017/09/17/Decorator-Pattern/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/10/review-php-02/" class="archive-article-date">
-  	<time datetime="2017-04-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/10/review-php-02/">重温PHP手册【2】——变量、常量、函数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/22/Computer/" class="archive-article-date">
-  	<time datetime="2017-03-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/22/Computer/">计算机组成</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/11/review-php-01/" class="archive-article-date">
-  	<time datetime="2017-03-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/11/review-php-01/">重温PHP手册【1】——基础句法和类型</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/06/operating-system-01/" class="archive-article-date">
-  	<time datetime="2017-03-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/06/operating-system-01/">操作系统【1】——导论</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/09/03/use-vagrant/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用 Vagrant 并搭建 LNMP 环境</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Decorator-Pattern" data-title="设计模式之装饰器模式" data-url="http://www.tenpercent.top/2017/09/17/Decorator-Pattern/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"chenjiehui"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2017/">&laquo; Prev</a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
-    </nav>
-  
+
 
 
           </div>
@@ -456,8 +384,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
