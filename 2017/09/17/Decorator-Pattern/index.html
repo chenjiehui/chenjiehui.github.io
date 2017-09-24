@@ -8,25 +8,25 @@
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
   <title>通俗易懂的谈谈装饰器模式 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。
-先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。
-1234abstract class Land&amp;#123;    abstract function cost();&amp;#125;
-Land已经定义好了在这块地上盖房需要花钱的这个">
+  <meta name="description" content="前言在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。
+装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。
+那么装饰器模式具体是什么样的呢？
+从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通俗易懂的谈谈装饰器模式">
 <meta property="og:url" content="http://www.tenpercent.top/2017/09/17/Decorator-Pattern/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:description" content="从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。
-先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。
-1234abstract class Land&amp;#123;    abstract function cost();&amp;#125;
-Land已经定义好了在这块地上盖房需要花钱的这个">
-<meta property="og:updated_time" content="2017-09-18T15:53:26.000Z">
+<meta property="og:description" content="前言在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。
+装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。
+那么装饰器模式具体是什么样的呢？
+从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不">
+<meta property="og:updated_time" content="2017-09-24T11:56:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通俗易懂的谈谈装饰器模式">
-<meta name="twitter:description" content="从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。
-先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。
-1234abstract class Land&amp;#123;    abstract function cost();&amp;#125;
-Land已经定义好了在这块地上盖房需要花钱的这个">
+<meta name="twitter:description" content="前言在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。
+装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。
+那么装饰器模式具体是什么样的呢？
+从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -202,7 +202,10 @@ Land已经定义好了在这块地上盖房需要花钱的这个">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="从一个情景开始"><a href="#从一个情景开始" class="headerlink" title="从一个情景开始"></a>从一个情景开始</h2><p>我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。</p>
+<p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。</p>
+<p>那么装饰器模式具体是什么样的呢？</p>
+<h2 id="从一个情景开始"><a href="#从一个情景开始" class="headerlink" title="从一个情景开始"></a>从一个情景开始</h2><p>我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。</p>
 <p>先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>Land已经定义好了在这块地上盖房需要花钱的这个规则了，但是盖一间房间具体花多少钱呢？<br><a id="more"></a><br>此时我们再定义一个Room类，这个类具体的定义了一个房间建造的基本费用（一个最简单房间，里面啥也没有的）。</p>
