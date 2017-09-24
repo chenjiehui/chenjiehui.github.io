@@ -10,23 +10,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。
 装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。
-那么装饰器模式具体是什么样的呢？
-从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不">
+那么装饰器模式具体是什么样的呢？a
+从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通俗易懂的谈谈装饰器模式">
 <meta property="og:url" content="http://www.tenpercent.top/2017/09/17/Decorator-Pattern/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="前言在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。
 装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。
-那么装饰器模式具体是什么样的呢？
-从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不">
-<meta property="og:updated_time" content="2017-09-24T11:56:59.000Z">
+那么装饰器模式具体是什么样的呢？a
+从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都">
+<meta property="og:updated_time" content="2017-09-24T12:01:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通俗易懂的谈谈装饰器模式">
 <meta name="twitter:description" content="前言在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。
 装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。
-那么装饰器模式具体是什么样的呢？
-从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不">
+那么装饰器模式具体是什么样的呢？a
+从一个情景开始我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -204,7 +204,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。</p>
 <p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。</p>
-<p>那么装饰器模式具体是什么样的呢？</p>
+<p>那么装饰器模式具体是什么样的呢？a</p>
 <h2 id="从一个情景开始"><a href="#从一个情景开始" class="headerlink" title="从一个情景开始"></a>从一个情景开始</h2><p>我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。</p>
 <p>先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -230,7 +230,7 @@
 <p>这便是装饰模式，通过一层一层的装饰，我们可以灵活的得到我们想要的结果。可以轻松的添加新的装饰器类或者新的组件来创建灵活的结构。</p>
 <h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Room</span> <span class="keyword">extends</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $money = <span class="number">1000</span>;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;money;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//装饰器</span></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">RoomDecorator</span> <span class="keyword">extends</span> <span class="title">Land</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">protected</span> $land;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(Land $land)</span></span></div><div class="line">    &#123;</div><div class="line">    	<span class="keyword">$this</span>-&gt;land = $land;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LivingRoom</span> <span class="keyword">extends</span> <span class="title">RoomDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;land-&gt;cost()+<span class="number">200</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DiningRoom</span> <span class="keyword">extends</span> <span class="title">RoomDecorator</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;land-&gt;cost()+<span class="number">100</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$livingRoomCost = <span class="keyword">new</span> LivingRoom(<span class="keyword">new</span> Room());</div><div class="line"><span class="keyword">echo</span> $livingRoomCost-&gt;cost(); <span class="comment">//输出1200</span></div><div class="line"></div><div class="line">$diningRoomCost = <span class="keyword">new</span> DiningRoom(<span class="keyword">new</span> Room());</div><div class="line"><span class="keyword">echo</span> $diningRoomCost-&gt;cost(); <span class="comment">//输出1100</span></div><div class="line"></div><div class="line">$livingDining = <span class="keyword">new</span> DiningRoom(<span class="keyword">new</span> LivingRoom(<span class="keyword">new</span> Room()));</div><div class="line"><span class="keyword">echo</span> $livingDining-&gt;cost(); <span class="comment">//输出1300</span></div></pre></td></tr></table></figure>
 <p>the end.</p>
-<p>happy codding! ^_^</p>
+<p>happy coding! ^_^</p>
 
       
 
