@@ -191,7 +191,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="使用有意义并且可读的变量名称"><a href="#使用有意义并且可读的变量名称" class="headerlink" title="使用有意义并且可读的变量名称"></a>使用有意义并且可读的变量名称</h2><p>Bad:</p>
+        <p>将代码写的简洁并且易读易懂是每一位优秀的coder所应该具备的基本功。</p>
+<p>前几天在github上看到<a href="https://github.com/jupeter/clean-code-php">clean-code-php</a>这个项目，感觉很有收获，于是在这里记录一下。</p>
+<h2 id="使用有意义并且可读的变量名称"><a href="#使用有意义并且可读的变量名称" class="headerlink" title="使用有意义并且可读的变量名称"></a>使用有意义并且可读的变量名称</h2><p>Bad:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ymdstr = $moment-&gt;format(<span class="string">'y-m-d'</span>);</div></pre></td></tr></table></figure>
 <p>Good:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$currentDate = $moment-&gt;format(<span class="string">'y-m-d'</span>);</div></pre></td></tr></table></figure>
