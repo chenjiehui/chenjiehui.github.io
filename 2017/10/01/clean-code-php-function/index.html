@@ -9,24 +9,24 @@
   <title>PHP代码简洁之道——函数部分 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="函数参数不要超过两个限制函数的参数数量是非常重要的，因为它使你的函数更容易测试。超过三个参数会导致参数之间的组合过多，你必须对每个单独的参数测试大量不同的情况。
-没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要的。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。
+没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。
 Bad:
-12345function">
+12345function c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP代码简洁之道——函数部分">
 <meta property="og:url" content="http://www.tenpercent.top/2017/10/01/clean-code-php-function/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="函数参数不要超过两个限制函数的参数数量是非常重要的，因为它使你的函数更容易测试。超过三个参数会导致参数之间的组合过多，你必须对每个单独的参数测试大量不同的情况。
-没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要的。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。
+没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。
 Bad:
-12345function">
-<meta property="og:updated_time" content="2017-10-01T02:59:52.000Z">
+12345function c">
+<meta property="og:updated_time" content="2017-10-01T03:01:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP代码简洁之道——函数部分">
 <meta name="twitter:description" content="函数参数不要超过两个限制函数的参数数量是非常重要的，因为它使你的函数更容易测试。超过三个参数会导致参数之间的组合过多，你必须对每个单独的参数测试大量不同的情况。
-没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要的。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。
+没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。
 Bad:
-12345function">
+12345function c">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -203,7 +203,7 @@ Bad:
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="函数参数不要超过两个"><a href="#函数参数不要超过两个" class="headerlink" title="函数参数不要超过两个"></a>函数参数不要超过两个</h2><p>限制函数的参数数量是非常重要的，因为它使你的函数更容易测试。超过三个参数会导致参数之间的组合过多，你必须对每个单独的参数测试大量不同的情况。</p>
-<p>没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要的。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。</p>
+<p>没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。</p>
 <p>Bad:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMenu</span><span class="params">($title, $body, $buttonText, $cancellable)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>Good：</p>
