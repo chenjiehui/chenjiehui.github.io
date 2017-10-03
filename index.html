@@ -171,6 +171,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-clean-code-php-object" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/03/clean-code-php-object/">PHP代码简洁之道——类和对象部分</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/03/clean-code-php-object/" class="archive-article-date">
+  	<time datetime="2017-10-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用getter和setter"><a href="#使用getter和setter" class="headerlink" title="使用getter和setter"></a>使用getter和setter</h2><p>在 PHP 中，通过为属性或方法设置 public, protected 和 private 关键字可以实现对属性或方法的可见性控制。不过，通过 getter 和 setter 也可以达到控制可见性的目的，并且在某些场景下它具备一些额外的好处。</p>
+<p>使用 getter和 setter 有以下好处：</p>
+<ul>
+<li>当你除了获取对象之外还想做一些别的事情时，就不用到项目中去查找所有的属性并修改</li>
+<li>使添加验证更简单</li>
+<li>在获取和设置时添加日志和错误处理更方便</li>
+<li>我们可以延迟加载类的属性</li>
+<li>继承了类，你可以重写默认的函数</li>
+</ul>
+<p>另外，这是面向对象的基本设计原则中的开放/封闭原则。</p>
+<p>Bad:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BankAccount</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> $balance = <span class="number">1000</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$bankAccount = <span class="keyword">new</span> BankAccount();</div><div class="line"></div><div class="line"><span class="comment">// 买了一双鞋...</span></div><div class="line">$bankAccount-&gt;balance -= <span class="number">100</span>;</div></pre></td></tr></table></figure>
+<p>Good:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BankAccount</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $balance;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($balance = <span class="number">1000</span>)</span></span></div><div class="line">    &#123;</div><div class="line">      <span class="keyword">$this</span>-&gt;balance = $balance;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//做一些事情</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">withdrawBalance</span><span class="params">($amount)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> ($amount &gt; <span class="keyword">$this</span>-&gt;balance) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> \<span class="keyword">Exception</span>(<span class="string">'Amount greater than available balance.'</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">$this</span>-&gt;balance -= $amount;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">depositBalance</span><span class="params">($amount)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;balance += $amount;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getBalance</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;balance;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$bankAccount = <span class="keyword">new</span> BankAccount();</div><div class="line"></div><div class="line"><span class="comment">// 买了一双鞋...</span></div><div class="line">$bankAccount-&gt;withdrawBalance($shoesPrice);</div><div class="line"></div><div class="line"><span class="comment">// 获取结余</span></div><div class="line">$balance = $bankAccount-&gt;getBalance();</div></pre></td></tr></table></figure>
+<h2 id="让对象具有私有或受保护的的成员"><a href="#让对象具有私有或受保护的的成员" class="headerlink" title="让对象具有私有或受保护的的成员"></a>让对象具有私有或受保护的的成员</h2><p>Bad:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> $name;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;name = $name;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$employee = <span class="keyword">new</span> Employee(<span class="string">'John Doe'</span>);</div><div class="line"><span class="keyword">echo</span> <span class="string">'Employee name: '</span>.$employee-&gt;name; <span class="comment">// Employee name: John Doe</span></div></pre></td></tr></table></figure>
+<p>Good:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $name;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;name = $name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;name;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$employee = <span class="keyword">new</span> Employee(<span class="string">'John Doe'</span>);</div><div class="line"><span class="keyword">echo</span> <span class="string">'Employee name: '</span>.$employee-&gt;getName(); <span class="comment">// Employee name: John Doe</span></div></pre></td></tr></table></figure>
+<h2 id="使用组合而不是继承"><a href="#使用组合而不是继承" class="headerlink" title="使用组合而不是继承"></a>使用组合而不是继承</h2><p>这里不是说不使用继承，使用“组合模式”和使用“继承”都有很多好的理由。</p>
+<p>这里想说的是当你本能的要使用继承时就想一想“组合模式”是否能更好帮你的解决问题。</p>
+<p>那么，你可能想知道，“什么时候应该用继承？”， 这取决于你手头上问题。</p>
+<p>以下几点说明了什么时候使用继承会更合适。</p>
+<ul>
+<li>你的继承表达了一个对等（比如”人类是动物”）的关系，不是包含的关系（比如”用户具有用户详情”）</li>
+<li>你能从基类中复用代码</li>
+<li>你想通过修改全局类来对所有派生类进行修改。</li>
+</ul>
+<p>Bad:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $name;</div><div class="line">    <span class="keyword">private</span> $email;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name, $email)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;name = $name;</div><div class="line">        <span class="keyword">$this</span>-&gt;email = $email;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 因为雇员和税收不是对等关系而是包含的关系</span></div><div class="line"><span class="comment">// 所以这里应用组合比较合适</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmployeeTaxData</span> <span class="keyword">extends</span> <span class="title">Employee</span> </span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $ssn;</div><div class="line">    <span class="keyword">private</span> $salary;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name, $email, $ssn, $salary)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">parent</span>::__construct($name, $email);</div><div class="line"></div><div class="line">        <span class="keyword">$this</span>-&gt;ssn = $ssn;</div><div class="line">        <span class="keyword">$this</span>-&gt;salary = $salary;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Good:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmployeeTaxData</span> </span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $ssn;</div><div class="line">    <span class="keyword">private</span> $salary;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($ssn, $salary)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;ssn = $ssn;</div><div class="line">        <span class="keyword">$this</span>-&gt;salary = $salary;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> $name;</div><div class="line">    <span class="keyword">private</span> $email;</div><div class="line">    <span class="keyword">private</span> $taxData;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name, $email)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;name = $name;</div><div class="line">        <span class="keyword">$this</span>-&gt;email = $email;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setTaxData</span><span class="params">($ssn, $salary)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;taxData = <span class="keyword">new</span> EmployeeTaxData($ssn, $salary);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码简洁</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/03/clean-code-php-object/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-clean-code-php-function" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -887,83 +994,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/07/10/factory-pattern/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Singleton-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/20/Singleton-Pattern/">PHP单例模式的总结</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/20/Singleton-Pattern/" class="archive-article-date">
-  	<time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="什么是单例模式"><a href="#什么是单例模式" class="headerlink" title="什么是单例模式"></a>什么是单例模式</h2><h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3><p>单例模式是一种对象的创建模式，它用来确保某一个类只有一个实例，而且自行实例化并向整个系统全局的提供这个实例。<br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/20/Singleton-Pattern/">阅读全文 >></a>
         </p>
       
 
