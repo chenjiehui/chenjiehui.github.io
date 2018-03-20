@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>PHP 后期静态绑定的理解 | 陈杰辉写字的地方</title>
+  <title>对PHP 后期静态绑定的理解 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="什么是后期静态绑定在看一些框架源码或者是某个项目的代码时，经常能看到后期静态绑定的用法。比如下面这段：
 1234567public static function getInstance()&amp;#123;    if (is_null(static::$instance)) &amp;#123;        static::$instance = new static;    &amp;#125;    retu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP 后期静态绑定的理解">
+<meta property="og:title" content="对PHP 后期静态绑定的理解">
 <meta property="og:url" content="http://www.tenpercent.top/2018/03/20/late-static-bindings/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="什么是后期静态绑定在看一些框架源码或者是某个项目的代码时，经常能看到后期静态绑定的用法。比如下面这段：
 1234567public static function getInstance()&amp;#123;    if (is_null(static::$instance)) &amp;#123;        static::$instance = new static;    &amp;#125;    retu">
-<meta property="og:updated_time" content="2018-03-20T16:36:31.909Z">
+<meta property="og:updated_time" content="2018-03-20T16:41:28.717Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP 后期静态绑定的理解">
+<meta name="twitter:title" content="对PHP 后期静态绑定的理解">
 <meta name="twitter:description" content="什么是后期静态绑定在看一些框架源码或者是某个项目的代码时，经常能看到后期静态绑定的用法。比如下面这段：
 1234567public static function getInstance()&amp;#123;    if (is_null(static::$instance)) &amp;#123;        static::$instance = new static;    &amp;#125;    retu">
   
@@ -177,7 +177,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      PHP 后期静态绑定的理解
+      对PHP 后期静态绑定的理解
     </h1>
   
 
@@ -196,7 +196,7 @@
 <p>“后期绑定”的意思是说，static:: 不再被解析为定义当前方法所在的类，而是在实际运行时计算的。<br><a id="more"></a></p>
 <p>这里要先说两个概念，一个是转发调用，另一个是非转发调用。</p>
 <ul>
-<li><p>转发调用<br>所谓的“转发调用”（forwarding call）指的是通过以下几种方式进行的静态调用：self::，parent::，static:: 以及 forward_ <em>static</em> _call()。即在进行静态调用时未指名类名的调用属于转发调用。</p>
+<li><p>转发调用<br>所谓的“转发调用”（forwarding call）指的是通过以下几种方式进行的静态调用：self::, parent::, static:: 以及 forward_ <em>static</em> _call()。即在进行静态调用时未指名类名的调用属于转发调用。</p>
 </li>
 <li><p>非转发调用<br>非转发调用其实就是明确指定类名的静态调用（foo::bar()）和非静态调用($foo-&gt;bar())。即明确地指定类名的静态调用和非静态调用。</p>
 </li>
@@ -213,18 +213,11 @@
 <p>以上代码会输出</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">A</div><div class="line">C</div><div class="line">C</div></pre></td></tr></table></figure>
 <p>在这里主要分析下例2。</p>
-<ol>
-<li><p>C::test()，这是一个非转发调用，因为::前面有类名C。</p>
-</li>
-<li><p>进入test()方法，有三个静态调用A::foo(),parent::foo(),self::foo(),对于这三个静态调用来说，他们的非转发调用类就是C。</p>
-</li>
-<li><p>现在执行A::foo(),这是一个非转发调用。A::foo()中的代码是static::who,这是一个转发调用，对于这个转发调用来说他的非转发调用类就是不再是C而是A（因为之前执行了A::foo()）。因此执行的结果为A</p>
-</li>
-<li><p>现在执行parent::foo(),这是一个转发调用，转发到哪里呢？就是它的上一个非转发调用的类，也就是类C（在步骤2中提到的）。在这里一定要注意虽然在这之前执行了A::foo(),但是parent::foo()的上一个非转发调用的类任然是类C。因此执行的结果是C.</p>
-</li>
-<li><p>现在执行self::foo(),这个和parent::foo（）一样都是转发调用，因此也输出C。</p>
-</li>
-</ol>
+<p>1.C::test()，这是一个非转发调用，因为::前面有类名C。</p>
+<p>2.进入test()方法，有三个静态调用 A::foo(),parent::foo(),self::foo(),对于这三个静态调用来说，他们的非转发调用类就是 C。</p>
+<p>3.现在执行A::foo(),这是一个非转发调用。A::foo()中的代码是 static::who(),这是一个转发调用，对于这个转发调用来说他的非转发调用类就是不再是C而是A（因为之前执行了A::foo()）。因此执行的结果为A</p>
+<p>4.现在执行 parent::foo(),这是一个转发调用，转发到哪里呢？就是它的上一个非转发调用的类，也就是类C（在步骤2中提到的）。在这里一定要注意虽然在这之前执行了 A::foo(),但是parent::foo()的上一个非转发调用的类任然是类C。因此执行的结果是 C.</p>
+<p>5.现在执行 self::foo(),这个和 parent::foo()一样都是转发调用，因此也输出 C。</p>
 <h2 id="使用后期静态绑定的好处"><a href="#使用后期静态绑定的好处" class="headerlink" title="使用后期静态绑定的好处"></a>使用后期静态绑定的好处</h2><p>后期静态绑定可以用于对象实例化中，在实例化对象时，static会根据运行时调用的类来决定实例化对象，而self是根据所在位置的类来决定实例化对象。当我们只想实例化子类，并且不希望后续在对子类的使用中由于父类的变化对子类产生影响时，后期静态绑定就能发挥它的作用了。</p>
 
       
