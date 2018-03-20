@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="什么是后期静态绑定在看一些框架源码或者是某个项目的代码时，经常能看到后期静态绑定的用法。比如下面这段：
 1234567public static function getInstance()&amp;#123;    if (is_null(static::$instance)) &amp;#123;        static::$instance = new static;    &amp;#125;    retu">
-<meta property="og:updated_time" content="2018-03-20T16:41:28.717Z">
+<meta property="og:updated_time" content="2018-03-20T16:43:53.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对PHP 后期静态绑定的理解">
 <meta name="twitter:description" content="什么是后期静态绑定在看一些框架源码或者是某个项目的代码时，经常能看到后期静态绑定的用法。比如下面这段：
@@ -218,7 +218,7 @@
 <p>3.现在执行A::foo(),这是一个非转发调用。A::foo()中的代码是 static::who(),这是一个转发调用，对于这个转发调用来说他的非转发调用类就是不再是C而是A（因为之前执行了A::foo()）。因此执行的结果为A</p>
 <p>4.现在执行 parent::foo(),这是一个转发调用，转发到哪里呢？就是它的上一个非转发调用的类，也就是类C（在步骤2中提到的）。在这里一定要注意虽然在这之前执行了 A::foo(),但是parent::foo()的上一个非转发调用的类任然是类C。因此执行的结果是 C.</p>
 <p>5.现在执行 self::foo(),这个和 parent::foo()一样都是转发调用，因此也输出 C。</p>
-<h2 id="使用后期静态绑定的好处"><a href="#使用后期静态绑定的好处" class="headerlink" title="使用后期静态绑定的好处"></a>使用后期静态绑定的好处</h2><p>后期静态绑定可以用于对象实例化中，在实例化对象时，static会根据运行时调用的类来决定实例化对象，而self是根据所在位置的类来决定实例化对象。当我们只想实例化子类，并且不希望后续在对子类的使用中由于父类的变化对子类产生影响时，后期静态绑定就能发挥它的作用了。</p>
+<h2 id="使用后期静态绑定的好处"><a href="#使用后期静态绑定的好处" class="headerlink" title="使用后期静态绑定的好处"></a>使用后期静态绑定的好处</h2><p>后期静态绑定目前我看到较多的是用于对象实例化中，在实例化对象时，static会根据运行时调用的类来决定实例化对象，而self是根据所在位置的类来决定实例化对象。当我们只想实例化子类，并且不希望后续在对子类的使用中由于父类的变化对子类产生影响时，后期静态绑定就能发挥它的作用了。</p>
 
       
 
