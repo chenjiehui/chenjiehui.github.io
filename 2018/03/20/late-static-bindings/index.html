@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="什么是后期静态绑定在看一些框架源码或者是某个项目的代码时，经常能看到后期静态绑定的用法。比如下面段：
 1234567public static function getInstance()&amp;#123;    if (is_null(static::$instance)) &amp;#123;        static::$instance = new static;    &amp;#125;    retur">
-<meta property="og:updated_time" content="2018-03-20T16:24:39.567Z">
+<meta property="og:updated_time" content="2018-03-20T16:26:36.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP 后期静态绑定的理解">
 <meta name="twitter:description" content="什么是后期静态绑定在看一些框架源码或者是某个项目的代码时，经常能看到后期静态绑定的用法。比如下面段：
@@ -225,7 +225,7 @@
 <li><p>现在执行self::foo(),这个和parent::foo（）一样都是转发调用，因此也输出C。</p>
 </li>
 </ol>
-<h3 id="使用后期静态绑定的好处"><a href="#使用后期静态绑定的好处" class="headerlink" title="使用后期静态绑定的好处"></a>使用后期静态绑定的好处</h3><p>后期静态绑定可以用于对象实例化中，在实例化对象时，static会根据运行时调用的类来决定实例化对象，而self是根据所在位置的类来决定实例化对象。当我们只想实例化子类，并且不希望后续在对子类的使用中由于父类的变化对子类产生影响时，后期静态绑定就能发挥它的作用了。</p>
+<h2 id="使用后期静态绑定的好处"><a href="#使用后期静态绑定的好处" class="headerlink" title="使用后期静态绑定的好处"></a>使用后期静态绑定的好处</h2><p>后期静态绑定可以用于对象实例化中，在实例化对象时，static会根据运行时调用的类来决定实例化对象，而self是根据所在位置的类来决定实例化对象。当我们只想实例化子类，并且不希望后续在对子类的使用中由于父类的变化对子类产生影响时，后期静态绑定就能发挥它的作用了。</p>
 
       
 
