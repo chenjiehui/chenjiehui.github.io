@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PRS 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
 掌握 compo">
-<meta property="og:updated_time" content="2018-05-18T06:33:24.367Z">
+<meta property="og:updated_time" content="2018-05-18T06:36:03.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入解析 composer 的自动加载原理">
 <meta name="twitter:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PRS 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
@@ -246,10 +246,7 @@
 </li>
 <li><p>当有大量的类文件要包含的时候，我们只要确定相应的规则，然后在 <strong><code>__autoload()</code> 函数中，将类名与实际的磁盘文件对应起来，就可以实现 <code>lazy loading</code> 的效果</strong> 。</p>
 </li>
-<li>如果想详细的了解关于 autoload 自动加载的过程，可以查看手册资料：<blockquote>
-<p><a href="http://php.net/manual/zh/function.autoload.php" target="_blank" rel="external">PHP autoload函数说明</a></p>
-</blockquote>
-</li>
+<li>如果想详细的了解关于 autoload 自动加载的过程，可以查看手册资料：<a href="http://php.net/manual/zh/function.autoload.php" target="_blank" rel="external">PHP autoload函数说明</a></li>
 </ul>
 <h2 id="autoload-函数存在的问题"><a href="#autoload-函数存在的问题" class="headerlink" title="__autoload() 函数存在的问题"></a>__autoload() 函数存在的问题</h2><ul>
 <li><p>如果在一个系统的实现中，如果需要使用很多其它的类库，这些类库可能是由不同的开发人员编写的，  其类名与实际的磁盘文件的映射规则不尽相同。这时如果要实现类库文件的自动加载，就必须 <strong>在 __autoload() 函数中将所有的映射规则全部实现</strong>，这样的话 <code>__autoload()</code> 函数有可能会非常复杂，甚至无法实现。最后可能会导致 <code>__autoload()</code> 函数十分臃肿，这时即便能够实现，也会给将来的维护和系统效率带来很大的负面影响。</p>
