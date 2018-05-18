@@ -165,6 +165,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-composer-autoload" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/16/composer-autoload/">深入解析 composer 的自动加载原理</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/16/composer-autoload/" class="archive-article-date">
+  	<time datetime="2018-05-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="深入解析-composer-的自动加载原理"><a href="#深入解析-composer-的自动加载原理" class="headerlink" title="深入解析 composer 的自动加载原理"></a>深入解析 composer 的自动加载原理</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PRS 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。</p>
+<h2 id="掌握-composer-自动加载原理的好处"><a href="#掌握-composer-自动加载原理的好处" class="headerlink" title="掌握 composer 自动加载原理的好处"></a>掌握 composer 自动加载原理的好处</h2><ul>
+<li><p>更好的运用 composer 来构建我们的 PHP 应用程序</p>
+</li>
+<li><p>对 PSR 规范有进一步的了解</p>
+</li>
+<li><p>当需要用到没有 composer 化的第三方库时，可以将其 composer 化来提高工程效率</p>
+</li>
+<li><p>学习比较严谨、高深的编码技巧</p>
+</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">composer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/16/composer-autoload/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-late-static-bindings" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -899,84 +986,6 @@
 
 
   
-    <article id="post-Facade-pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/Facade-pattern/">外观模式的总结</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/10/Facade-pattern/" class="archive-article-date">
-  	<time datetime="2017-09-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>外观模式(Facade Pattern)是一个比较简单的概念，它只是为一个子系统创建一个单一的入口。这样的好处是有助于分离项目中不同的部分，其次，会使得我们在访问代码时变得简洁方便。另外，由于只在一个地方调用子系统，减少了出错的可能性。</p>
-<p>外观模式比较简单，这里就不做过多的赘述了，主要是要吸收该模式减少耦合的思想，直接上代码。<br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/10/Facade-pattern/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1123,6 +1132,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">虚拟机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
             
             <div class="clearfix"></div>
