@@ -165,6 +165,278 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux-performance-monitor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/Linux-performance-monitor/">Linux 性能监控工具</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/10/Linux-performance-monitor/" class="archive-article-date">
+  	<time datetime="2018-07-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Linux-性能监控工具"><a href="#Linux-性能监控工具" class="headerlink" title="Linux 性能监控工具"></a>Linux 性能监控工具</h2><p>最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，用来以后遇到相关使用场景的时候，方便查看。</p>
+<h3 id="Linux-性能指标"><a href="#Linux-性能指标" class="headerlink" title="Linux 性能指标"></a>Linux 性能指标</h3><ul>
+<li>CPU</li>
+</ul>
+<p>CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）、系统时间（表示CPU花在内核操作上的时间百分比）、空闲时间、平均负载、阻塞、上下文切换、中断等</p>
+<ul>
+<li>内存</li>
+</ul>
+<p>空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等</p>
+<ul>
+<li>磁盘IO</li>
+</ul>
+<p>IO等待、平均队列长度、每秒传输（TPS）等</p>
+<ul>
+<li>网络</li>
+</ul>
+<p>接收和发送的包、每秒碰撞（各个网络接口所连接网络的所发生的冲突数量）、丢包、错误等</p>
+<h3 id="监测工具"><a href="#监测工具" class="headerlink" title="监测工具"></a>监测工具</h3><p>以下是对 Linux 的性能进行监控的常用工具：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">工具</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">top</td>
+<td>查看进程活动状态以及一些系统状况</td>
+</tr>
+<tr>
+<td style="text-align:center">vmstat</td>
+<td>查看系统状态、硬件和系统信息等</td>
+</tr>
+<tr>
+<td style="text-align:center">iostat</td>
+<td>查看 CPU 负载、硬盘状况</td>
+</tr>
+<tr>
+<td style="text-align:center">sar</td>
+<td>综合工具，查看系统状况</td>
+</tr>
+<tr>
+<td style="text-align:center">mpstat</td>
+<td>查看多处理器状况</td>
+</tr>
+<tr>
+<td style="text-align:center">netstat</td>
+<td>查看网络状况</td>
+</tr>
+<tr>
+<td style="text-align:center">iptraf</td>
+<td>实时网络状态监测</td>
+</tr>
+<tr>
+<td style="text-align:center">tcpdump</td>
+<td>抓取网络数据包，详细分析</td>
+</tr>
+<tr>
+<td style="text-align:center">tcptrace</td>
+<td>网络包分析工具</td>
+</tr>
+<tr>
+<td style="text-align:center">netperf</td>
+<td>网络带宽工具</td>
+</tr>
+<tr>
+<td style="text-align:center">dstat</td>
+<td>综合了 vmstat、iostat、ifstat、netstat 等多个信息</td>
+</tr>
+</tbody>
+</table>
+<p>这里介绍其中几个。</p>
+<h3 id="top-工具"><a href="#top-工具" class="headerlink" title="top 工具"></a>top 工具</h3><p>top是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20180725153253005740341.png" alt="20180725153253005740341.png"> </p>
+<p>PID：进程的ID </p>
+<p>USER：进程所有者 </p>
+<p>PR：进程的优先级别，越小越优先被执行 </p>
+<p>NI：nice值 </p>
+<p>VIRT：进程占用的虚拟内存 </p>
+<p>RES：进程占用的物理内存 </p>
+<p>SHR：进程使用的共享内存 </p>
+<p>S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数 </p>
+<p>%CPU：进程占用CPU的使用率 </p>
+<p>%MEM：进程使用的物理内存和总内存的百分比 </p>
+<p>TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。 </p>
+<p>COMMAND：进程启动命令名称</p>
+<h3 id="vmstat-工具"><a href="#vmstat-工具" class="headerlink" title="vmstat 工具"></a>vmstat 工具</h3><p>vmstat 是个查看系统整体性能的小工具，小巧，即使在机器负载很高的情况下也运行良好，并且可以用时间间隔采集得到连续的性能数据。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/2018072515325286132815.png" alt="2018072515325286132815.png"></p>
+<p>参数介绍：</p>
+<ul>
+<li>r，可运行队列的线程数，这些线程都是可运行状态，只不过 CPU 暂时不可用</li>
+<li>b，被 blocked 的进程数，正在等待 IO 请求</li>
+<li>in，被处理过的中断数</li>
+<li>cs，系统上正在做上下文切换的数目</li>
+<li>us，用户占用 CPU 的百分比</li>
+<li>sys，内核和中断占用 CPU 的百分比</li>
+<li>wa，所有可运行的线程被 blocked 以后都在等待 IO，这时候 CPU 空闲的百分比</li>
+<li>id，CPU 完全空闲的百分比</li>
+</ul>
+<p>举两个例子来分析一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ vmstat 1</div><div class="line">procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu------</div><div class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div><div class="line"> 4  0    140 2915476 341288 3951700  0    0     0     0 1057  523 89 21  0  0  0</div><div class="line"> 4  0    140 2915724 341296 3951700  0    0     0     0 1048  546 79 11  0  0  0</div><div class="line"> 4  0    140 2915848 341296 3951700  0    0     0     0 1044  514 88 22  0  0  0</div><div class="line"> 4  0    140 2915848 341296 3951700  0    0     0    24 1044  564 80 20  0  0  0</div><div class="line"> 4  0    140 2915848 341296 3951700  0    0     0     0 1060  546 78 12  0  0  0</div></pre></td></tr></table></figure>
+<p>从上面的数据可以看出几点：</p>
+<ol>
+<li>interrupts(in) 非常高，context switch(cs) 比较低，说明这个 CPU 一直在不停的请求资源</li>
+<li>user time(us) 一直保持在 80% 以上，而且上下文切换较低 (cs)，说明某个进程可能一直霸占着 CPU</li>
+</ol>
+<ul>
+<li>run queue(r) 刚好在 4 个</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ vmstat 1</div><div class="line">procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu------</div><div class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</div><div class="line">14  0    140 2904316 341912 3952308  0    0     0   460 1106 9593 36 64  1  0  0</div><div class="line">17  0    140 2903492 341912 3951780  0    0     0     0 1037 9614 35 65  1  0  0</div><div class="line">20  0    140 2902016 341912 3952000  0    0     0     0 1046 9739 35 64  1  0  0</div><div class="line">17  0    140 2903904 341912 3951888  0    0     0    76 1044 9879 37 63  0  0  0</div><div class="line">16  0    140 2904580 341912 3952108  0    0     0     0 1055 9808 34 65  1  0  0</div></pre></td></tr></table></figure>
+<p>从上面的数据可以看出几点：</p>
+<ol>
+<li>context switch(cs) 比 interrupts(in) 要高的多，说明内核不得不来回切换进程</li>
+<li>进一步观察发现 system time(sy) 很高而 user time(us) 很低，而且加上高频度的上下文切换 (cs)，说明正在运行的应用程序调用了大量的系统调用</li>
+<li>run queue(r) 在 14 个线程以上，而这个机器的硬件配置 (4 核），应该保持在 12 以内。</li>
+</ol>
+<h3 id="iostat-工具"><a href="#iostat-工具" class="headerlink" title="iostat 工具"></a>iostat 工具</h3><p>iostat是I/O statistics（输入/输出统计）的缩写，iostat工具将对系统的磁盘操作活动进行监视。它的特点是汇报磁盘活动统计情况，同时也会汇报出CPU使用情况。iostat属于sysstat软件包。可以用yum install sysstat 直接安装。</p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20180725153253123443993.png" alt="20180725153253123443993.png"></p>
+<p>cpu属性值说明：</p>
+<p>%user：CPU处在用户模式下的时间百分比。</p>
+<p>%nice：CPU处在带NICE值的用户模式下的时间百分比。</p>
+<p>%system：CPU处在系统模式下的时间百分比。</p>
+<p>%iowait：CPU等待输入输出完成时间的百分比。</p>
+<p>%steal：管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比。</p>
+<p>%idle：CPU空闲时间百分比。</p>
+<p><strong>如果%iowait的值过高，表示硬盘存在I/O瓶颈，%idle值高，表示CPU较空闲，如果%idle值高但系统响应慢时，有可能是CPU等待分配内存，此时应加大内存容量。%idle值如果持续低于10，那么系统的CPU处理能力相对较低，表明系统中最需要解决的资源是CPU。</strong></p>
+<p>disk属性值说明：</p>
+<p>rrqm/s:  每秒进行 merge 的读操作数目。即 rmerge/s</p>
+<p>wrqm/s:  每秒进行 merge 的写操作数目。即 wmerge/s</p>
+<p>r/s:  每秒完成的读 I/O 设备次数。即 rio/s</p>
+<p>w/s:  每秒完成的写 I/O 设备次数。即 wio/s</p>
+<p>rsec/s:  每秒读扇区数。即 rsect/s</p>
+<p>wsec/s:  每秒写扇区数。即 wsect/s</p>
+<p>rkB/s:  每秒读K字节数。是 rsect/s 的一半，因为每扇区大小为512字节。</p>
+<p>wkB/s:  每秒写K字节数。是 wsect/s 的一半。</p>
+<p>avgrq-sz:  平均每次设备I/O操作的数据大小 (扇区)。</p>
+<p>avgqu-sz:  平均I/O队列长度。</p>
+<p>await:  平均每次设备I/O操作的等待时间 (毫秒)。</p>
+<p>svctm: 平均每次设备I/O操作的服务时间 (毫秒)。</p>
+<p>%util:  一秒中有百分之多少的时间用于 I/O 操作，即被io消耗的cpu百分比</p>
+<p><strong>如果 %util 接近 100%，说明产生的I/O请求太多，I/O系统已经满负荷，该磁盘可能存在瓶颈。</strong></p>
+<p><strong>如果 svctm 比较接近 await，说明 I/O 几乎没有等待时间；</strong></p>
+<p><strong>如果 await 远大于 svctm，说明I/O 队列太长，io响应太慢，则需要进行必要优化。</strong></p>
+<p><strong>如果avgqu-sz比较大，也表示有大量io在等待。</strong></p>
+<ul>
+<li>sar 工具</li>
+</ul>
+<p>sar是System Activity Reporter（系统活动情况报告）的缩写。sar工具将对系统当前的状态进行取样，然后通过计算数据和比例来表达系统的当前运行状态。</p>
+<ul>
+<li>查看 cpu使用率</li>
+</ul>
+<p><strong>sar -u</strong></p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20180726153257950431065.png" alt="20180726153257950431065.png"></p>
+<p>%user 用户模式下消耗的CPU时间的比例；</p>
+<p>%nice 通过nice改变了进程调度优先级的进程，在用户模式下消耗的CPU时间的比例</p>
+<p>%system 系统模式下消耗的CPU时间的比例；</p>
+<p>%iowait CPU等待磁盘I/O导致空闲状态消耗的时间比例；</p>
+<p>%steal 利用Xen等操作系统虚拟化技术，等待其它虚拟CPU计算占用的时间比例；</p>
+<p>%idle CPU空闲时间比例；</p>
+<p><strong>查看平均负载</strong></p>
+<p><strong>sar -q</strong></p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20180726153257961321989.png" alt="20180726153257961321989.png"></p>
+<p>runq-sz：运行队列的长度（等待运行的进程数）</p>
+<p>plist-sz：进程列表中进程（processes）和线程（threads）的数量</p>
+<p>ldavg-1：最后1分钟的系统平均负载</p>
+<p>ldavg-5：过去5分钟的系统平均负载</p>
+<p>ldavg-15：过去15分钟的系统平均负载</p>
+<p><strong>查看内存使用状况</strong></p>
+<p><strong>sar -r</strong></p>
+<p><img src="http://on2b18ek3.bkt.clouddn.com/20180726153257975922020.png" alt="20180726153257975922020.png"></p>
+<p>kbmemfree：这个值和free命令中的free值基本一致,所以它不包括buffer和cache的空间.</p>
+<p>kbmemused：这个值和free命令中的used值基本一致,所以它包括buffer和cache的空间.</p>
+<p>%memused：物理内存使用率，这个值是kbmemused和内存总量(不包括swap)的一个百分比.</p>
+<p>kbbuffers和kbcached：这两个值就是free命令中的buffer和cache.</p>
+<p>kbcommit：保证当前系统所需要的内存,即为了确保不溢出而需要的内存(RAM+swap).</p>
+<p>%commit：这个值是kbcommit与内存总量(包括swap)的一个百分比.</p>
+<p><strong>sar参数说明</strong></p>
+<p>-A 汇总所有的报告</p>
+<p>-a 报告文件读写使用情况</p>
+<p>-B 报告附加的缓存的使用情况</p>
+<p>-b 报告缓存的使用情况</p>
+<p>-c 报告系统调用的使用情况</p>
+<p>-d 报告磁盘的使用情况</p>
+<p>-g 报告串口的使用情况</p>
+<p>-h 报告关于buffer使用的统计数据</p>
+<p>-m 报告IPC消息队列和信号量的使用情况</p>
+<p>-n 报告命名cache的使用情况</p>
+<p>-p 报告调页活动的使用情况</p>
+<p>-q 报告运行队列和交换队列的平均长度</p>
+<p>-R 报告进程的活动情况</p>
+<p>-r 报告没有使用的内存页面和硬盘块</p>
+<p>-u 报告CPU的利用率</p>
+<p>-v 报告进程、i节点、文件和锁表状态</p>
+<p>-w 报告系统交换活动状况</p>
+<p>-y 报告TTY设备活动状况</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/10/Linux-performance-monitor/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-composer-autoload" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -903,89 +1175,6 @@
 
 
   
-    <article id="post-Decorator-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/17/Decorator-Pattern/">通俗易懂的谈谈装饰器模式</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/17/Decorator-Pattern/" class="archive-article-date">
-  	<time datetime="2017-09-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在编码的时候，我们为了扩展一个类经常是使用继承方式来实现，随着扩展功能的增多，子类会越来越膨胀，使系统变得不灵活。</p>
-<p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。它能让我们在扩展类的时候让系统较好的保持灵活性。</p>
-<p>那么装饰器模式具体是什么样的呢？</p>
-<h2 id="从一个情景开始"><a href="#从一个情景开始" class="headerlink" title="从一个情景开始"></a>从一个情景开始</h2><p>我们有一块地，在这块地上，我们要盖一栋有好几间房间的别墅，每间房间的装修费用都不同，现在，我们要对盖别墅的费用进行计算。</p>
-<p>先定义一个Land类，表示这块地，Land类定义了在这块地上盖别墅需要花钱这个规则。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Land</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">cost</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Land已经定义好了在这块地上盖房需要花钱的这个规则了，但是盖一间房间具体花多少钱呢？<br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/17/Decorator-Pattern/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1136,6 +1325,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">composer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工具</a>
               </li>
             
             <div class="clearfix"></div>
