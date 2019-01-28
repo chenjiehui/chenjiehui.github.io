@@ -6,7 +6,7 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>PHP-FPM 与 Nginx 的通信原理总结 | 陈杰辉写字的地方</title>
+  <title>PHP-FPM 与 Nginx 的通信机制总结 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="PHP-fpm 介绍
 CGI 协议与 FastCGI 协议
@@ -14,7 +14,7 @@ CGI 协议与 FastCGI 协议
 每种动态语言（ PHP,Python 等）的代码文件需要通过对应的解析器才能被服务器识别，而 CGI 协议就是用来使解释器与服务器可以互相通信。PHP 文件在服务器上的解析需要用到 PHP 解释器，再加上对应的 CGI 协议，从而使服务器可以解析到 PHP 文件。
 由于 CGI 的机制是每处理一个请求需要 fork 一个 CGI 进程，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP-FPM 与 Nginx 的通信原理总结">
+<meta property="og:title" content="PHP-FPM 与 Nginx 的通信机制总结">
 <meta property="og:url" content="http://www.tenpercent.top/2018/11/21/php-fpm and nginx /index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
 <meta property="og:description" content="PHP-fpm 介绍
@@ -23,9 +23,9 @@ CGI 协议与 FastCGI 协议
 每种动态语言（ PHP,Python 等）的代码文件需要通过对应的解析器才能被服务器识别，而 CGI 协议就是用来使解释器与服务器可以互相通信。PHP 文件在服务器上的解析需要用到 PHP 解释器，再加上对应的 CGI 协议，从而使服务器可以解析到 PHP 文件。
 由于 CGI 的机制是每处理一个请求需要 fork 一个 CGI 进程，">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190128194727.png">
-<meta property="og:updated_time" content="2019-01-28T14:19:29.429Z">
+<meta property="og:updated_time" content="2019-01-28T14:21:45.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP-FPM 与 Nginx 的通信原理总结">
+<meta name="twitter:title" content="PHP-FPM 与 Nginx 的通信机制总结">
 <meta name="twitter:description" content="PHP-fpm 介绍
 CGI 协议与 FastCGI 协议
 
@@ -188,7 +188,7 @@ CGI 协议与 FastCGI 协议
         
   
     <h1 class="article-title" itemprop="name">
-      PHP-FPM 与 Nginx 的通信原理总结
+      PHP-FPM 与 Nginx 的通信机制总结
     </h1>
   
 
