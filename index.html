@@ -185,15 +185,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="PHP-fpm-介绍"><a href="#PHP-fpm-介绍" class="headerlink" title="PHP-fpm 介绍"></a>PHP-fpm 介绍</h2><ul>
-<li>CGI 协议与 FastCGI 协议</li>
-</ul>
-<p>每种动态语言（ PHP,Python 等）的代码文件需要通过对应的解析器才能被服务器识别，而 CGI 协议就是用来使解释器与服务器可以互相通信。PHP 文件在服务器上的解析需要用到 PHP 解释器，再加上对应的 CGI 协议，从而使服务器可以解析到 PHP 文件。</p>
+        <h2 id="PHP-FPM-介绍"><a href="#PHP-FPM-介绍" class="headerlink" title="PHP-FPM 介绍"></a>PHP-FPM 介绍</h2><h3 id="CGI-协议与-FastCGI-协议"><a href="#CGI-协议与-FastCGI-协议" class="headerlink" title="CGI 协议与 FastCGI 协议"></a>CGI 协议与 FastCGI 协议</h3><p>每种动态语言（ PHP,Python 等）的代码文件需要通过对应的解析器才能被服务器识别，而 CGI 协议就是用来使解释器与服务器可以互相通信。PHP 文件在服务器上的解析需要用到 PHP 解释器，再加上对应的 CGI 协议，从而使服务器可以解析到 PHP 文件。</p>
 <p>由于 CGI 的机制是每处理一个请求需要 fork 一个 CGI 进程，请求结束再kill掉这个进程，在实际应用上比较浪费资源，于是就出现了CGI 的改良版本 FastCGI，FastCGI 在请求处理完后，不会 kill 掉进程，而是继续处理多个请求，这样就大大提高了效率。</p>
-<ul>
-<li>PHP-FPM 是什么</li>
-</ul>
-<p>PHP-FPM 即 PHP-FastCGI Process Manager， 它是 FastCGI 的实现，并提供了进程管理的功能。进程包含 master 进程和 worker 进程两种；master 进程只有一个，负责监听端口，接收来自服务器的请求，而 worker 进程则一般有多个（具体数量根据实际需要进行配置），每个进程内部都会嵌入一个 PHP 解释器，是代码真正执行的地方。</p>
+<h3 id="PHP-FPM-是什么"><a href="#PHP-FPM-是什么" class="headerlink" title="PHP-FPM 是什么"></a>PHP-FPM 是什么</h3><p>PHP-FPM 即 PHP-FastCGI Process Manager， 它是 FastCGI 的实现，并提供了进程管理的功能。进程包含 master 进程和 worker 进程两种；master 进程只有一个，负责监听端口，接收来自服务器的请求，而 worker 进程则一般有多个（具体数量根据实际需要进行配置），每个进程内部都会嵌入一个 PHP 解释器，是代码真正执行的地方。</p>
         
       
 
