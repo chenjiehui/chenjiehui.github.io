@@ -165,6 +165,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-depth-nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/18/depth-nginx/">深入 Nginx 之架构篇</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/18/depth-nginx/" class="archive-article-date">
+  	<time datetime="2019-01-17T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在读 Nginx 相关的书籍，做一下读书笔记。</p>
+<p>Nginx 作为业界知名的高性能服务器，被广泛的应用。它的高性能正是由于其优秀的架构设计，其架构主要包括这几点：模块化设计、事件驱动架构、请求的多阶段异步处理、管理进程与多工作进程设计、内存池的设计，以下内容依次进行说明。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">架构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/18/depth-nginx/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-php-fpm and nginx " class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -915,88 +993,6 @@
 
 
   
-    <article id="post-clean-code-php-function" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/01/clean-code-php-function/">PHP代码简洁之道——函数部分</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/01/clean-code-php-function/" class="archive-article-date">
-  	<time datetime="2017-09-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="函数参数不要超过两个"><a href="#函数参数不要超过两个" class="headerlink" title="函数参数不要超过两个"></a>函数参数不要超过两个</h2><p>限制函数的参数数量是非常重要的，因为它使你的函数更容易测试。超过三个参数会导致参数之间的组合过多，你必须对每个单独的参数测试大量不同的情况。</p>
-<p>没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。</p>
-<p>Bad:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMenu</span><span class="params">($title, $body, $buttonText, $cancellable)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Good：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MenuConfig</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="keyword">public</span> $title;</div><div class="line">    <span class="keyword">public</span> $body;</div><div class="line">    <span class="keyword">public</span> $buttonText;</div><div class="line">    <span class="keyword">public</span> $cancellable = <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$config = <span class="keyword">new</span> MenuConfig();</div><div class="line">$config-&gt;title = <span class="string">'Foo'</span>;</div><div class="line">$config-&gt;body = <span class="string">'Bar'</span>;</div><div class="line">$config-&gt;buttonText = <span class="string">'Baz'</span>;</div><div class="line">$config-&gt;cancellable = <span class="keyword">true</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMenu</span><span class="params">(MenuConfig $config)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码简洁</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/01/clean-code-php-function/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1158,6 +1154,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">PHP-FPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">架构</a>
               </li>
             
             <div class="clearfix"></div>

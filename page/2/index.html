@@ -165,6 +165,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-clean-code-php-function" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/01/clean-code-php-function/">PHP代码简洁之道——函数部分</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/01/clean-code-php-function/" class="archive-article-date">
+  	<time datetime="2017-09-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="函数参数不要超过两个"><a href="#函数参数不要超过两个" class="headerlink" title="函数参数不要超过两个"></a>函数参数不要超过两个</h2><p>限制函数的参数数量是非常重要的，因为它使你的函数更容易测试。超过三个参数会导致参数之间的组合过多，你必须对每个单独的参数测试大量不同的情况。</p>
+<p>没有参数是最理想的情况，一个或两个参数是可以接受的，三个以上则是应该避免的。这很重要。如果你有两个以上的参数，那么你的函数可能试图做的太多，如果不是，你可能需要将一个高级别的对象传当做参数传进去。</p>
+<p>Bad:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMenu</span><span class="params">($title, $body, $buttonText, $cancellable)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Good：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MenuConfig</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="keyword">public</span> $title;</div><div class="line">    <span class="keyword">public</span> $body;</div><div class="line">    <span class="keyword">public</span> $buttonText;</div><div class="line">    <span class="keyword">public</span> $cancellable = <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$config = <span class="keyword">new</span> MenuConfig();</div><div class="line">$config-&gt;title = <span class="string">'Foo'</span>;</div><div class="line">$config-&gt;body = <span class="string">'Bar'</span>;</div><div class="line">$config-&gt;buttonText = <span class="string">'Baz'</span>;</div><div class="line">$config-&gt;cancellable = <span class="keyword">true</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMenu</span><span class="params">(MenuConfig $config)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码简洁</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/01/clean-code-php-function/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-clean-code-php" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -893,83 +975,6 @@
 
 
   
-    <article id="post-about-exists" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/08/about-exists/">数据库查询中的exists与in分析比较</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/08/about-exists/" class="archive-article-date">
-  	<time datetime="2017-06-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在用<strong>Laravel</strong>的ORM写数据库查询时，用到了<code>whereHas</code>的写法，这个写法的背后实现的SQL语句就是select * from `table1` where exists(select * from `table2` where table1.id = table2.table1_id),于是就查清楚了一下<code>exists</code>的用法和特点，在这里记录一下。<br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/08/about-exists/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1131,6 +1136,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">PHP-FPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">架构</a>
               </li>
             
             <div class="clearfix"></div>
