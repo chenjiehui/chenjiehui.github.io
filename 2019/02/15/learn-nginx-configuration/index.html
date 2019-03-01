@@ -6,14 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>Tag: API | 陈杰辉写字的地方</title>
+  <title>深入 Nginx 之配置篇 | 陈杰辉写字的地方</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="陈杰辉写字的地方">
-<meta property="og:url" content="http://www.tenpercent.top/tags/API/index.html">
+  <meta name="description" content="常用配置项在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。
+首先，nginx.conf 的内容通常是这样的：
+12345678910111213141516171819202122232425262728293031323334...              ... 	       #核心摸块events &amp;#123;        #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入 Nginx 之配置篇">
+<meta property="og:url" content="http://www.tenpercent.top/2019/02/15/learn-nginx-configuration/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:description" content="常用配置项在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。
+首先，nginx.conf 的内容通常是这样的：
+12345678910111213141516171819202122232425262728293031323334...              ... 	       #核心摸块events &amp;#123;        #">
+<meta property="og:updated_time" content="2019-03-01T10:27:14.273Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陈杰辉写字的地方">
+<meta name="twitter:title" content="深入 Nginx 之配置篇">
+<meta name="twitter:description" content="常用配置项在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。
+首先，nginx.conf 的内容通常是这样的：
+12345678910111213141516171819202122232425262728293031323334...              ... 	       #核心摸块events &amp;#123;        #">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -163,75 +173,162 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-learn-nginx-configuration" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/RESTful/" class="archive-article-date">
-  	<time datetime="2017-12-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/RESTful/">关于 RESTful API 设计的总结</a>
+    <h1 class="article-title" itemprop="name">
+      深入 Nginx 之配置篇
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/02/15/learn-nginx-configuration/" class="archive-article-date">
+  	<time datetime="2019-02-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="常用配置项"><a href="#常用配置项" class="headerlink" title="常用配置项"></a>常用配置项</h2><p>在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。</p>
+<p>首先，nginx.conf 的内容通常是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">...              </div><div class="line">... 	       #核心摸块</div><div class="line"></div><div class="line">events &#123;        #事件模块</div><div class="line"> </div><div class="line">   ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;     # http 模块</div><div class="line"></div><div class="line">    server &#123;      # server块</div><div class="line">     </div><div class="line">        location [PATTERN] &#123;  # location块</div><div class="line">        </div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">        location [PATTERN] &#123;</div><div class="line">        </div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    server &#123;</div><div class="line">      ...</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">mail &#123;     # mail 模块</div><div class="line">	 </div><div class="line">	 server &#123;    # server块</div><div class="line">	      ...</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>我们依次看一下每个模块一般有哪些配置项：</p>
+<h3 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">user admin; #配置用户或者组。</div><div class="line"></div><div class="line">worker_processes 4; #允许生成的进程数，默认为1 </div><div class="line"></div><div class="line">pid /nginx/pid/nginx.pid; #指定 nginx 进程运行文件存放地址 </div><div class="line"></div><div class="line">error_log log/error.log debug; #错误日志路径，级别。</div></pre></td></tr></table></figure>
+<h3 id="事件模块"><a href="#事件模块" class="headerlink" title="事件模块"></a>事件模块</h3><p>配置项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">events &#123; </div><div class="line">	accept_mutex on; #设置网路连接序列化，防止惊群现象发生，默认为on </div><div class="line">	</div><div class="line">	multi_accept on; #设置一个进程是否同时接受多个网络连接，默认为off </div><div class="line">	</div><div class="line">	use epoll; #事件驱动模型select|poll|kqueue|epoll|resig</div><div class="line">	</div><div class="line">	worker_connections 1024; #最大连接数，默认为512</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="http-模块"><a href="#http-模块" class="headerlink" title="http 模块"></a>http 模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">http &#123;</div><div class="line">    include       mime.types;   #文件扩展名与文件类型映射表</div><div class="line">    </div><div class="line">    default_type  application/octet-stream; #默认文件类型，默认为text/plain</div><div class="line">    </div><div class="line">    access_log off; #取消服务日志    </div><div class="line"></div><div class="line">    sendfile on;   #允许 sendfile 方式传输文件，默认为off，可以在http块，server块，location块。</div><div class="line">    </div><div class="line">    sendfile_max_chunk 100k;  #每个进程每次调用传输数量不能大于设定的值，默认为0，即不设上限。</div><div class="line">    </div><div class="line">    keepalive_timeout 65;  #连接超时时间，默认为75s，可以在http，server，location块。</div><div class="line"></div><div class="line">    server </div><div class="line">    &#123;</div><div class="line">		    keepalive_requests 120; #单连接请求上限次数。</div><div class="line">		    </div><div class="line">		    listen 80; #监听端口</div><div class="line">		    </div><div class="line">		    server_name  127.0.0.1;   #监听地址      </div><div class="line">		    </div><div class="line">		    index index.html index.htm index.php;</div><div class="line">		    </div><div class="line">		    root your_path;  #根目录</div><div class="line">		  </div><div class="line">			location ~ \.php$</div><div class="line">			&#123;</div><div class="line">				  fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;</div><div class="line">				  </div><div class="line">				  #fastcgi_pass 127.0.0.1:9000;</div><div class="line">				  </div><div class="line">				  fastcgi_index index.php;</div><div class="line">				  </div><div class="line">				  include fastcgi_params;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="配置项解析"><a href="#配置项解析" class="headerlink" title="配置项解析"></a>配置项解析</h2><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>http 配置里有 location 这一项，它是用来根据请求中的 uri 来为其匹配相应的处理规则。</p>
+<h3 id="location-查找规则"><a href="#location-查找规则" class="headerlink" title="location 查找规则"></a>location 查找规则</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">location  = / &#123;</div><div class="line">  # 精确匹配 / ，主机名后面不能带任何字符串</div><div class="line">  [ config A ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location  / &#123;</div><div class="line">  # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求</div><div class="line">  # 但是正则和最长字符串会优先匹配</div><div class="line">  [ config B ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location /documents/ &#123;</div><div class="line">  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索</div><div class="line">  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</div><div class="line">  [ config C ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ~ /documents/Abc &#123;</div><div class="line">  # 匹配任何以 /documents/Abc 开头的地址，匹配符合以后，还要继续往下搜索</div><div class="line">  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</div><div class="line">  [ config CC ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ^~ /images/ &#123;</div><div class="line">  # 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。</div><div class="line">  [ config D ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ~* \.(gif|jpg|jpeg)$ &#123;</div><div class="line">  # 匹配所有以 gif,jpg或jpeg 结尾的请求</div><div class="line">  # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则</div><div class="line">  [ config E ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location /images/ &#123;</div><div class="line">  # 字符匹配到 /images/，继续往下，会发现 ^~ 存在</div><div class="line">  [ config F ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location /images/abc &#123;</div><div class="line">  # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在</div><div class="line">  # F与G的放置顺序是没有关系的</div><div class="line">  [ config G ]</div><div class="line">&#125;</div><div class="line"></div><div class="line">location ~ /images/abc/ &#123;</div><div class="line">  # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用</div><div class="line">    [ config H ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正则查找优先级从高到低依次如下：</p>
+<p>“ = ” 开头表示精确匹配，如 A 中只匹配根目录结尾的请求，后面不能带任何字符串。</p>
+<p>“ ^~ ” 开头表示uri以某个常规字符串开头，不是正则匹配</p>
+<p>“ ~ ” 开头表示区分大小写的正则匹配;</p>
+<p>“ ~* ”开头表示不区分大小写的正则匹配</p>
+<p>“ / ” 通用匹配, 如果没有其它匹配,任何请求都会匹配到</p>
+<h3 id="负载均衡配置"><a href="#负载均衡配置" class="headerlink" title="负载均衡配置"></a>负载均衡配置</h3><p>Nginx 的负载均衡需要用到 upstream 模块，可通过以下配置来实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">upstream test-upstream &#123;</div><div class="line">    ip_hash; # 使用 ip_hash 算法分配</div><div class="line"> </div><div class="line">    server 192.168.1.1; # 要分配的 ip</div><div class="line">    server 192.168.1.2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line"></div><div class="line">	location / &#123;	   </div><div class="line">	    proxy_pass http://test-upstream;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的例子定义了一个 test-upstream 的负载均衡配置，通过 proxy_pass 反向代理指令将请求转发给该模块进行分配处理。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">API</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RESTful</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">配置</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/总结/" class="article-tag-list-link color3">总结</a>
+        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2019/02/15/learn-nginx-configuration/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/01/18/depth-nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入 Nginx 之架构篇</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -253,9 +350,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
