@@ -18,7 +18,7 @@
 <meta property="og:description" content="常用配置项在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。
 首先，nginx.conf 的内容通常是这样的：
 12345678910111213141516171819202122232425262728293031323334...              ... 	       #核心摸块events &amp;#123;        #">
-<meta property="og:updated_time" content="2019-03-01T10:31:24.420Z">
+<meta property="og:updated_time" content="2019-03-01T10:31:40.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Nginx 之配置篇">
 <meta name="twitter:description" content="常用配置项在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。
@@ -220,6 +220,16 @@
 </li>
 <li><p>accept_mutex  off</p>
 <p>关闭网络连接序列化，当其设置为开启的时候，将会对多个 Nginx 进程接受连接进行序列化，防止多个进程对连接的争抢。当服务器连接数不多时，开启这个参数会让负载有一定程度的降低。但是当服务器的吞吐量很大时，为了效率，请关闭这个参数；并且关闭这个参数的时候也可以让请求在多个 worker 间的分配更均衡。所以我们设置 accept_mutex off;</p>
+</li>
+<li><p>multi_accept  on </p>
+<p>设置一个进程可同时接受多个网络连接</p>
+</li>
+<li><p>Sendfile on</p>
+<p>Sendfile是 Linux2.0 以后的推出的一个系统调用,它能简化网络传输过程中的步骤，提高服务器性能。<br>不用 sendfile的传统网络传输过程：硬盘 &gt;&gt; kernel buffer &gt;&gt; user buffer &gt;&gt; kernel socket buffer &gt;&gt; 协议栈</p>
+<p>用 sendfile()来进行网络传输的过程：<br>硬盘 &gt;&gt; kernel buffer (快速拷贝到 kernelsocket buffer) &gt;&gt; 协议栈</p>
+</li>
+<li><p>tcp_nopush on;</p>
+<p>设置数据包会累积一下再一起传输，可以提高一些传输效率。 tcp_nopush 必须和 sendfile 搭配使用。</p>
 </li>
 </ul>
 <p>常用的配置项大致这些，对于不同的业务场景，有的需要额外的其他配置项，这里不做展开。</p>
