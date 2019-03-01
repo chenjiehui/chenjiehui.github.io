@@ -18,7 +18,7 @@
 <meta property="og:description" content="常用配置项在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。
 首先，nginx.conf 的内容通常是这样的：
 12345678910111213141516171819202122232425262728293031323334...              ... 	       #核心摸块events &amp;#123;        #">
-<meta property="og:updated_time" content="2019-03-01T10:31:40.587Z">
+<meta property="og:updated_time" content="2019-03-01T10:32:50.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Nginx 之配置篇">
 <meta name="twitter:description" content="常用配置项在工作中，我们与 Nginx 打交道更多的是通过其配置文件来进行。那么掌握这些配置项各自的作用就很有必要了。
@@ -228,8 +228,16 @@
 <p>Sendfile是 Linux2.0 以后的推出的一个系统调用,它能简化网络传输过程中的步骤，提高服务器性能。<br>不用 sendfile的传统网络传输过程：硬盘 &gt;&gt; kernel buffer &gt;&gt; user buffer &gt;&gt; kernel socket buffer &gt;&gt; 协议栈</p>
 <p>用 sendfile()来进行网络传输的过程：<br>硬盘 &gt;&gt; kernel buffer (快速拷贝到 kernelsocket buffer) &gt;&gt; 协议栈</p>
 </li>
-<li><p>tcp_nopush on;</p>
-<p>设置数据包会累积一下再一起传输，可以提高一些传输效率。 tcp_nopush 必须和 sendfile 搭配使用。</p>
+</ul>
+<ul>
+<li><p>send_timeout</p>
+<p>设置 Nginx 服务器响应客户端的超时时间，这个超时时间只针对两个客户端和服务器建立连接后，某次活动之间的时间，如果这个时间后，客户端没有任何活动，Nginx服务器将关闭连接</p>
+</li>
+<li><p>gzip on</p>
+<p>启用 gzip，对响应数据进行在线实时压缩,减少数据传输量。</p>
+</li>
+<li><p>gzip_disable “msie6”</p>
+<p>Nginx服务器在响应这些种类的客户端请求时，不使用 Gzip 功能缓存应用数据，gzip_disable “msie6”对IE6浏览器的数据不进行 GZIP 压缩。</p>
 </li>
 </ul>
 <p>常用的配置项大致这些，对于不同的业务场景，有的需要额外的其他配置项，这里不做展开。</p>
