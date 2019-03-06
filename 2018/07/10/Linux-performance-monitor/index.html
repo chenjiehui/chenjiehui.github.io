@@ -34,13 +34,13 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等
 
 磁盘I">
-<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20180725153253005740341.png">
-<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/2018072515325286132815.png">
-<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20180725153253123443993.png">
-<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20180726153257950431065.png">
-<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20180726153257961321989.png">
-<meta property="og:image" content="http://on2b18ek3.bkt.clouddn.com/20180726153257975922020.png">
-<meta property="og:updated_time" content="2018-07-26T15:34:11.388Z">
+<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253005740341.png">
+<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/2018072515325286132815.png">
+<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253123443993.png">
+<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180726153257950431065.png">
+<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180726153257961321989.png">
+<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180726153257975922020.png">
+<meta property="og:updated_time" content="2019-03-06T06:46:54.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 性能监控工具">
 <meta name="twitter:description" content="最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，以后遇到相关使用场景的时候，方便查看。
@@ -54,7 +54,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等
 
 磁盘I">
-<meta name="twitter:image" content="http://on2b18ek3.bkt.clouddn.com/20180725153253005740341.png">
+<meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253005740341.png">
   
     <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
   
@@ -299,7 +299,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 </table>
 <p>这里介绍其中几个。</p>
 <h3 id="top-工具"><a href="#top-工具" class="headerlink" title="top 工具"></a>top 工具</h3><p>top是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20180725153253005740341.png" alt="20180725153253005740341.png"> </p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253005740341.png" alt="20180725153253005740341.png"> </p>
 <p>PID：进程的ID </p>
 <p>USER：进程所有者 </p>
 <p>PR：进程的优先级别，越小越优先被执行 </p>
@@ -313,7 +313,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 <p>TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。 </p>
 <p>COMMAND：进程启动命令名称</p>
 <h3 id="vmstat-工具"><a href="#vmstat-工具" class="headerlink" title="vmstat 工具"></a>vmstat 工具</h3><p>vmstat 是个查看系统整体性能的小工具，小巧，即使在机器负载很高的情况下也运行良好，并且可以用时间间隔采集得到连续的性能数据。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/2018072515325286132815.png" alt="2018072515325286132815.png"></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/2018072515325286132815.png" alt="2018072515325286132815.png"></p>
 <p>参数介绍：</p>
 <ul>
 <li>r，可运行队列的线程数，这些线程都是可运行状态，只不过 CPU 暂时不可用</li>
@@ -343,7 +343,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 <li>run queue(r) 在 14 个线程以上，而这个机器的硬件配置 (4 核），应该保持在 12 以内。</li>
 </ol>
 <h3 id="iostat-工具"><a href="#iostat-工具" class="headerlink" title="iostat 工具"></a>iostat 工具</h3><p>iostat是I/O statistics（输入/输出统计）的缩写，iostat工具将对系统的磁盘操作活动进行监视。它的特点是汇报磁盘活动统计情况，同时也会汇报出CPU使用情况。iostat属于sysstat软件包。可以用yum install sysstat 直接安装。</p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20180725153253123443993.png" alt="20180725153253123443993.png"></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253123443993.png" alt="20180725153253123443993.png"></p>
 <p>cpu属性值说明：</p>
 <p>%user：CPU处在用户模式下的时间百分比。</p>
 <p>%nice：CPU处在带NICE值的用户模式下的时间百分比。</p>
@@ -378,7 +378,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 <li>查看 cpu使用率</li>
 </ul>
 <p><strong>sar -u</strong></p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20180726153257950431065.png" alt="20180726153257950431065.png"></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180726153257950431065.png" alt="20180726153257950431065.png"></p>
 <p>%user 用户模式下消耗的CPU时间的比例；</p>
 <p>%nice 通过nice改变了进程调度优先级的进程，在用户模式下消耗的CPU时间的比例</p>
 <p>%system 系统模式下消耗的CPU时间的比例；</p>
@@ -387,7 +387,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 <p>%idle CPU空闲时间比例；</p>
 <p><strong>查看平均负载</strong></p>
 <p><strong>sar -q</strong></p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20180726153257961321989.png" alt="20180726153257961321989.png"></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180726153257961321989.png" alt="20180726153257961321989.png"></p>
 <p>runq-sz：运行队列的长度（等待运行的进程数）</p>
 <p>plist-sz：进程列表中进程（processes）和线程（threads）的数量</p>
 <p>ldavg-1：最后1分钟的系统平均负载</p>
@@ -395,7 +395,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 <p>ldavg-15：过去15分钟的系统平均负载</p>
 <p><strong>查看内存使用状况</strong></p>
 <p><strong>sar -r</strong></p>
-<p><img src="http://on2b18ek3.bkt.clouddn.com/20180726153257975922020.png" alt="20180726153257975922020.png"></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180726153257975922020.png" alt="20180726153257975922020.png"></p>
 <p>kbmemfree：这个值和free命令中的free值基本一致,所以它不包括buffer和cache的空间.</p>
 <p>kbmemused：这个值和free命令中的used值基本一致,所以它包括buffer和cache的空间.</p>
 <p>%memused：物理内存使用率，这个值是kbmemused和内存总量(不包括swap)的一个百分比.</p>
