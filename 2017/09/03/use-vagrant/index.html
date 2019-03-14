@@ -87,6 +87,8 @@ Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟
     			
             
     			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">true</a>
+    			
             
 		</nav>
 		<nav class="header-nav">
@@ -467,6 +469,8 @@ Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟
       
     
       
+      
+      
     
     
 
@@ -474,9 +478,11 @@ Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟
     
     
       
-      <li style="width: 100%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索文章</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索文章</a></li>
       
         
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">true</a></li>
       
         
     </ul>
@@ -623,6 +629,10 @@ Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟
     	</section>
     
 
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+    	</section>
     
 
     

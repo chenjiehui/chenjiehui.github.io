@@ -12,7 +12,7 @@
 <meta property="og:title" content="关于我">
 <meta property="og:url" content="http://www.tenpercent.top/2017/06/26/about-me/index.html">
 <meta property="og:site_name" content="陈杰辉写字的地方">
-<meta property="og:updated_time" content="2019-03-14T06:58:55.010Z">
+<meta property="og:updated_time" content="2019-03-14T07:03:43.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于我">
   
@@ -73,6 +73,8 @@
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">搜索文章</a>
     			
             
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">true</a>
     			
             
 		</nav>
@@ -221,17 +223,6 @@
       
       
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/关于我/" class="article-tag-list-link color4">关于我</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -370,6 +361,8 @@
       
     
       
+      
+      
     
     
 
@@ -377,9 +370,11 @@
     
     
       
-      <li style="width: 100%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索文章</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索文章</a></li>
       
         
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">true</a></li>
       
         
     </ul>
@@ -526,6 +521,10 @@
     	</section>
     
 
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+    	</section>
     
 
     
