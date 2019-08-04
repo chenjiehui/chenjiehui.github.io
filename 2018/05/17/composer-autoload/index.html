@@ -6,14 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>深入解析 composer 的自动加载原理 | 陈杰辉写字的地方</title>
+  <title>深入解析 composer 的自动加载原理 | 刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
 掌握 compo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入解析 composer 的自动加载原理">
 <meta property="og:url" content="http://www.tenpercent.top/2018/05/17/composer-autoload/index.html">
-<meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:site_name" content="刻意练习，每日精进">
 <meta property="og:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
 掌握 compo">
 <meta property="og:updated_time" content="2018-05-18T06:49:15.389Z">
@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
 掌握 compo">
   
-    <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
   
   
     <link rel="icon" href="/img/100.png">
@@ -55,7 +55,7 @@
 		  <h1 class="header-author"><a href="/">Jeffrey</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">临渊羡鱼，退而结网</p>
+		<p class="header-subtitle">但行好事，莫问前程</p>
 		
 
 		<nav class="header-menu">
@@ -117,7 +117,7 @@
 			  <h1 class="header-author js-header-author">Jeffrey</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>临渊羡鱼，退而结网<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>但行好事，莫问前程<i class="icon icon-quo-right"></i></p>
 			
 			
 			

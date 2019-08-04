@@ -6,14 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>深入 Nginx 之架构篇 | 陈杰辉写字的地方</title>
+  <title>深入 Nginx 之架构篇 | 刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言最近在读 Nginx 相关的书籍，做一下读书笔记。
 Nginx 作为业界知名的高性能服务器，被广泛的应用。它的高性能正是由于其优秀的架构设计，其架构主要包括这几点：模块化设计、事件驱动架构、请求的多阶段异步处理、管理进程与多工作进程设计、内存池的设计，以下内容依次进行说明。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Nginx 之架构篇">
 <meta property="og:url" content="http://www.tenpercent.top/2019/01/18/depth-nginx/index.html">
-<meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:site_name" content="刻意练习，每日精进">
 <meta property="og:description" content="前言最近在读 Nginx 相关的书籍，做一下读书笔记。
 Nginx 作为业界知名的高性能服务器，被广泛的应用。它的高性能正是由于其优秀的架构设计，其架构主要包括这几点：模块化设计、事件驱动架构、请求的多阶段异步处理、管理进程与多工作进程设计、内存池的设计，以下内容依次进行说明。">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190220142626.png">
@@ -29,7 +29,7 @@ Nginx 作为业界知名的高性能服务器，被广泛的应用。它的高�
 Nginx 作为业界知名的高性能服务器，被广泛的应用。它的高性能正是由于其优秀的架构设计，其架构主要包括这几点：模块化设计、事件驱动架构、请求的多阶段异步处理、管理进程与多工作进程设计、内存池的设计，以下内容依次进行说明。">
 <meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190220142626.png">
   
-    <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
   
   
     <link rel="icon" href="/img/100.png">
@@ -62,7 +62,7 @@ Nginx 作为业界知名的高性能服务器，被广泛的应用。它的高�
 		  <h1 class="header-author"><a href="/">Jeffrey</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">临渊羡鱼，退而结网</p>
+		<p class="header-subtitle">但行好事，莫问前程</p>
 		
 
 		<nav class="header-menu">
@@ -124,7 +124,7 @@ Nginx 作为业界知名的高性能服务器，被广泛的应用。它的高�
 			  <h1 class="header-author js-header-author">Jeffrey</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>临渊羡鱼，退而结网<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>但行好事，莫问前程<i class="icon icon-quo-right"></i></p>
 			
 			
 			

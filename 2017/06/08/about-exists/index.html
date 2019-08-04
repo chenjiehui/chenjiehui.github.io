@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>数据库查询中的exists与in分析比较 | 陈杰辉写字的地方</title>
+  <title>数据库查询中的exists与in分析比较 | 刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近在用Laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select * from `table1` where exists(select * from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库查询中的exists与in分析比较">
 <meta property="og:url" content="http://www.tenpercent.top/2017/06/08/about-exists/index.html">
-<meta property="og:site_name" content="陈杰辉写字的地方">
+<meta property="og:site_name" content="刻意练习，每日精进">
 <meta property="og:description" content="最近在用Laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select * from `table1` where exists(select * from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170626149840899878645.jpg">
 <meta property="og:updated_time" content="2019-03-06T06:44:55.151Z">
@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="最近在用Laravel的ORM写数据库查询时，用到了whereHas的写法，这个写法的背后实现的SQL语句就是select * from `table1` where exists(select * from `table2` where table1.id = table2.table1_id),于是就查清楚了一下exists的用法和特点，在这里记录一下。">
 <meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170626149840899878645.jpg">
   
-    <link rel="alternative" href="/atom.xml" title="陈杰辉写字的地方" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
   
   
     <link rel="icon" href="/img/100.png">
@@ -54,7 +54,7 @@
 		  <h1 class="header-author"><a href="/">Jeffrey</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">临渊羡鱼，退而结网</p>
+		<p class="header-subtitle">但行好事，莫问前程</p>
 		
 
 		<nav class="header-menu">
@@ -116,7 +116,7 @@
 			  <h1 class="header-author js-header-author">Jeffrey</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>临渊羡鱼，退而结网<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>但行好事，莫问前程<i class="icon icon-quo-right"></i></p>
 			
 			
 			
