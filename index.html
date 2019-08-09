@@ -169,6 +169,100 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-PHP internal learning" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/09/PHP internal learning/">PHP7 底层学习笔记（一）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/09/PHP internal learning/" class="archive-article-date">
+  	<time datetime="2019-08-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="PHP7-代码执行过程"><a href="#PHP7-代码执行过程" class="headerlink" title="PHP7 代码执行过程"></a>PHP7 代码执行过程</h2><p>PHP 是解释型语言，其执行过程需先编译成中间代码，再经由特定的虚拟机，翻译成特定的指令被执行。其执行过程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PHP 代码 =&gt; Token =&gt; 抽象语法数 =&gt; Opcodes =&gt; 执行</div></pre></td></tr></table></figure>
+<ul>
+<li>源代码通过词法分析得到 Token </li>
+</ul>
+<p>Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 Token，在zend_language_parser.h 文件中做了定义。</p>
+<ul>
+<li>基于语法分析器将 Token 转换成抽象语法树（AST）</li>
+</ul>
+<p>Token 就是一个个的词块，但是单独的词块不能表达完整的语义，还需要借助一定的规则进行组织串联。所以就需要语法分析器根据语法匹配Token，将 Token 进行串联。语法分析器串联完 Token 后的产物就是抽象语法树（AST，Abstract Syntax Tree）。<br>AST 是 PHP7 版本的新特性，之前版本的 PHP 代码的执行过程中是没有生成 AST 这一步的。它的作用主要是实现了PHP编译器和解释器的解耦，提升了可维护性。</p>
+<ul>
+<li>将语法树转换成 Opcode</li>
+</ul>
+<p>需要将语法树转换成Opcode，才能被引擎直接执行。</p>
+<ul>
+<li>执行 Opcodes</li>
+</ul>
+<p>opcodes 是 opcode 的集合形式，是 PHP 执行过程中的中间代码。PHP工程优化措施中有一个比较常见的“开启 opcache”，指的技术这里将 opcodes 进行缓存。通过省去从源码到 opcode 的阶段，引擎直接执行缓存好的 opacode，以提升性能。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">底层</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/09/PHP internal learning/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-learn-nginx-configuration" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -903,91 +997,6 @@
 
 
   
-    <article id="post-clean-code-solid" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/14/clean-code-solid/">PHP代码简洁之道——SOLID原则</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/14/clean-code-solid/" class="archive-article-date">
-  	<time datetime="2017-10-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SOLID 是Michael Feathers推荐的便于记忆的首字母简写，它代表了Robert Martin命名的最重要的五个面对对象编码设计原则</p>
-<ul>
-<li>S: 单一职责原则 (SRP)</li>
-<li>O: 开闭原则 (OCP)</li>
-<li>L: 里氏替换原则 (LSP)</li>
-<li>I: 接口隔离原则 (ISP)</li>
-<li>D: 依赖反转原则 (DIP)</li>
-</ul>
-<h2 id="单一职责原则-Single-Responsibility-Principle-SRP"><a href="#单一职责原则-Single-Responsibility-Principle-SRP" class="headerlink" title="单一职责原则 Single Responsibility Principle (SRP)"></a>单一职责原则 Single Responsibility Principle (SRP)</h2><p>“修改一个类应该只为一个理由”。人们总是易于用一堆方法塞满一个类，如同我们在飞机上只能携带一个行李箱（把所有的东西都塞到箱子里）。这样做的问题是：从概念上这样的类不是高内聚的，并且留下了很多理由去修改它。将你需要修改类的次数降低到最小很重要。这是因为，当有很多方法在类中时，修改其中一处，你很难知晓在代码库中哪些依赖的模块会被影响到。<br>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码简洁</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/笔记/" class="article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/14/clean-code-solid/">阅读全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1156,6 +1165,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">配置</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">底层</a>
               </li>
             
             <div class="clearfix"></div>
