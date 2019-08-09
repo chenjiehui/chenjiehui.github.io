@@ -27,7 +27,7 @@ Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 T
 
 Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 Token">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190809195522.png">
-<meta property="og:updated_time" content="2019-08-09T12:29:59.831Z">
+<meta property="og:updated_time" content="2019-08-09T13:47:47.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP7 底层学习笔记（一）">
 <meta name="twitter:description" content="PHP7 代码执行过程PHP 是解释型语言，其执行过程需先编译成中间代码，再经由特定的虚拟机，翻译成特定的指令被执行。其执行过程如下：
@@ -232,6 +232,7 @@ Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 T
 <p>opcodes 是 opcode 的集合形式，是 PHP 执行过程中的中间代码。PHP工程优化措施中有一个比较常见的“开启 opcache”，指的技术这里将 opcodes 进行缓存。通过省去从源码到 opcode 的阶段，引擎直接执行缓存好的 opacode，以提升性能。</p>
 <a id="more"></a>
 <h2 id="PHP7-内核架构"><a href="#PHP7-内核架构" class="headerlink" title="PHP7 内核架构"></a>PHP7 内核架构</h2><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190809195522.png" alt=""></p>
+<p><em>要把这张图印在脑海里</em></p>
 <ul>
 <li>zend引擎</li>
 </ul>
