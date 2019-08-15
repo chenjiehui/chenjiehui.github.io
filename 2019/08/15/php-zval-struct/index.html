@@ -9,24 +9,24 @@
   <title>【深入 PHP】PHP7 的基本变量 | 刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="变量的基础结构我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。
-zval的实现在 zend_type.h 的源码文件中，可以看到 zval 的定义：
-1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zv">
+zval的实现在源码文件 zend_type.h 中，可以看到 zval 的定义：
+1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zva">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【深入 PHP】PHP7 的基本变量">
 <meta property="og:url" content="http://www.tenpercent.top/2019/08/15/php-zval-struct/index.html">
 <meta property="og:site_name" content="刻意练习，每日精进">
 <meta property="og:description" content="变量的基础结构我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。
-zval的实现在 zend_type.h 的源码文件中，可以看到 zval 的定义：
-1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zv">
+zval的实现在源码文件 zend_type.h 中，可以看到 zval 的定义：
+1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zva">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193819.png">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193906.png">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193952.png">
-<meta property="og:updated_time" content="2019-08-15T12:39:27.014Z">
+<meta property="og:updated_time" content="2019-08-15T13:12:46.650Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【深入 PHP】PHP7 的基本变量">
 <meta name="twitter:description" content="变量的基础结构我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。
-zval的实现在 zend_type.h 的源码文件中，可以看到 zval 的定义：
-1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zv">
+zval的实现在源码文件 zend_type.h 中，可以看到 zval 的定义：
+1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zva">
 <meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193819.png">
   
     <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
@@ -202,7 +202,7 @@ zval的实现在 zend_type.h 的源码文件中，可以看到 zval 的定义：
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="变量的基础结构"><a href="#变量的基础结构" class="headerlink" title="变量的基础结构"></a>变量的基础结构</h2><p>我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。</p>
-<h3 id="zval的实现"><a href="#zval的实现" class="headerlink" title="zval的实现"></a>zval的实现</h3><p>在 zend_type.h 的源码文件中，可以看到 zval 的定义：</p>
+<h3 id="zval的实现"><a href="#zval的实现" class="headerlink" title="zval的实现"></a>zval的实现</h3><p>在源码文件 zend_type.h 中，可以看到 zval 的定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _zval_struct     zval;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> _zval_struct &#123;</div><div class="line">	zend_value        value;			<span class="comment">/* value */</span></div><div class="line">	<span class="keyword">union</span> &#123;</div><div class="line">		<span class="keyword">struct</span> &#123;</div><div class="line">			ZEND_ENDIAN_LOHI_4(</div><div class="line">				zend_uchar    type,			<span class="comment">/* active type */</span></div><div class="line">				zend_uchar    type_flags,</div><div class="line">				zend_uchar    const_flags,</div><div class="line">				zend_uchar    reserved)	    <span class="comment">/* call info for EX(This) */</span></div><div class="line">		&#125; v;</div><div class="line">		<span class="keyword">uint32_t</span> type_info;</div><div class="line">	&#125; u1;</div><div class="line">	<span class="keyword">union</span> &#123;</div><div class="line">		<span class="keyword">uint32_t</span>     next;                 <span class="comment">/* hash collision chain */</span></div><div class="line">		<span class="keyword">uint32_t</span>     cache_slot;           <span class="comment">/* literal cache slot */</span></div><div class="line">		<span class="keyword">uint32_t</span>     lineno;               <span class="comment">/* line number (for ast nodes) */</span></div><div class="line">		<span class="keyword">uint32_t</span>     num_args;             <span class="comment">/* arguments number for EX(This) */</span></div><div class="line">		<span class="keyword">uint32_t</span>     fe_pos;               <span class="comment">/* foreach position */</span></div><div class="line">		<span class="keyword">uint32_t</span>     fe_iter_idx;          <span class="comment">/* foreach iterator index */</span></div><div class="line">		<span class="keyword">uint32_t</span>     access_flags;         <span class="comment">/* class constant access flags */</span></div><div class="line">		<span class="keyword">uint32_t</span>     property_guard;       <span class="comment">/* single property guard */</span></div><div class="line">		<span class="keyword">uint32_t</span>     extra;                <span class="comment">/* not further specified */</span></div><div class="line">	&#125; u2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>zval 的结构由一个保存变量类型的值或指针的 union 联合体 zend_value 以及两个 union 联合体 u1 和 u2 组成</p>
 <a id="more"></a>
