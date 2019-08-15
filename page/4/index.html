@@ -6,38 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>PHP7 底层学习笔记（一） | 刻意练习，每日精进</title>
+  <title>刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="PHP7 代码执行过程PHP 是解释型语言，其执行过程需先编译成中间代码，再经由特定的虚拟机，翻译成特定的指令被执行。其执行过程如下：
-1PHP 代码 =&amp;gt; Token =&amp;gt; 抽象语法树 =&amp;gt; Opcodes =&amp;gt; 执行
-各个步骤内容如下：
-
-源代码通过词法分析得到 Token 
-
-Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 Token">
-<meta property="og:type" content="article">
-<meta property="og:title" content="PHP7 底层学习笔记（一）">
-<meta property="og:url" content="http://www.tenpercent.top/2019/08/09/PHP-internal-learning/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="刻意练习，每日精进">
+<meta property="og:url" content="http://www.tenpercent.top/page/4/index.html">
 <meta property="og:site_name" content="刻意练习，每日精进">
-<meta property="og:description" content="PHP7 代码执行过程PHP 是解释型语言，其执行过程需先编译成中间代码，再经由特定的虚拟机，翻译成特定的指令被执行。其执行过程如下：
-1PHP 代码 =&amp;gt; Token =&amp;gt; 抽象语法树 =&amp;gt; Opcodes =&amp;gt; 执行
-各个步骤内容如下：
-
-源代码通过词法分析得到 Token 
-
-Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 Token">
-<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190809195522.png">
-<meta property="og:updated_time" content="2019-08-09T13:47:47.278Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP7 底层学习笔记（一）">
-<meta name="twitter:description" content="PHP7 代码执行过程PHP 是解释型语言，其执行过程需先编译成中间代码，再经由特定的虚拟机，翻译成特定的指令被执行。其执行过程如下：
-1PHP 代码 =&amp;gt; Token =&amp;gt; 抽象语法树 =&amp;gt; Opcodes =&amp;gt; 执行
-各个步骤内容如下：
-
-源代码通过词法分析得到 Token 
-
-Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 Token">
-<meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190809195522.png">
+<meta name="twitter:title" content="刻意练习，每日精进">
   
     <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
   
@@ -191,119 +167,37 @@ Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 T
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-PHP-internal-learning" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-operating-system-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      PHP7 底层学习笔记（一）
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/06/operating-system-01/">操作系统【1】——导论</a>
     </h1>
   
 
         
-        <a href="/2019/08/09/PHP-internal-learning/" class="archive-article-date">
-  	<time datetime="2019-08-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
+        <a href="/2017/03/06/operating-system-01/" class="archive-article-date">
+  	<time datetime="2017-03-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="PHP7-代码执行过程"><a href="#PHP7-代码执行过程" class="headerlink" title="PHP7 代码执行过程"></a>PHP7 代码执行过程</h2><p>PHP 是解释型语言，其执行过程需先编译成中间代码，再经由特定的虚拟机，翻译成特定的指令被执行。其执行过程如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PHP 代码 =&gt; Token =&gt; 抽象语法树 =&gt; Opcodes =&gt; 执行</div></pre></td></tr></table></figure>
-<p>各个步骤内容如下：</p>
+        <p>操作系统是管理计算机硬件的程序，它还为应用程序提供基础，并充当计算机硬件和计算机用户的中介。大型机的操作系统设计主要目的是为了充分优化硬件的使用率，个人计算机的操作系统是为了能够支持从复杂游戏到商业应用的各种事物，手持计算机的操作系统是为了给用户一个可以与计算机方便的交互并执行程序的环境。因此，有的操作系统设计是为了方便，有的是为了高效，而有的设计目标则是兼而有之。</p>
+<p><strong>本章目标</strong> </p>
 <ul>
-<li>源代码通过词法分析得到 Token </li>
+<li>提供对操作系统主要部件的浏览</li>
+<li>提供基本的计算机系统体系结构的概述</li>
 </ul>
-<p>Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 Token，在zend_language_parser.h 文件中做了定义。</p>
-<ul>
-<li>基于语法分析器将 Token 转换成抽象语法树（AST）</li>
-</ul>
-<p>Token 就是一个个的词块，但是单独的词块不能表达完整的语义，还需要借助一定的规则进行组织串联。所以就需要语法分析器根据语法匹配Token，将 Token 进行串联。语法分析器串联完 Token 后的产物就是抽象语法树（AST，Abstract Syntax Tree）。<br>AST 是 PHP7 版本的新特性，之前版本的 PHP 代码的执行过程中是没有生成 AST 这一步的。它的作用主要是实现了PHP编译器和解释器的解耦，提升了可维护性。</p>
-<ul>
-<li>将语法树转换成 Opcode</li>
-</ul>
-<p>需要将语法树转换成Opcode，才能被引擎直接执行。</p>
-<ul>
-<li>执行 Opcodes</li>
-</ul>
-<p>opcodes 是 opcode 的集合形式，是 PHP 执行过程中的中间代码。PHP工程优化措施中有一个比较常见的“开启 opcache”，指的技术这里将 opcodes 进行缓存。通过省去从源码到 opcode 的阶段，引擎直接执行缓存好的 opacode，以提升性能。</p>
-<a id="more"></a>
-<h2 id="PHP7-内核架构"><a href="#PHP7-内核架构" class="headerlink" title="PHP7 内核架构"></a>PHP7 内核架构</h2><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190809195522.png" alt=""></p>
-<p><em>要把这张图印在脑海里</em></p>
-<ul>
-<li>zend引擎</li>
-</ul>
-<p>词法/语法分析、AST编译和 opcodes 的执行均在 Zend 引擎中实现。此外，PHP的变量设计、内存管理、进程管理等也在引擎层实现。</p>
-<ul>
-<li>PHP层</li>
-</ul>
-<p>zend 引擎为 PHP 提供基础能力，而来自外部的交互则需要通过 PHP 层来处理。</p>
-<ul>
-<li>SAPI</li>
-</ul>
-<p>server API 的缩写，其中包含了场景的 cli SAPI 和 fpm SAPI。只要遵守定义好的 SAPI 协议，外部模块便可与PHP完成交互。</p>
-<ul>
-<li>扩展部分</li>
-</ul>
-<p>依据 zend 引擎提供的核心能力和接口规范，可以进行开发扩展。</p>
-<h2 id="PHP-7-源码结构"><a href="#PHP-7-源码结构" class="headerlink" title="PHP 7 源码结构"></a>PHP 7 源码结构</h2><p>php 7 的源码主要目录有：sapi 、Zend、main、ext 和 TSRM 这几个。</p>
-<ul>
-<li>sapi目录</li>
-</ul>
-<p>sapi目录是对输入和输出层的抽象，是PHP提供对外服务的规范。</p>
-<p>几种常用的 SAPI：</p>
-<p>1）apache2handler: Apache 扩展，编译后生成动态链接库，配置到Apache下。当有 http 请求到 Apache 时，根据配置会调用此动态链接库来执行PHP代码，完成与PHP的交互。</p>
-<p>2）cgi-fcgi: 编译后生成支持 CGI 协议的可执行程序，webserver（如NGINX）通过 CGI 协议把请求传给CGI进程，CGI 进程根据请求执行相应代码后将执行结果返回给 webserver。</p>
-<p>3）fpm-fcgi: fpm是 FastCGI 进程管理器。以 NGINX 服务器为例，当有请求发送到 NGINX 服务器，NGINX 按照 FastCGI 协议把请求交给 php-fpm 进程处理。</p>
-<p>4）cli: PHP的命令行交互接口</p>
-<ul>
-<li>Zend 目录</li>
-</ul>
-<p>Zend 目录是 PHP 的核心代码。PHP中的内存管理，垃圾回收、进程管理、变量、数组实现等均在该目录的源码里。</p>
-<ul>
-<li>main 目录</li>
-</ul>
-<p>main目录是SAPI层和Zend层的黏合剂。Zend 层实现了 PHP 脚本的编译和执行，sapi 层实现了输入和输出的抽象，main目录则在它们中间起着承上启下的作用。承上，解析 SAPI 的请求，分析要执行的脚本文件和参数；启下，调用 zend 引擎之前，完成必要的模块初始化等工作。</p>
-<ul>
-<li>ext目录</li>
-</ul>
-<p>ext 是 PHP 扩展相关的目录，常用的 array、str、pdo 等系列函数都在这里定义。</p>
-<ul>
-<li>TSRM </li>
-</ul>
-<p>TSRM（Thread Safe Resource Manager）——线程安全资源管理器， 是用来保证资源共享的安全。</p>
-
+        
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>赞赏，是很大的鼓励<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/zfb.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -314,11 +208,7 @@ Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 T
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">底层</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
         		</li>
       		
 		</ul>
@@ -338,83 +228,18 @@ Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 T
 
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/06/operating-system-01/">阅读全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2019/08/09/PHP-internal-learning/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-  
-<nav id="article-nav">
-  
-    <a href="/2019/08/15/php-zval-struct/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          【深入 PHP】PHP 的基本变量
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/02/15/learn-nginx-configuration/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">深入 Nginx 之配置篇</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
+
 
 
 
@@ -422,10 +247,11 @@ Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 T
 
 
   
-    <div class="duoshuo"></div>
   
-
-
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
+  
 
 
           </div>
@@ -449,8 +275,8 @@ Token 是 PHP 代码被切割成的有意义的标识。PHP7 一共有 137 种 T
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
