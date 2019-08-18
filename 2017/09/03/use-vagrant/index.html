@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
   <title>使用 Vagrant 并搭建 LNMP 环境 | 刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Vagrant介绍
-Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
-在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个V">
+  <meta name="description" content="Vagrant介绍 Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。 在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个V">
+<meta name="keywords" content="Linux,Vagrant,虚拟机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Vagrant 并搭建 LNMP 环境">
 <meta property="og:url" content="http://www.tenpercent.top/2017/09/03/use-vagrant/index.html">
 <meta property="og:site_name" content="刻意练习，每日精进">
-<meta property="og:description" content="Vagrant介绍
-Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
-在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个V">
+<meta property="og:description" content="Vagrant介绍 Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。 在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个V">
+<meta property="og:locale" content="default">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454262960769.png">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454225325210.jpg">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454221966157.jpg">
 <meta property="og:updated_time" content="2019-03-06T06:50:46.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Vagrant 并搭建 LNMP 环境">
-<meta name="twitter:description" content="Vagrant介绍
-Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。
-在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个V">
+<meta name="twitter:description" content="Vagrant介绍 Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。 在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个V">
 <meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454262960769.png">
   
     <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
@@ -46,7 +42,7 @@ Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>

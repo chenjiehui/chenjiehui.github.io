@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
   <title>深入解析 composer 的自动加载原理 | 刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
-掌握 compo">
+  <meta name="description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。 掌握 compo">
+<meta name="keywords" content="PHP,composer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入解析 composer 的自动加载原理">
 <meta property="og:url" content="http://www.tenpercent.top/2018/05/17/composer-autoload/index.html">
 <meta property="og:site_name" content="刻意练习，每日精进">
-<meta property="og:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
-掌握 compo">
+<meta property="og:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。 掌握 compo">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-05-18T06:49:15.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入解析 composer 的自动加载原理">
-<meta name="twitter:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。
-掌握 compo">
+<meta name="twitter:description" content="前言PHP 自5.3的版本之后，已经重焕新生，命名空间、性状（trait）、闭包、接口、PSR 规范、以及 composer 的出现已经让 PHP 变成了一门现代化的脚本语言。PHP 的生态系统也一直在演进，而 composer 的出现更是彻底的改变了以往构建 PHP 应用的方式，我们可以根据 PHP 的应用需求混合搭配最合适的 PHP 组件。当然这也得益于 PSR 规范的提出。 掌握 compo">
   
     <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
   
@@ -39,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>

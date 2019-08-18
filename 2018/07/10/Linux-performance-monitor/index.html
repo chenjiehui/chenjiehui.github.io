@@ -1,39 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
   <title>Linux 性能监控工具 | 刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，以后遇到相关使用场景的时候，方便查看。
-Linux 性能指标
-CPU
-
-CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）、系统时间（表示CPU花在内核操作上的时间百分比）、空闲时间、平均负载、阻塞、上下文切换、中断等
-
-内存
-
-空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等
-
-磁盘I">
+  <meta name="description" content="最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，以后遇到相关使用场景的时候，方便查看。 Linux 性能指标 CPU  CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）、系统时间（表示CPU花在内核操作上的时间百分比）、空闲时间、平均负载、阻塞、上下文切换、中断等  内存  空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等  磁盘I">
+<meta name="keywords" content="Linux,工具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 性能监控工具">
 <meta property="og:url" content="http://www.tenpercent.top/2018/07/10/Linux-performance-monitor/index.html">
 <meta property="og:site_name" content="刻意练习，每日精进">
-<meta property="og:description" content="最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，以后遇到相关使用场景的时候，方便查看。
-Linux 性能指标
-CPU
-
-CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）、系统时间（表示CPU花在内核操作上的时间百分比）、空闲时间、平均负载、阻塞、上下文切换、中断等
-
-内存
-
-空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等
-
-磁盘I">
+<meta property="og:description" content="最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，以后遇到相关使用场景的时候，方便查看。 Linux 性能指标 CPU  CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）、系统时间（表示CPU花在内核操作上的时间百分比）、空闲时间、平均负载、阻塞、上下文切换、中断等  内存  空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等  磁盘I">
+<meta property="og:locale" content="default">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253005740341.png">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/2018072515325286132815.png">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253123443993.png">
@@ -43,17 +25,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
 <meta property="og:updated_time" content="2019-03-06T06:46:54.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 性能监控工具">
-<meta name="twitter:description" content="最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，以后遇到相关使用场景的时候，方便查看。
-Linux 性能指标
-CPU
-
-CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）、系统时间（表示CPU花在内核操作上的时间百分比）、空闲时间、平均负载、阻塞、上下文切换、中断等
-
-内存
-
-空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等
-
-磁盘I">
+<meta name="twitter:description" content="最近了解了下 Linux 性能相关的东西，主要是如何查看服务器性能的一些工具，在这里做个记录，以后遇到相关使用场景的时候，方便查看。 Linux 性能指标 CPU  CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）、系统时间（表示CPU花在内核操作上的时间百分比）、空闲时间、平均负载、阻塞、上下文切换、中断等  内存  空闲内存、Swap利用率、缓冲和缓存、活动和非活动内存等  磁盘I">
 <meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20180725153253005740341.png">
   
     <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
@@ -73,7 +45,7 @@ CPU利用率、用户时间（表示CPU在用户进程上的时间百分比）�
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
