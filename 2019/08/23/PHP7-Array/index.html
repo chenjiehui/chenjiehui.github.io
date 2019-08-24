@@ -12,12 +12,12 @@
 <meta name="keywords" content="PHP,底层">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【深入 PHP】PHP7 数组的底层实现">
-<meta property="og:url" content="http://www.tenpercent.top/2019/08/24/PHP7-Array/index.html">
+<meta property="og:url" content="http://www.tenpercent.top/2019/08/23/PHP7-Array/index.html">
 <meta property="og:site_name" content="刻意练习，每日精进">
 <meta property="og:description" content="数组具有的特性PHP 的数组是一种非常强大灵活的数据类型，在讲它的底层实现之前，先看一下 PHP 的数组都具有哪些特性。  可以使用数字或字符串作为数组健值  12$arr = [1 =&amp;gt; &apos;ok&apos;, &apos;one&apos; =&amp;gt; &apos;hello&apos;];  可按顺序读取数组  1234foreach($arr as $key =&amp;gt; $value)&amp;#123;	echo $arr[$key];&amp;#">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190824170828.png">
-<meta property="og:updated_time" content="2019-08-24T13:26:33.860Z">
+<meta property="og:updated_time" content="2019-08-24T13:32:41.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【深入 PHP】PHP7 数组的底层实现">
 <meta name="twitter:description" content="数组具有的特性PHP 的数组是一种非常强大灵活的数据类型，在讲它的底层实现之前，先看一下 PHP 的数组都具有哪些特性。  可以使用数字或字符串作为数组健值  12$arr = [1 =&amp;gt; &apos;ok&apos;, &apos;one&apos; =&amp;gt; &apos;hello&apos;];  可按顺序读取数组  1234foreach($arr as $key =&amp;gt; $value)&amp;#123;	echo $arr[$key];&amp;#">
@@ -187,8 +187,8 @@
   
 
         
-        <a href="/2019/08/24/PHP7-Array/" class="archive-article-date">
-  	<time datetime="2019-08-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
+        <a href="/2019/08/23/PHP7-Array/" class="archive-article-date">
+  	<time datetime="2019-08-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
 </a>
         
       </header>
@@ -213,6 +213,7 @@
 </ul>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">$arr[] = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">array_push($arr, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
 <p>正是基于这些特性，我们可以使用 PHP 中的数组轻易的实现集合、栈、列表、字典等多种数据结构。那么这些特性在底层是如何实现的呢？ 这就得从数据结构说起了。 </p>
+<a id="more"></a>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><blockquote>
 <p>PHP 中的数组实际上是一个有序映射。映射是一种把 values 关联到 keys 的类型。</p>
 </blockquote>
@@ -245,7 +246,7 @@
 <h2 id="重建散列表"><a href="#重建散列表" class="headerlink" title="重建散列表"></a>重建散列表</h2><p>在删除某一个数组元素时，会先使用标志位对该元素进行逻辑删除，即在删除 value 时只是将 value 的 type 设置为 IS_UNDEF，而不会立即删除该元素所在的 Bucket，因为如果每次删除元素立刻删除 Bucket 的话，每次都需要进行排列操作，会造成不必要的性能开销。</p>
 <p>所以，当删除元素达到一定数量或扩容后都需要重建散列表，即移除被标记为删除的 value。因为 value 在 Bucket 位置移动了或哈希数组 nTableSize 变化了导致 key 与 value 的映射关系改变，重建过程就是遍历 Bucket 数组中的 value，然后重新计算映射值更新到散列表。</p>
 <hr>
-<p>关于 PHP7 的数组底层实现就总结这么些了，因为水平有限也无法研究的十分详尽清楚，如果有疑问或者指教欢迎提出~~</p>
+<p>关于 PHP7 的数组底层实现就总结这么些了，因为水平有限也无法研究的十分详尽清楚，如果有疑问或者不足之处欢迎提出~~</p>
 <p><em>参考资料</em></p>
 <p>《PHP7 的底层设计与源码实现》</p>
 <p><a href="https://github.com/pangudashu/php7-internal/blob/master/2/zend_ht.md" target="_blank" rel="noopener">php7-internal</a></p>
@@ -359,7 +360,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2019/08/24/PHP7-Array/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2019/08/23/PHP7-Array/" alt="微信分享二维码">
     </div>
 </div>
 
