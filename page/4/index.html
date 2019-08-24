@@ -6,24 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.tenpercent.top">
-  <title>【深入 PHP】PHP7 的基本变量 | 刻意练习，每日精进</title>
+  <title>刻意练习，每日精进</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="变量的基础结构我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。 zval的实现在源码文件 zend_type.h 中，可以看到 zval 的定义： 1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zva">
-<meta name="keywords" content="PHP,底层">
-<meta property="og:type" content="article">
-<meta property="og:title" content="【深入 PHP】PHP7 的基本变量">
-<meta property="og:url" content="http://www.tenpercent.top/2019/08/15/php-zval-struct/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="刻意练习，每日精进">
+<meta property="og:url" content="http://www.tenpercent.top/page/4/index.html">
 <meta property="og:site_name" content="刻意练习，每日精进">
-<meta property="og:description" content="变量的基础结构我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。 zval的实现在源码文件 zend_type.h 中，可以看到 zval 的定义： 1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zva">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193819.png">
-<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193906.png">
-<meta property="og:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193952.png">
-<meta property="og:updated_time" content="2019-08-15T13:12:46.650Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【深入 PHP】PHP7 的基本变量">
-<meta name="twitter:description" content="变量的基础结构我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。 zval的实现在源码文件 zend_type.h 中，可以看到 zval 的定义： 1234567891011121314151617181920212223242526typedef struct _zval_struct     zval;struct _zva">
-<meta name="twitter:image" content="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193819.png">
+<meta name="twitter:title" content="刻意练习，每日精进">
   
     <link rel="alternative" href="/atom.xml" title="刻意练习，每日精进" type="application/atom+xml">
   
@@ -177,116 +168,37 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-zval-struct" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-operating-system-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      【深入 PHP】PHP7 的基本变量
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/06/operating-system-01/">操作系统【1】——导论</a>
     </h1>
   
 
         
-        <a href="/2019/08/15/php-zval-struct/" class="archive-article-date">
-  	<time datetime="2019-08-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
+        <a href="/2017/03/06/operating-system-01/" class="archive-article-date">
+  	<time datetime="2017-03-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="变量的基础结构"><a href="#变量的基础结构" class="headerlink" title="变量的基础结构"></a>变量的基础结构</h2><p>我们都知道PHP的变量是弱类型的，声明的时候无需指定类型。那么这里面具体是怎么实现的呢？这就得从变量的基础结构说起了。</p>
-<h3 id="zval的实现"><a href="#zval的实现" class="headerlink" title="zval的实现"></a>zval的实现</h3><p>在源码文件 zend_type.h 中，可以看到 zval 的定义：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _zval_struct     zval;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> _zval_struct &#123;</div><div class="line">	zend_value        value;			<span class="comment">/* value */</span></div><div class="line">	<span class="keyword">union</span> &#123;</div><div class="line">		<span class="keyword">struct</span> &#123;</div><div class="line">			ZEND_ENDIAN_LOHI_4(</div><div class="line">				zend_uchar    type,			<span class="comment">/* active type */</span></div><div class="line">				zend_uchar    type_flags,</div><div class="line">				zend_uchar    const_flags,</div><div class="line">				zend_uchar    reserved)	    <span class="comment">/* call info for EX(This) */</span></div><div class="line">		&#125; v;</div><div class="line">		<span class="keyword">uint32_t</span> type_info;</div><div class="line">	&#125; u1;</div><div class="line">	<span class="keyword">union</span> &#123;</div><div class="line">		<span class="keyword">uint32_t</span>     next;                 <span class="comment">/* hash collision chain */</span></div><div class="line">		<span class="keyword">uint32_t</span>     cache_slot;           <span class="comment">/* literal cache slot */</span></div><div class="line">		<span class="keyword">uint32_t</span>     lineno;               <span class="comment">/* line number (for ast nodes) */</span></div><div class="line">		<span class="keyword">uint32_t</span>     num_args;             <span class="comment">/* arguments number for EX(This) */</span></div><div class="line">		<span class="keyword">uint32_t</span>     fe_pos;               <span class="comment">/* foreach position */</span></div><div class="line">		<span class="keyword">uint32_t</span>     fe_iter_idx;          <span class="comment">/* foreach iterator index */</span></div><div class="line">		<span class="keyword">uint32_t</span>     access_flags;         <span class="comment">/* class constant access flags */</span></div><div class="line">		<span class="keyword">uint32_t</span>     property_guard;       <span class="comment">/* single property guard */</span></div><div class="line">		<span class="keyword">uint32_t</span>     extra;                <span class="comment">/* not further specified */</span></div><div class="line">	&#125; u2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>zval 的结构由一个保存变量类型的值或指针的 union 联合体 zend_value 以及两个 union 联合体 u1 和 u2 组成</p>
-<a id="more"></a>
+        <p>操作系统是管理计算机硬件的程序，它还为应用程序提供基础，并充当计算机硬件和计算机用户的中介。大型机的操作系统设计主要目的是为了充分优化硬件的使用率，个人计算机的操作系统是为了能够支持从复杂游戏到商业应用的各种事物，手持计算机的操作系统是为了给用户一个可以与计算机方便的交互并执行程序的环境。因此，有的操作系统设计是为了方便，有的是为了高效，而有的设计目标则是兼而有之。</p>
+<p><strong>本章目标</strong> </p>
 <ul>
-<li>u1</li>
+<li>提供对操作系统主要部件的浏览</li>
+<li>提供基本的计算机系统体系结构的概述</li>
 </ul>
-<p>u1的作用是用来保存变量类型及其信息，其里面的字段用处如下：</p>
-<p>type：记录变量类型。  即可通过 u2.v.type 来访问到</p>
-<p>type_flags：对应变量特有类型的标记（如常量类型，需引用计数类型，不可变类型），不同类型的变量对应的 flag 不一样。</p>
-<p>const_flags：常量类型的标记</p>
-<p>reserved：保留字段</p>
-<ul>
-<li>u2</li>
-</ul>
-<p>u2 主要是辅助作用，由于结构体的内存对齐，所以 u2 的的这块空间有或者没有 u2 都是已经占据空间了，所以就利用起来。u2的辅助字段里面记录了很多类型信息，这些信息对内部功能有很大的好处，或提升缓存友好性或减少了内存寻址的操作。这里介绍其中部分字段。</p>
-<p>next：用来解决哈希冲突问题（哈希冲突这个目前还不懂），记录冲突的下一个元素位置。</p>
-<p>cache_slot：运行时缓存。在执行函数时会优先去缓存中查找，若缓存中没有，再去全局的 function 表中查找。</p>
-<p>num_args：函数调用时传入参数的个数</p>
-<p>access_flags：对象类的访问标识，如public protected private 这些。</p>
-<ul>
-<li>zend_value</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> _zend_value &#123;</div><div class="line">	zend_long         lval;				<span class="comment">/* 整型*/</span></div><div class="line">	<span class="keyword">double</span>            dval;				<span class="comment">/* 浮点型 */</span></div><div class="line">	zend_refcounted  *counted;</div><div class="line">	zend_string      *str;</div><div class="line">	zend_array       *arr;</div><div class="line">	zend_object      *obj;</div><div class="line">	zend_resource    *res;</div><div class="line">	zend_reference   *ref;</div><div class="line">	zend_ast_ref     *ast;</div><div class="line">	zval             *zv;</div><div class="line">	<span class="keyword">void</span>             *ptr;</div><div class="line">	zend_class_entry *ce;</div><div class="line">	zend_function    *func;</div><div class="line">	<span class="keyword">struct</span> &#123;</div><div class="line">		<span class="keyword">uint32_t</span> w1;</div><div class="line">		<span class="keyword">uint32_t</span> w2;</div><div class="line">	&#125; ww;</div><div class="line">&#125; zend_value;</div></pre></td></tr></table></figure>
-<p>从 zend__value 中可以看出，long、double 类型直接存储值，而其它类型都为指针，指向各自的结构。所以，由于 zval 这样的结构，PHP 变量在声明的时候不用显示的指定其类型，因为不管你赋给变量什么类型的值，它都能帮你找到对应的存储结构。</p>
-<p>以值为字符串的变量为例，其结构是这样的：<br><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193819.png" alt=""></p>
-<h3 id="PHP5-与-PHP7-的-zval-结构对比"><a href="#PHP5-与-PHP7-的-zval-结构对比" class="headerlink" title="PHP5 与 PHP7 的 zval 结构对比"></a>PHP5 与 PHP7 的 zval 结构对比</h3><ul>
-<li>PHP5 </li>
-</ul>
-<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193906.png" alt=""></p>
-<ul>
-<li>PHP7 </li>
-</ul>
-<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190815193952.png" alt=""></p>
-<p>可以看到 php7 的 zval 总的只占 16 个字节，相比 PHP5 的 zval 所占用的 48 个字节节省了很大的内存。</p>
-<p>此外，在 PHP5 中，所有的变量都在堆中申请，但是对于临时变量来说，没有必要在堆中申请。所以在 PHP7 中对此做了优化，临时变量是直接在栈中申请的。</p>
-<h2 id="常见变量类型"><a href="#常见变量类型" class="headerlink" title="常见变量类型"></a>常见变量类型</h2><p>下面介绍几个常见类型的变量结构，其他更多的类型，可自行查看源码。</p>
-<h3 id="整型和浮点型"><a href="#整型和浮点型" class="headerlink" title="整型和浮点型"></a>整型和浮点型</h3><p>对于整型和浮点型，由于其占用空间小，在 zval 中是直接存储的 整型的值是存在 lval 里，浮点型值则是存储在 dval 里。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> _zend_value &#123;</div><div class="line">    zend_long         lval;             <span class="comment">/* 整型*/</span></div><div class="line">    <span class="keyword">double</span>            dval;             <span class="comment">/* 浮点型 */</span></div><div class="line">    ... </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>PHP 7 中定义了新的字符串结构体。结构如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> _zend_string &#123;</div><div class="line">	zend_refcounted_h ;</div><div class="line">	zend_ulong        h;                <span class="comment">/* hash value */</span></div><div class="line">	<span class="keyword">size_t</span>            len;</div><div class="line">	<span class="keyword">char</span>              val[<span class="number">1</span>];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>上面各个字段的意思：</p>
-<p>gc： 变量引用信息，所有用到引用计数的变量类型都会有这个结构。</p>
-<p>h： 哈希值，数组中计算索引时会用到。（据说这个操作为 PHP7 提高了 5% 的性能）</p>
-<p>len： 字符串长度，通过这个值保证二进制安全</p>
-<p>val： 字符串内容，变长struct，分配时按len长度申请内存<br>数组</p>
-<p>array 是 PHP 中非常强大的一个数据结构，它的底层实现就是普通的有序HashTable，这里简单看下它的结构。后续再具体深入。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _zend_array HashTable;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">struct</span> _zend_array &#123;</div><div class="line">	zend_refcounted_h gc;</div><div class="line">	<span class="keyword">union</span> &#123;</div><div class="line">		<span class="keyword">struct</span> &#123;</div><div class="line">			ZEND_ENDIAN_LOHI_4(</div><div class="line">				zend_uchar    flags,</div><div class="line">				zend_uchar    nApplyCount,</div><div class="line">				zend_uchar    nIteratorsCount,</div><div class="line">				zend_uchar    consistency)</div><div class="line">		&#125; v;</div><div class="line">		<span class="keyword">uint32_t</span> flags;</div><div class="line">	&#125; u;</div><div class="line">	<span class="keyword">uint32_t</span>          nTableMask;</div><div class="line">	Bucket           *arData;</div><div class="line">	<span class="keyword">uint32_t</span>          nNumUsed;</div><div class="line">	<span class="keyword">uint32_t</span>          nNumOfElements;</div><div class="line">	<span class="keyword">uint32_t</span>          nTableSize;</div><div class="line">	<span class="keyword">uint32_t</span>          nInternalPointer;</div><div class="line">	zend_long         nNextFreeElement;</div><div class="line">	<span class="keyword">dtor_func_t</span>       pDestructor;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>###对象</p>
-<p>PHP7 的对象结构也是重新设计了，和 PHP5 的实现有了很大的不同。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> _zend_object &#123;</div><div class="line">    zend_refcounted_h gc;</div><div class="line">    <span class="keyword">uint32_t</span>          handle;</div><div class="line">    zend_class_entry *ce; </div><div class="line">    <span class="keyword">const</span> zend_object_handlers *handlers;</div><div class="line">    HashTable        *properties; </div><div class="line">    zval              properties_table[<span class="number">1</span>];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>这里介绍下其中几个字段：</p>
-<p>gc：gc头部</p>
-<p>*ce：对象对应的 class 类</p>
-<p>*properties ：HashTable结构，key 为对象的属性名，value 是属性值在properties_tables数组中的偏移量，通过偏移量在 properties_talbe 找到对应的属性值。</p>
-<p>properties_talbe[1]：存储对象的属性值</p>
-<hr>
-<p>ok，先写这到这里。</p>
-<p><em>参考资料</em></p>
-<p>《PHP7 底层设计与源码实现》</p>
-
+        
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>赞赏，是很大的鼓励<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/zfb.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -297,11 +209,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">底层</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
         		</li>
       		
 		</ul>
@@ -321,83 +229,18 @@
 
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/06/operating-system-01/">阅读全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.tenpercent.top/2019/08/15/php-zval-struct/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-  
-<nav id="article-nav">
-  
-    <a href="/2019/08/24/PHP7-Array/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          【深入 PHP】PHP7 数组的底层实现
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/08/09/PHP-internal-learning/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【深入 PHP】PHP7 底层运行机制</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
+
 
 
 
@@ -405,10 +248,11 @@
 
 
   
-    <div class="duoshuo"></div>
   
-
-
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
+  
 
 
           </div>
@@ -432,8 +276,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
