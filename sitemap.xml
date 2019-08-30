@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.tenpercent.top/2017/04/23/review-php-03/</loc>
+    
+    <lastmod>2019-08-30T15:06:38.762Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.tenpercent.top/2018/05/17/composer-autoload/</loc>
     
     <lastmod>2019-08-30T14:05:19.055Z</lastmod>
@@ -187,13 +194,6 @@
     <loc>http://www.tenpercent.top/2017/05/10/review-php-04/</loc>
     
     <lastmod>2017-06-24T08:28:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/04/23/review-php-03/</loc>
-    
-    <lastmod>2017-06-24T08:28:31.000Z</lastmod>
     
   </url>
   
