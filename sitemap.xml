@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.tenpercent.top/about-me.html</loc>
+    
+    <lastmod>2019-09-01T14:29:27.436Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2019/08/09/PHP-internal-learning/</loc>
+    
+    <lastmod>2019-09-01T14:19:30.849Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2019/08/15/php-zval-struct/</loc>
+    
+    <lastmod>2019-09-01T14:18:46.071Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2019/08/23/PHP7-Array/</loc>
+    
+    <lastmod>2019-09-01T14:18:22.089Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.tenpercent.top/2017/04/23/review-php-03/</loc>
     
     <lastmod>2019-08-30T15:06:38.762Z</lastmod>
@@ -51,44 +79,9 @@
   </url>
   
   <url>
-    <loc>http://www.tenpercent.top/about-me.html</loc>
-    
-    <lastmod>2019-08-30T13:58:35.542Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2019/08/23/PHP7-Array/</loc>
-    
-    <lastmod>2019-08-24T13:33:48.206Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2019/08/15/php-zval-struct/</loc>
-    
-    <lastmod>2019-08-15T13:12:46.650Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2019/08/09/PHP-internal-learning/</loc>
-    
-    <lastmod>2019-08-15T12:26:35.295Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.tenpercent.top/2017/09/03/use-vagrant/</loc>
     
     <lastmod>2019-03-06T06:50:46.863Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/08/20/ubuntu-mysql/</loc>
-    
-    <lastmod>2019-03-06T06:50:23.773Z</lastmod>
     
   </url>
   
