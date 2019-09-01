@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.tenpercent.top/"/>
-  <updated>2019-09-01T14:18:22.089Z</updated>
+  <updated>2019-09-01T14:31:50.893Z</updated>
   <id>http://www.tenpercent.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浅析 PHP7 的垃圾回收机制</title>
+    <link href="http://www.tenpercent.top/2019/08/31/php7-garbage-collection/"/>
+    <id>http://www.tenpercent.top/2019/08/31/php7-garbage-collection/</id>
+    <published>2019-08-30T16:00:00.000Z</published>
+    <updated>2019-09-01T14:31:50.893Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><p>垃圾回收机制是一种动态存储分配方案。它会自动释放程序不再需要的已分配的内存块。 自动回收内存的过程叫垃圾收集。垃圾回收机制可以让程序员不必过分关心程序内存分配，从而将更多的精力投入到业务逻辑。 在现在的流行各种语言当中，垃圾回收机制是新一代语言所共有的特征。</p><h2 id="垃圾的产生"><a href="#垃圾的产生" class="headerlink" title="垃圾的产生"></a>垃圾的产生</h2><p>PHP7 中复杂类型，像字符串、数组、对象等的数据结构中，头部都有一个 gc, 这个 gc 的作用就是用来对垃圾回收的支持。当变量赋值、传递时，会增加 value 的引用数， unset、return 等释放变量时再减掉引用数，减掉后如果发现 refcount 变为 0 则直接释放 value，这是变量的基本回收过程。</p><p>不过有一种问题是这个机制无法解决的，就是循环引用的问题。</p><p>什么是循环引用呢？ 简单说就是变量的内部里存的 value 又引用了变量自身。 这种比较经常发生在数组和对象类型的变量上。</p><p>这里先讲一下引用，即 zend_reference 这个类型，这个是 PHP7 新增的变量类型，当对变量使用 “&amp;” 操作时，会创建新的中间结构体 zend_reference，这个结构体会真正的指向对应的 value 结构。</p><p>举个例子：</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当进行如下赋值操作时</span></span><br><span class="line">$a = <span class="string">'hello'</span>; <span class="comment">// $a -&gt; zend_string</span></span><br><span class="line">$b = $a; <span class="comment">// $b,$a -&gt; zend_string</span></span><br><span class="line">$c = &amp;$b; <span class="comment">// $c,$b -&gt; zval(type = IS_REFERENCE, refcount = 2) -&gt; zend_string</span></span><br></pre></td></tr></table></figure><p>最终会变成如下这样：</p><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190901220325.png" alt></p><p>即 $b 和 $c 的 zval 是通过中间结构体 zend_reference 再指向最终的 zend_string。</p><p>回到循环引用的问题，举个数组循环引用例子：</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$arr = [<span class="number">1</span>];</span><br><span class="line">$a[] = &amp;$a;</span><br><span class="line"></span><br><span class="line"><span class="keyword">unset</span>($a);</span><br></pre></td></tr></table></figure><p>使用 &amp; 操作之后，变量 a 就变成了引用类型且引用计数 refcount 为 2，而又赋值给自己里面的元素，即变量 a 变成了自己引用自己。</p><p>具体如下如所示：</p><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190901220346.png" alt></p><p>当 unset 之后就变成下图这样：</p><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20190901220358.png" alt></p><p>即 $a 所在的 zval 类型已经变成了 IS_UNDEF 了，zend_reference 结构体的引用计数减 1，但是仍然大于 0，这时候，这部分结构体就变成了垃圾，对此不处理的话，就可能会造成内存泄露。这里就需要垃圾收集器将这部分收集到缓冲区，之后进行回收处理。</p><h2 id="回收过程"><a href="#回收过程" class="headerlink" title="回收过程"></a>回收过程</h2><p>如果当变量的 refcount 减小后大于 0，PHP 并不会立即对这个变量进行垃圾鉴定和回收，而是放入一个缓冲区中，等这个缓冲区满了以后(10000 个值)再统一进行处理，加入缓冲区的是变量 zend_value 里的 gc，目前垃圾只会出现在数组和对象两种类型中，数组的情况上面已经介绍了，对象的情况则是成员属性引用对象本身导致的，其它类型不会出现这种变量中的成员引用变量自身的情况，所以垃圾回收只会处理这两种类型的变量。</p><p>gc 的结构 zend_refcounted_h 具体如下:</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">zend_refcounted_h</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>         refcount; <span class="comment">// 记录 zend_value 的引用数</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">            zend_uchar    type,  <span class="comment">// zend_value的类型, 与zval.u1.type一致</span></span><br><span class="line">            zend_uchar    flags, </span><br><span class="line">            <span class="keyword">uint16_t</span>      gc_info <span class="comment">// GC信息，记录在 gc 池中的位置和颜色，垃圾回收的过程会用到</span></span><br><span class="line">        &#125; v;</span><br><span class="line">        <span class="keyword">uint32_t</span> type_info;</span><br><span class="line">    &#125; u;</span><br><span class="line">&#125; zend_refcounted_h;</span><br></pre></td></tr></table></figure><p>一个变量只能加入一次缓冲区，为了防止重复加入，变量加入后会把 zend_refcounted_h.gc_info 置为 GC_PURPLE，即标为紫色，后续不会重复插入。</p><p>垃圾缓冲区是一个双向链表，等到缓存区满了以后则启动垃圾检查过程：遍历缓冲区，对当前变量的所有成员进行遍历，然后把成员的 refcount 减 1 (如果成员还包含子成员则也进行递归遍历，即深度优先遍历)，最后再检查当前变量的引用，如果减为了 0 则为垃圾。这个算法的原理核心是：垃圾是由于成员引用自身导致的，那么就对所有的成员减一遍引用，如果发现最后变量本身的 refcount 变为了 0 则就表明其引用全部来自自身成员，即其他任何地方都不再使用它，那么它就是垃圾，需要被回收掉。反之说明不是垃圾，需要将其从缓冲区移出去。具体的过程如下：</p><p>(1) 从缓冲区链表的 roots 开始遍历，把当前 value 标为灰色 (zend_refcounted_h.gc_info 置为 GC_GREY)，然后对当前 value 的成员进行深度优先遍历，把成员 value 的 refcount 减 1，并且也标为灰色；</p><p>(2) 重复遍历缓冲区链表，检查当前 value 引用是否为 0，为 0 则表示确实是垃圾，把它标为白色(GC_WHITE)，如果不为 0 则排除了引用全部来自自身成员的可能，表示还有外部的引用，并不是垃圾，这时候因为步骤(1)对成员进行了 refcount 减 1 操作，需要再还原回去，对所有成员进行深度遍历，把成员 refcount 加 1，同时标为黑色；</p><p>(3) 再次遍历缓冲区链表，将非 GC_WHITE 的节点从 roots 链表中移出（移到待释放的列表），最终 roots 链表中全部为真正的垃圾，最后将这些垃圾清除。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;垃圾回收机制&quot;&gt;&lt;a href=&quot;#垃圾回收机制&quot; class=&quot;headerlink&quot; title=&quot;垃圾回收机制&quot;&gt;&lt;/a&gt;垃圾回收机制&lt;/h2&gt;&lt;p&gt;垃圾回收机制是一种动态存储分配方案。它会自动释放程序不再需要的已分配的内存块。 自动回收内存的过程叫垃圾收集
+      
+    
+    </summary>
+    
+      <category term="总结" scheme="http://www.tenpercent.top/categories/%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="PHP" scheme="http://www.tenpercent.top/tags/PHP/"/>
+    
+      <category term="底层" scheme="http://www.tenpercent.top/tags/%E5%BA%95%E5%B1%82/"/>
+    
+  </entry>
   
   <entry>
     <title>PHP7 数组的底层实现</title>
@@ -595,31 +622,6 @@
       <category term="PHP" scheme="http://www.tenpercent.top/tags/PHP/"/>
     
       <category term="PSR" scheme="http://www.tenpercent.top/tags/PSR/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>现代化PHP的标准</title>
-    <link href="http://www.tenpercent.top/2017/08/13/php-standard/"/>
-    <id>http://www.tenpercent.top/2017/08/13/php-standard/</id>
-    <published>2017-08-12T16:00:00.000Z</published>
-    <updated>2017-08-13T15:27:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在今天，PHP组件和框架的数量很多，可以说是多如牛毛。PHP生态系统是个名副其实的大熔炉，有各种各样的代码，帮助开发者构建强大的应用。为了使这些不同的组件代码、框架能互相通信，共享代码，就诞生了PHP-FIG这个组织，PHP-FIG制定了推荐规范，PHP框架可以自愿实现这些规范，改进与其他框架的通信和共享功能。如今的很多受欢迎的大型PHP框架通常都会实现定案的PHP-FIG推荐规范。</p><p>PHP-FIG的使命是实现框架的互操作性。框架的互操作性是指，通过接口、自动加载机制和标准的风格，让框架互相操作。<br><a id="more"></a></p><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>PHP框架之间通过共用的接口合作。框架通过PHP接口假定第三方依赖提供了什么方法，而不关心依赖是如何实现接口的。</p><p>例如：假如第三方日志记录器对象实现了alert()，critical()，error()，warning()和debug()等方法，那么框架就可以放心的使用这个记录器对象。至于这些方法是如何实现的无关紧要，框架只关心第三方依赖是否实现了这些方法。</p><p>PHP开发者使用接口可以开发、共享并使用专门的组件，而无需使用庞大的框架。</p><h2 id="自动加载"><a href="#自动加载" class="headerlink" title="自动加载"></a>自动加载</h2><p>PHP框架之间通过自动加载机制合作。自动加载是指，PHP解释器在运行时按需自动找到并加载PHP类的过程。</p><p>在这些PHP标准出现之前，PHP组件和框架会使用模式方法<code>__autoload（）</code>或最新的spl_autoload_register()方法实现各自特有的自动加载器。因此，我们要学习使用每一个组件和框架各自特有的自动加载器。而如今，多数现代的PHP组件和框架都符合同一个自动加载器标准。这意味着，我们只需使用一个自动加载器就能混合搭配多个PHP组件。</p><h2 id="风格"><a href="#风格" class="headerlink" title="风格"></a>风格</h2><p>PHP框架之间通过标准的代码风格合作。代码风格是指如何使用空格、大小写和括号的位置（等待）。如果PHP框架都使用标准的代码风格，那么每次使用新PHP框架时，PHP开发者已经对框架所用的风格就很熟悉了，就不用适应新的风格。标准的代码风格还能降低项目新贡献者的门槛，让新贡献者把更多的时间用在解决缺陷上，而不用花太多时间学习不熟悉的风格。</p><p>标准的代码风格对我们自己的项目也有好处。每个开发者都有一些独特的风格，如果多为开发者在同一个代码基中工作，就会显露问题。使用标准的代码风格，不管作者是谁，团队中的所有成员都能立即理解代码基。</p><p>关于代码风格的规范，PHP-FIG退出了PSR，即PHP Standard Recommendation（PHP推荐标准）的简称。它包括PSR-1，PSR-2，PSR-3，PSR-4四个规范，现代的PHP框架基本都会遵守这些规范，这些个规范的具体详细内容就等下一篇总结再介绍吧。今天就先写到这里。</p><p>^_^ happy coding!</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在今天，PHP组件和框架的数量很多，可以说是多如牛毛。PHP生态系统是个名副其实的大熔炉，有各种各样的代码，帮助开发者构建强大的应用。为了使这些不同的组件代码、框架能互相通信，共享代码，就诞生了PHP-FIG这个组织，PHP-FIG制定了推荐规范，PHP框架可以自愿实现这些规范，改进与其他框架的通信和共享功能。如今的很多受欢迎的大型PHP框架通常都会实现定案的PHP-FIG推荐规范。&lt;/p&gt;
-&lt;p&gt;PHP-FIG的使命是实现框架的互操作性。框架的互操作性是指，通过接口、自动加载机制和标准的风格，让框架互相操作。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="总结" scheme="http://www.tenpercent.top/categories/%E6%80%BB%E7%BB%93/"/>
-    
-    
-      <category term="PHP" scheme="http://www.tenpercent.top/tags/PHP/"/>
-    
-      <category term="PHP标准" scheme="http://www.tenpercent.top/tags/PHP%E6%A0%87%E5%87%86/"/>
     
   </entry>
   
