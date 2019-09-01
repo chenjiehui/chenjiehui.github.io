@@ -25,7 +25,10 @@
 <p>(1) 从缓冲区链表的 roots 开始遍历，把当前 value 标为灰色 (zend_refcounted_h.gc_info 置为 GC_GREY)，然后对当前 value 的成员进行深度优先遍历，把成员 value 的 refcount 减 1，并且也标为灰色；</p>
 <p>(2) 重复遍历缓冲区链表，检查当前 value 引用是否为 0，为 0 则表示确实是垃圾，把它标为白色(GC_WHITE)，如果不为 0 则排除了引用全部来自自身成员的可能，表示还有外部的引用，并不是垃圾，这时候因为步骤(1)对成员进行了 refcount 减 1 操作，需要再还原回去，对所有成员进行深度遍历，把成员 refcount 加 1，同时标为黑色；</p>
 <p>(3) 再次遍历缓冲区链表，将非 GC_WHITE 的节点从 roots 链表中移出（移到待释放的列表），最终 roots 链表中全部为真正的垃圾，最后将这些垃圾清除。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/08/23/PHP7-Array/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'jeffrey';
+<p><em>参考资料</em> </p>
+<p>《PHP7 底层设计与源码解析》</p>
+<p><a href="https://github.com/pangudashu/php7-internal" target="_blank" rel="noopener">php7-internal</a></p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/23/PHP7-Array/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'jofeechen';
 var disqus_identifier = '2019/08/31/php7-garbage-collection/';
 var disqus_title = '浅析 PHP7 的垃圾回收机制';
 var disqus_url = 'http://www.tenpercent.top/2019/08/31/php7-garbage-collection/';
@@ -33,4 +36,4 @@ var disqus_url = 'http://www.tenpercent.top/2019/08/31/php7-garbage-collection/'
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//jeffrey.disqus.com/count.js" async></script><div class="copyright"><p>© 2017 - 2019 <a href="http://www.tenpercent.top">Jeffrey</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-146782675-1",'auto');ga('send','pageview');</script></body></html>
+})();</script><script id="dsq-count-scr" src="//jofeechen.disqus.com/count.js" async></script><div class="copyright"><p>© 2017 - 2019 <a href="http://www.tenpercent.top">Jeffrey</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-146782675-1",'auto');ga('send','pageview');</script></body></html>
