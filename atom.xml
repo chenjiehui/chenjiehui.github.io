@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>代码 &amp; 自由</title>
+  <title>代码|自由</title>
   <icon>https://www.gravatar.com/avatar/c7953fb7f3bc4f8181191e5e6f352f05</icon>
   <subtitle>但行好事，莫问前程</subtitle>
   <link href="/atom.xml" rel="self"/>
