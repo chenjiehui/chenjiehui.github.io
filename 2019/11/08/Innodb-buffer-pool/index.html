@@ -67,7 +67,7 @@
 <p>(3) 由于是顺序扫描,数据页的第一次被访问和最后一次被访问的时间间隔不会超过1S，因此还是会留在old区</p>
 <p>(4) 继续扫描，之前的数据页再也不会被访问到，因此也不会被移到 new 区，最终很快被淘汰</p>
 <p>这个间隔时间是由系统变量 innodb_old_blocks_time 控制的。</p>
-<p><code>SHOW VARIABLES LIKE &#39;innodb\_old\_blocks\_time&#39;;</code></p>
+<p><code>SHOW VARIABLES LIKE &#39;innodb_old_blocks_time&#39;;</code></p>
 <p>配置缓冲池时的注意事项<br>innodb_buffer_pool_size<br> innodb_buffer_pool_chunk_size × innodb_buffer_pool_instances 的倍数（这主要是想保证每一个 缓冲池 实例中包含的 chunk 数量相同）。</p>
 <p>查看Buffer Pool的状态信息</p>
 <p><code>SHOW ENGINE INNODB STATUS\G</code></p>
