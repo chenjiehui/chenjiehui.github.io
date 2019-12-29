@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.tenpercent.top/"/>
-  <updated>2019-10-17T14:43:13.991Z</updated>
+  <updated>2019-12-29T10:31:24.489Z</updated>
   <id>http://www.tenpercent.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>InnoDB 缓冲池(buffer pool) 工作原理</title>
+    <link href="http://www.tenpercent.top/2019/11/08/Innodb-buffer-pool/"/>
+    <id>http://www.tenpercent.top/2019/11/08/Innodb-buffer-pool/</id>
+    <published>2019-11-07T16:00:00.000Z</published>
+    <updated>2019-12-29T10:31:24.489Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="缓冲池的用处"><a href="#缓冲池的用处" class="headerlink" title="缓冲池的用处"></a>缓冲池的用处</h2><p>对于使用 InnoDB 作为存储引擎的表来说，不管是用于存储用户数据的索引，还是各种系统数据，都是以页的形式存放在表空间中的，而所谓的表空间只是 InnoDB 对文件系统上一个或几个实际文件的抽象，也就实际数据说到底还是存储在磁盘上的。</p><p>磁盘的速度很慢，怎么能配得上“快如闪电”的CPU 呢？</p><p>InnoDB 存储引擎在处理客户端的请求时，当需要访问某个页的数据时，就会把完整的页的数据全部加载到内存中。</p><p>也就是说即使我们只需要访问一个页的一条记录，那也需要先把整个页的数据加载到内存中。</p><a id="more"></a><h2 id="缓冲池内部组成"><a href="#缓冲池内部组成" class="headerlink" title="缓冲池内部组成"></a>缓冲池内部组成</h2><p>缓冲池中默认的缓存页大小和在磁盘上默认的页大小是一样的，一般是16KB。</p><p>为了更好的管理这些在缓冲池中的缓存页，InnoDB为每一个缓存页都创建了一些所谓的控制信息。</p><p>这些控制信息包括该页所属的表空间编号、页号、缓存页在缓冲池中的地址、链表节点信息、一些锁信息。</p><p><img src="https://uploader.shimo.im/f/ZdpoEkRL5RYxgWf7.png" alt></p><p>缓冲池的一些参数：<br>SHOW VARIABLES LIKE ‘innodb_buffer_pool%’;<br>free 链表<br>当最初启动MySQL服务器的时候，此时并没有真实的磁盘页被缓存到缓冲池中，之后随着程序的运行，会不断的有磁盘上的页被缓存到缓冲池中。</p><p>从磁盘上读取一个页到缓冲池中的时候该放到哪个缓存页的位置呢？</p><p><em>思路：区分缓冲池中哪些缓存页是空闲的，哪些已经被使用了。</em></p><p>把所有空闲的缓存页对应的控制块作为节点放到一个链表中，这个链表叫作 free 链表。</p><h2 id="flush-链表"><a href="#flush-链表" class="headerlink" title="flush 链表"></a>flush 链表</h2><p>如果我们修改了缓冲池中某个缓存页的数据，那它就和磁盘上的页不一致了，这样的缓存页也被称为脏页（dirty page）。</p><p>最简单的做法就是每发生一次修改就立即同步到磁盘上对应的页上，但是频繁的往磁盘中写数据会严重的影响程序的性能。</p><p>所以，Innodb 创建了一个存储脏页的链表，凡是修改过的缓存页对应的控制块都会作为一个节点加入到一个链表中，在未来的某个时间点进行同步。这个链表叫做 flush 链表。</p><h2 id="缓存不够的窘境"><a href="#缓存不够的窘境" class="headerlink" title="缓存不够的窘境"></a>缓存不够的窘境</h2><p>缓冲池对应的内存大小毕竟是有限的，如果需要缓存的页占用的内存大小超过了缓冲池大小，也就是已经没有多余的空闲缓存页的时候怎么办？</p><p>把某些旧的缓存页从缓冲池中移除，然后再把新的页放进来。</p><p>移除哪些缓存页？这就需要引入缓存淘汰机制了。</p><h2 id="缓存淘汰机制"><a href="#缓存淘汰机制" class="headerlink" title="缓存淘汰机制"></a>缓存淘汰机制</h2><p>缓存淘汰有以下两个目的：</p><ul><li>实现淘汰</li><li>使缓存命中率高</li></ul><p>缓存淘汰机制比较常用的是用 LRU （Least recently used）算法。</p><h3 id="传统LRU"><a href="#传统LRU" class="headerlink" title="传统LRU"></a>传统LRU</h3><p><img src="https://uploader.shimo.im/f/het2ejrb23Ir1Mbt.png" alt></p><p>LRU 的两种情况：</p><p>（1）页已经在缓冲池里，那就只做“移至”LRU头部的动作，而没有页被淘汰；</p><p>（2）页不在缓冲池里，除了做“放入”LRU头部的动作，还要做“淘汰”LRU尾部页的动作；</p><p><img src="https://uploader.shimo.im/f/GxCUbz7GTqw1Rk11.png" alt></p><p><img src="https://uploader.shimo.im/f/L98G4DZsOzAMuZ22.png" alt></p><p><img src="https://uploader.shimo.im/f/jWBZjlR13KgFV0kK.png" alt></p><p>在 InnoDB 中，传统的 LRU 会遇到两个问题：</p><p>（1）预读失效；</p><p>（2）缓冲池污染；</p><p>什么是预读失效？</p><p>由于预读 (Read-Ahead)，提前把页放入了缓冲池，但最终 MySQL 并没有从页中读取数据，称为预读失效。</p><p>如何对预读失效进行优化？</p><p>要优化预读失效，思路是：</p><p>（1）让预读失败的页，停留在缓冲池 LRU 里的时间尽可能短；</p><p>（2）让真正被读取的页，才挪到缓冲池 LRU 的头部；</p><p>以保证，真正被读取的热数据留在缓冲池里的时间尽可能长。</p><p>具体方法是：</p><p>（1）将LRU分为两个部分：</p><ul><li><p>new 区(new sublist)</p></li><li><p>old 区(old sublist)</p></li></ul><p>（2）两个区首尾相连，即：new 区的尾(tail)连接着 old 区的头(head)；</p><p>（3）新页（例如被预读的页）加入缓冲池时，只加入到 old 区头部：<br>如果数据真正被读取（预读成功），才会加入到 new 区的头部<br>如果数据没有被读取，则会比 new 区里的“热数据页”更早被淘汰出缓冲池</p><p><img src="https://uploader.shimo.im/f/O5hKT7dCwsw8WjP3.png" alt></p><p><img src="https://uploader.shimo.im/f/HSXv51pPlas686lh.png" alt></p><p>改进版缓冲池LRU能够很好的解决“预读失败”的问题。</p><p>查看系统变量 innodb_old_blocks_pct 的值来确定old区域在LRU链表中所占的比例<br>SHOW VARIABLES LIKE ‘innodb_old_blocks_pct’;</p><p>什么是 MySQL 缓冲池污染？<br>当某一个SQL语句，要批量扫描大量数据时，可能导致把缓冲池的所有页都替换出去，导致大量热数据被换出，MySQL性能急剧下降，这种情况叫缓冲池污染。</p><p>例如，有一个数据量较大的用户表，当执行<br>select * from user where name like “%test%”;</p><p><img src="https://uploader.shimo.im/f/KI92Y4TJtKkAHen0.png" alt></p><p>要优化缓冲池污染，思路是：</p><p>（1）不让批量扫描的大量数据进入到 new 区；</p><p>（2）让真正被读取的页，才挪到缓冲池 LRU 的头部；</p><p>具体实现：<br>加入了一个“old 区停留时间”的机制：<br>在 old 区域的缓存页进行第一次访问时就在它对应的控制块中记录下来这个访问时间，如果后续再次访问的时间与第一次访问的时间在某个时间间隔内（即该缓存页在 old 区的存在时间在某个时间间隔内），那么该页面就不会被从old 区移动到 new 区的头部。</p><p>上述的全表扫描执行：</p><p>(1) 扫描过程中，需要新插入的数据页，都被放到old区</p><p>(2) 一个数据页会有多条记录，因此一个数据页会被访问多次</p><p>(3) 由于是顺序扫描,数据页的第一次被访问和最后一次被访问的时间间隔不会超过1S，因此还是会留在old区</p><p>(4) 继续扫描，之前的数据页再也不会被访问到，因此也不会被移到 new 区，最终很快被淘汰</p><p>这个间隔时间是由系统变量 innodb_old_blocks_time 控制的。</p><p><code>SHOW VARIABLES LIKE &#39;innodb\_old\_blocks\_time&#39;;</code></p><p>配置缓冲池时的注意事项<br>innodb_buffer_pool_size<br> innodb_buffer_pool_chunk_size × innodb_buffer_pool_instances 的倍数（这主要是想保证每一个 缓冲池 实例中包含的 chunk 数量相同）。</p><p>查看Buffer Pool的状态信息</p><p><code>SHOW ENGINE INNODB STATUS\G</code></p><p>一些参数如下：</p><p>Total memory allocated ：代表 Buffer Pool 向操作系统申请的连续内存空间大小，包括全部控制块、缓存页、以及碎片的大小。</p><p>Buffer pool size：代表该 Buffer Pool 可以容纳多少缓存页，单位是页</p><p>Free buffers：代表当前 Buffer Pool 还有多少空闲缓存页，也就是 free 链表中还有多少个节点。</p><p>Database pages：代表 LRU 链表中的页的数量，包含 new 和 old 两个区域的节点数量。</p><p>Old database pages：代表 LRU 链表 old 区域的节点数量。</p><p>Modified db pages：代表脏页数量，也就是 flush 链表中节点的数量。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1、磁盘太慢，用内存作为缓存很有必要。</p><p>2、缓冲池本质上是InnoDB向操作系统申请的一段连续的内存空间，可以通过innodb_buffer_pool_size 来调整它的大小。</p><p>3、InnoDB 使用了许多链表来管理缓冲池。</p><p>4、缓冲池的常见管理算法是 LRU</p><p>5、InnoDB 对普通 LRU 进行了优化：分为 new 区和 old 区，加入“停留时间”机制。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;缓冲池的用处&quot;&gt;&lt;a href=&quot;#缓冲池的用处&quot; class=&quot;headerlink&quot; title=&quot;缓冲池的用处&quot;&gt;&lt;/a&gt;缓冲池的用处&lt;/h2&gt;&lt;p&gt;对于使用 InnoDB 作为存储引擎的表来说，不管是用于存储用户数据的索引，还是各种系统数据，都是以页的形式存放在表空间中的，而所谓的表空间只是 InnoDB 对文件系统上一个或几个实际文件的抽象，也就实际数据说到底还是存储在磁盘上的。&lt;/p&gt;
+&lt;p&gt;磁盘的速度很慢，怎么能配得上“快如闪电”的CPU 呢？&lt;/p&gt;
+&lt;p&gt;InnoDB 存储引擎在处理客户端的请求时，当需要访问某个页的数据时，就会把完整的页的数据全部加载到内存中。&lt;/p&gt;
+&lt;p&gt;也就是说即使我们只需要访问一个页的一条记录，那也需要先把整个页的数据加载到内存中。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://www.tenpercent.top/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.tenpercent.top/tags/MySQL/"/>
+    
+  </entry>
   
   <entry>
     <title>当我们在谈索引的时候，我们在谈什么</title>
@@ -588,34 +613,6 @@
       <category term="PHP" scheme="http://www.tenpercent.top/tags/PHP/"/>
     
       <category term="设计模式" scheme="http://www.tenpercent.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Vagrant 并搭建 LNMP 环境</title>
-    <link href="http://www.tenpercent.top/2017/09/03/use-vagrant/"/>
-    <id>http://www.tenpercent.top/2017/09/03/use-vagrant/</id>
-    <published>2017-09-02T16:00:00.000Z</published>
-    <updated>2019-03-06T06:50:46.863Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Vagrant介绍"><a href="#Vagrant介绍" class="headerlink" title="Vagrant介绍"></a>Vagrant介绍</h2><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454262960769.png" alt="20170905150454262960769.png"></p><p>Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。</p><p>在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个Vagrant box ,供团队的同事使用，这样就能最大程度的保证开发环境一致，避免出现一些没必要的问题从而浪费精力去解决。<br><a id="more"></a></p><h2 id="安装-Vagrant"><a href="#安装-Vagrant" class="headerlink" title="安装 Vagrant"></a>安装 Vagrant</h2><p>1、安装 VirtualBox ,具体安装包直接从官网下载（要下载顺畅的话需翻墙）：<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">https://www.virtualbox.org/wiki/Downloads</a></p><p>2、安装 Vagrant，下载地址：<a href="https://releases.hashicorp.com/vagrant" target="_blank" rel="external">https://releases.hashicorp.com/vagrant/</a></p><p>3、下载box镜像，这里我是下载的Ubuntu的box,可以到这个网址上去查找想下载的box：<a href="https://app.vagrantup.com/boxes/search" target="_blank" rel="external">https://app.vagrantup.com/boxes/search</a></p><p>切换到自己的文件夹下，初始化vagrant环境，生成一个vagrantfile文件，命令如下：</p><ul><li>用 vagrant  命令加 box</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant box add testUbuntu ~/Downloads/ubuntu-14.04-amd64.box</div></pre></td></tr></table></figure><ul><li>初始化虚拟机</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant init testUbuntu</div></pre></td></tr></table></figure><ul><li>启动虚拟机</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant up</div></pre></td></tr></table></figure><ul><li>进入虚拟机的 Ubuntu 系统</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant ssh</div></pre></td></tr></table></figure><p>接下来还要对虚拟机进行一些配置。</p><p>打开 vagrantfile 文件进行配置，我的配置如下：</p><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454225325210.jpg" alt="20170905150454225325210.jpg"><br><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454221966157.jpg" alt="20170905150454221966157.jpg"></p><p>到这里，利用 vagrant 搭建虚拟机环境就基本完成了。</p><ul><li>vagrant 常用命令</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vagrant box add     添加box，自动帮你生成vagrantfile</div><div class="line">vagrant init        初始化vagrantfile</div><div class="line">vagrant halt        关闭虚拟机</div><div class="line">vagrant destroy     销毁虚拟机</div><div class="line">vagrant ssh         连接虚拟机</div><div class="line">vagrant reload      重新加载vagarntfile文件</div><div class="line">vagrant suspend     暂时挂起虚拟机</div><div class="line">vagrant status      查看虚拟机运行状态</div><div class="line">vagrant package  --output  打包导出box</div></pre></td></tr></table></figure><h2 id="搭建-LNMP-环境"><a href="#搭建-LNMP-环境" class="headerlink" title="搭建 LNMP 环境"></a>搭建 LNMP 环境</h2><p>使用 vagrant ssh 登录到虚拟机的 Linux 系统上，就可以开始搭建 LNMP 的环境了。</p><p>在安装软件之前，需要对 Ubuntu 系统的镜像源文件 source.list 进行修改一下，可以在网上找一下网易的镜像源或者是阿里搜狐等的镜像源，然后写入 source.list 文件夹里（对源文件先进行下备份）。修改完之后还要运行一下 <code>apt-get update</code> 命令来更新一下镜像源。</p><h3 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h3><p>使用<code>apt-get install nginx</code>便可以安装nginx。非常简单。<br>安转完之后，可以使用 <code>curl -I &#39;127.0.0.1&#39;</code>访问一下，看看是否安装成功。</p><h3 id="安装-MySQL"><a href="#安装-MySQL" class="headerlink" title="安装 MySQL"></a>安装 MySQL</h3><p>使用 <code>apt-get install mysql-server mysql-cli</code>  安装MySQL的服务端可客户端，安装的时候需要设置一下密码。安装完之后，通过命令 <code>mysql -uroot -ppassword</code> 命令来登录数据库。</p><h3 id="安装PHP-7-0"><a href="#安装PHP-7-0" class="headerlink" title="安装PHP 7.0"></a>安装PHP 7.0</h3><p>在这里，我使用 Ubuntu 的 PPA 源来安装 PHP 7.0。</p><ul><li>先介绍一下 PPA源</li></ul><blockquote><p>PPA 全称为 Personal Package（个人软件包档案），是 Ubuntu Launchpad 网站提供的一项服务，当然不仅限于 Launchpad 。它允许个人用户上传软件源代码，通过 Launchpad 进行编译并发布为二进制软件包，作为 apt/新立得源供其他用户下载和更新。在Launchpad网站上的每一个用户和团队都可以拥有一个或多个PPA。<br>通常 PPA 源里的软件是官方源里没有的，或者是最新版本的软件。相对于通过 Deb 包安装来说，使用 PPA 的好处是，一旦软件有更新，通过 sudo apt-get upgrade 这样命令就可以直接升级到新版本。</p></blockquote><ul><li>如何通过 PPA 源来安装软件：</li></ul><blockquote><p>我们可以通过 Google 来搜索一些常用软件的 PPA 源，通常的搜索方法是软件名称关键字 + PPA ，或者也可直接到 launchpad.net 上去搜索，搜索到后我们就可以直接用 sudo apt-add-repository 命令把 PPA 源添加到 Source list 中了。<br>比如 FireFox PPA 源：<a href="https://launchpad.net/~ubuntu-mozilla-daily/+archive/ppa" target="_blank" rel="external">https://launchpad.net/~ubuntu-mozilla-daily/+archive/ppa</a> ，我们可以在这里找到 ppa:ubuntu-mozilla-daily/ppa 的字样，然后我们通过以下命令把这个源加入到 source list 中。</p></blockquote><p><code>sudo apt-add-repository ppa:ubuntu-mozilla-daily/ppa</code></p><ul><li>开始安装 PHP 7.0</li></ul><p>第一次使用PPA时，需要先安装一下 python-software-properties 和 software-properties-common</p><p><code>apt-get install python-software-properties software-properties-common</code></p><p>然后便可以开始安装PHP 7.0 了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ add-apt-repository ppa:ondrej/php</div><div class="line"></div><div class="line">$ apt-get update</div></pre></td></tr></table></figure><p>安装PHP的一些扩展</p><p><code>$ apt-get install php7.0-fpm php7.0-mysql php7.0-common php7.0-curl php7.0-cli php7.0-mbstring php7.0-dom</code></p><p>打开 php.ini进行配置</p><p><code>vim /etc/php/7.0/fpm/php.ini</code></p><p>将cgi.fix<strong>pathinfo=1 改成cgi.fix</strong>pathinfo=0,这个配置是为了避免 nginx 产生某个漏洞。具体参考鸟哥的文章<a href="http://www.laruence.com/2010/05/20/1495.html" target="_blank" rel="external">http://www.laruence.com/2010/05/20/1495.html</a></p><p><code>cgi.fix_pathinfo=0</code></p><p>然后重启一下 php-fpm 服务。</p><p>到这里就成功搭建好了 LNMP环境了。</p><p><em>happy codding ! ^_^</em></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Vagrant介绍&quot;&gt;&lt;a href=&quot;#Vagrant介绍&quot; class=&quot;headerlink&quot; title=&quot;Vagrant介绍&quot;&gt;&lt;/a&gt;Vagrant介绍&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20170905150454262960769.png&quot; alt=&quot;20170905150454262960769.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Vagrant 是一个自动化构建虚拟机环境的工具，可以自动化虚拟机的安装和配置流程。&lt;/p&gt;
-&lt;p&gt;在团队开发的情况下，我们常常需要在多台机器间同步开发时，有的同事用的 wamp ,有的同事是用的 xampp ，可能在某些配置上的些许不同会导致些许不同或者bug，通过使用 Vagrant ，我们只需要同步 Vagrantfile ，就可以保证各台机器拥有一致的开发环境。也可以通过打包好一个Vagrant box ,供团队的同事使用，这样就能最大程度的保证开发环境一致，避免出现一些没必要的问题从而浪费精力去解决。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="笔记" scheme="http://www.tenpercent.top/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="Linux" scheme="http://www.tenpercent.top/tags/Linux/"/>
-    
-      <category term="Vagrant" scheme="http://www.tenpercent.top/tags/Vagrant/"/>
-    
-      <category term="虚拟机" scheme="http://www.tenpercent.top/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
   </entry>
   
