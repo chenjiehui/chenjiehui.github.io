@@ -6,7 +6,7 @@
 <h2 id="缓冲池内部组成"><a href="#缓冲池内部组成" class="headerlink" title="缓冲池内部组成"></a>缓冲池内部组成</h2><p>缓冲池中默认的缓存页大小和在磁盘上默认的页大小是一样的，一般是16KB。</p>
 <p>为了更好的管理这些在缓冲池中的缓存页，InnoDB为每一个缓存页都创建了一些所谓的控制信息。</p>
 <p>这些控制信息包括该页所属的表空间编号、页号、缓存页在缓冲池中的地址、链表节点信息、一些锁信息。</p>
-<p><img src="https://uploader.shimo.im/f/ZdpoEkRL5RYxgWf7.png" alt></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204548.png" alt></p>
 <p>缓冲池的一些参数：<br>SHOW VARIABLES LIKE ‘innodb_buffer_pool%’;<br>free 链表<br>当最初启动MySQL服务器的时候，此时并没有真实的磁盘页被缓存到缓冲池中，之后随着程序的运行，会不断的有磁盘上的页被缓存到缓冲池中。</p>
 <p>从磁盘上读取一个页到缓冲池中的时候该放到哪个缓存页的位置呢？</p>
 <p><em>思路：区分缓冲池中哪些缓存页是空闲的，哪些已经被使用了。</em></p>
@@ -23,13 +23,13 @@
 <li>使缓存命中率高</li>
 </ul>
 <p>缓存淘汰机制比较常用的是用 LRU （Least recently used）算法。</p>
-<h3 id="传统LRU"><a href="#传统LRU" class="headerlink" title="传统LRU"></a>传统LRU</h3><p><img src="https://uploader.shimo.im/f/het2ejrb23Ir1Mbt.png" alt></p>
+<h3 id="传统LRU"><a href="#传统LRU" class="headerlink" title="传统LRU"></a>传统LRU</h3><p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204614.png" alt></p>
 <p>LRU 的两种情况：</p>
 <p>（1）页已经在缓冲池里，那就只做“移至”LRU头部的动作，而没有页被淘汰；</p>
 <p>（2）页不在缓冲池里，除了做“放入”LRU头部的动作，还要做“淘汰”LRU尾部页的动作；</p>
-<p><img src="https://uploader.shimo.im/f/GxCUbz7GTqw1Rk11.png" alt></p>
-<p><img src="https://uploader.shimo.im/f/L98G4DZsOzAMuZ22.png" alt></p>
-<p><img src="https://uploader.shimo.im/f/jWBZjlR13KgFV0kK.png" alt></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204632.png" alt></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204651.png" alt></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204705.png" alt></p>
 <p>在 InnoDB 中，传统的 LRU 会遇到两个问题：</p>
 <p>（1）预读失效；</p>
 <p>（2）缓冲池污染；</p>
@@ -50,13 +50,13 @@
 </ul>
 <p>（2）两个区首尾相连，即：new 区的尾(tail)连接着 old 区的头(head)；</p>
 <p>（3）新页（例如被预读的页）加入缓冲池时，只加入到 old 区头部：<br>如果数据真正被读取（预读成功），才会加入到 new 区的头部<br>如果数据没有被读取，则会比 new 区里的“热数据页”更早被淘汰出缓冲池</p>
-<p><img src="https://uploader.shimo.im/f/O5hKT7dCwsw8WjP3.png" alt></p>
-<p><img src="https://uploader.shimo.im/f/HSXv51pPlas686lh.png" alt></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204718.png" alt></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204732.png" alt></p>
 <p>改进版缓冲池LRU能够很好的解决“预读失败”的问题。</p>
 <p>查看系统变量 innodb_old_blocks_pct 的值来确定old区域在LRU链表中所占的比例<br>SHOW VARIABLES LIKE ‘innodb_old_blocks_pct’;</p>
 <p>什么是 MySQL 缓冲池污染？<br>当某一个SQL语句，要批量扫描大量数据时，可能导致把缓冲池的所有页都替换出去，导致大量热数据被换出，MySQL性能急剧下降，这种情况叫缓冲池污染。</p>
 <p>例如，有一个数据量较大的用户表，当执行<br>select * from user where name like “%test%”;</p>
-<p><img src="https://uploader.shimo.im/f/KI92Y4TJtKkAHen0.png" alt></p>
+<p><img src="https://my-blog-cjh.oss-cn-shanghai.aliyuncs.com/20191229204750.png" alt></p>
 <p>要优化缓冲池污染，思路是：</p>
 <p>（1）不让批量扫描的大量数据进入到 new 区；</p>
 <p>（2）让真正被读取的页，才挪到缓冲池 LRU 的头部；</p>
