@@ -17,7 +17,7 @@
 <li>\&lt;T>用来声明该方法为泛型方法，\<t>只是一个代表符号，也可以用\<e> 或其他（ K,V 等）表达。</e></t></li>
 <li>有了<t> 才可以在泛型方法的参数里声明参数泛型 T ，符号需保持一致，如<e> 对应 E。</e></t></li>
 </ul>
-<h2 id="泛型通配符（注：此处未很好的理解其应用）"><a href="#泛型通配符（注：此处未很好的理解其应用）" class="headerlink" title="泛型通配符（注：此处未很好的理解其应用）"></a>泛型通配符（注：此处未很好的理解其应用）</h2><h3 id="上界通配符"><a href="#上界通配符" class="headerlink" title="上界通配符"></a>上界通配符</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;? extends T&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="泛型通配符"><a href="#泛型通配符" class="headerlink" title="泛型通配符"></a>泛型通配符</h2><h3 id="上界通配符"><a href="#上界通配符" class="headerlink" title="上界通配符"></a>上界通配符</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;? extends T&gt;</span><br></pre></td></tr></table></figure>
 <p>需注意点：</p>
 <ul>
 <li>上界通配符只支持从通配类型里 get，而不支持将多种类型的 set 进去, 所以上界描述符Extends适合频繁读取的场景。</li>
