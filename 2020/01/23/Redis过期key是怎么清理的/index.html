@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Redis过期key是怎么清理的 · 代码 | 自由</title><meta name="description" content="Redis过期key是怎么清理的 - Jeffrey"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.tenpercent.top/atom.xml" title="代码 | 自由"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon-logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/about-me.html" target="_self" class="nav-list-link">关于</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Redis过期key是怎么清理的</h1><div class="post-info">Jan 23, 2020</div><div class="post-content"><p>Redis 的 key 清理，也就是内存回收的时候主要分为：过期删除策略与 内存淘汰策略两部分。</p>
+<h2 id="过期删除策略"><a href="#过期删除策略" class="headerlink" title="过期删除策略"></a>过期删除策略</h2><p>删除到达过期时间的 key 。</p>
+<h3 id="第一种：定时检查删除"><a href="#第一种：定时检查删除" class="headerlink" title="第一种：定时检查删除"></a>第一种：定时检查删除</h3><p>对于每一个设置了过期时间的 key 都会创建一个定时器，一旦达到过期时间都会删除。这种方式立即清除过期数据，对内存比较好，</p>
+<p>但是有缺点是：占用了大量 CPU 的资源去处理过期数据，会影响 redis 的吞吐量 和 响应时间。 </p>
+<a id="more"></a>
+<h3 id="第二种：惰性检查删除"><a href="#第二种：惰性检查删除" class="headerlink" title="第二种：惰性检查删除"></a>第二种：惰性检查删除</h3><p>当访问一个 key 的时候，才会判断该 key 是否过期，如果过期就删除。该方式能最大限度节省 CPU 的资源。</p>
+<p>但是对内存不太好，有一种比较极端的情况：出现大量的过期 key 没有被再次访问，因为不会被清除，导致占用了大量的内存。</p>
+<h3 id="第三种：定期检查删除"><a href="#第三种：定期检查删除" class="headerlink" title="第三种：定期检查删除"></a>第三种：定期检查删除</h3><p>每隔一段时间，扫描redis 中过期key 的字典，并清除部分过期的key。这种方式是前俩种一种折中方法。不同的情况下，调整定时扫描时间间隔，让CPU 与 内存达到最优。</p>
+<h2 id="内存淘汰策略"><a href="#内存淘汰策略" class="headerlink" title="内存淘汰策略"></a>内存淘汰策略</h2><p>Redis 内存淘汰策略是指达到maxmemory极限时，使用某种算法来决定来清理哪些数据，以保证新数据存入。</p>
+<h3 id="第一类-不处理，等报错-默认的配置"><a href="#第一类-不处理，等报错-默认的配置" class="headerlink" title="第一类 不处理，等报错(默认的配置)"></a>第一类 不处理，等报错(默认的配置)</h3><ul>
+<li>noeviction，发现内存不够时，不删除key，执行写入命令时直接返回错误信息。（Redis默认的配置就是noeviction）</li>
+</ul>
+<h3 id="第二类-从所有结果集中的key中挑选，进行淘汰"><a href="#第二类-从所有结果集中的key中挑选，进行淘汰" class="headerlink" title="第二类 从所有结果集中的key中挑选，进行淘汰"></a>第二类 从所有结果集中的key中挑选，进行淘汰</h3><ul>
+<li>allkeys-random 就是从所有的key中随机挑选key，进行淘汰</li>
+<li>allkeys-lru 就是从所有的key中挑选最近使用时间距离现在最远的key，进行淘汰</li>
+<li>allkeys-lfu 就是从所有的key中挑选使用频率最低的key，进行淘汰。（这是Redis 4.0版本后新增的策略）</li>
+</ul>
+<h3 id="第三类-从设置了过期时间的key中挑选，进行淘汰"><a href="#第三类-从设置了过期时间的key中挑选，进行淘汰" class="headerlink" title="第三类 从设置了过期时间的key中挑选，进行淘汰"></a>第三类 从设置了过期时间的key中挑选，进行淘汰</h3><pre><code>这种就是从设置了expires过期时间的结果集中选出一部分key淘汰，挑选的算法有：
+</code></pre><ul>
+<li><p>volatile-random 从设置了过期时间的结果集中随机挑选key删除。  </p>
+</li>
+<li><p>volatile-lru 从设置了过期时间的结果集中挑选上次使用时间距离现在最久的key开始删除  </p>
+</li>
+<li><p>volatile-ttl 从设置了过期时间的结果集中挑选可存活时间最短的key开始删除(也就是从哪些快要过期的key中先删除)  </p>
+</li>
+<li><p>volatile-lfu 从过期时间的结果集中选择使用频率最低的key开始删除（这是Redis 4.0版本后新增的策略）</p>
+</li>
+</ul>
+<h3 id="更多好文，公众号持续更新"><a href="#更多好文，公众号持续更新" class="headerlink" title="更多好文，公众号持续更新"></a>更多好文，公众号持续更新</h3><p><img src="/img/bVbHwTm" alt="file"></p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/12/10/为什么 InnoDB 使用 B+ 树/" class="next">下一篇</a></div><div class="copyright"><p>© 2017 - 2020 <a href="http://www.tenpercent.top">Jeffrey</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-146782675-1",'auto');ga('send','pageview');</script></body></html>
