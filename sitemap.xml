@@ -2,9 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.tenpercent.top/2018/04/26/composer-autoload/</loc>
+    
+    <lastmod>2020-08-02T15:51:28.041Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/05/29/php7-garbage-collection/</loc>
+    
+    <lastmod>2020-08-02T15:50:14.899Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/05/23/PHP7-Array/</loc>
+    
+    <lastmod>2020-08-02T15:49:43.659Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/05/15/php-zval-struct/</loc>
+    
+    <lastmod>2020-08-02T15:49:27.204Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/05/09/PHP-internal-learning/</loc>
+    
+    <lastmod>2020-08-02T15:49:04.217Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.tenpercent.top/2020/01/23/Redis%E8%BF%87%E6%9C%9Fkey%E6%98%AF%E6%80%8E%E4%B9%88%E6%B8%85%E7%90%86%E7%9A%84/</loc>
     
-    <lastmod>2020-07-05T10:18:19.108Z</lastmod>
+    <lastmod>2020-08-01T15:20:09.662Z</lastmod>
     
   </url>
   
@@ -72,44 +107,9 @@
   </url>
   
   <url>
-    <loc>http://www.tenpercent.top/2019/08/31/php7-garbage-collection/</loc>
-    
-    <lastmod>2019-09-10T12:59:23.701Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2019/08/09/PHP-internal-learning/</loc>
-    
-    <lastmod>2019-09-01T14:19:30.849Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2019/08/15/php-zval-struct/</loc>
-    
-    <lastmod>2019-09-01T14:18:46.072Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2019/08/23/PHP7-Array/</loc>
-    
-    <lastmod>2019-09-01T14:18:22.089Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.tenpercent.top/2017/04/23/review-php-03/</loc>
     
     <lastmod>2019-08-30T15:06:38.763Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/05/17/composer-autoload/</loc>
-    
-    <lastmod>2019-08-30T14:05:19.055Z</lastmod>
     
   </url>
   
