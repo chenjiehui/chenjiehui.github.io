@@ -2,37 +2,142 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.tenpercent.top/2018/04/26/composer-autoload/</loc>
+    <loc>http://www.tenpercent.top/2018/12/23/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81/</loc>
     
-    <lastmod>2020-08-02T15:51:28.041Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/05/29/php7-garbage-collection/</loc>
-    
-    <lastmod>2020-08-02T15:50:14.899Z</lastmod>
+    <lastmod>2021-02-16T13:02:15.250Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.tenpercent.top/2018/05/23/PHP7-Array/</loc>
+    <loc>http://www.tenpercent.top/2018/11/23/%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/</loc>
     
-    <lastmod>2020-08-02T15:49:43.659Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/05/15/php-zval-struct/</loc>
-    
-    <lastmod>2020-08-02T15:49:27.204Z</lastmod>
+    <lastmod>2021-02-16T13:02:01.010Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.tenpercent.top/2018/05/09/PHP-internal-learning/</loc>
+    <loc>http://www.tenpercent.top/2018/09/23/JDK%20%E4%BB%A3%E7%90%86%E5%92%8C%20CGLIB%20%E4%BB%A3%E7%90%86/</loc>
     
-    <lastmod>2020-08-02T15:49:04.217Z</lastmod>
+    <lastmod>2021-02-16T12:56:36.889Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/04/13/%E4%B8%BA%E4%BB%80%E4%B9%88hashCode()%E5%92%8Cequal()%E6%96%B9%E6%B3%95%E8%A6%81%E4%B8%80%E8%B5%B7%E9%87%8D%E5%86%99/</loc>
+    
+    <lastmod>2021-02-16T12:49:40.434Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/05/19/AOP%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2021-02-16T12:41:05.205Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/05/12/IOC%20%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2021-02-16T12:40:42.455Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/04/23/%E6%B3%9B%E5%9E%8B%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2021-02-16T12:40:22.238Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/02/27/composer-autoload/</loc>
+    
+    <lastmod>2021-02-16T12:39:44.640Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/02/08/php-fpm%20and%20nginx%20/</loc>
+    
+    <lastmod>2021-02-16T12:39:05.453Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/03/09/PHP-internal-learning/</loc>
+    
+    <lastmod>2021-02-16T12:37:37.739Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/03/29/php7-garbage-collection/</loc>
+    
+    <lastmod>2021-02-16T12:37:30.628Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/03/23/PHP7-Array/</loc>
+    
+    <lastmod>2021-02-16T12:37:25.299Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/03/15/php-zval-struct/</loc>
+    
+    <lastmod>2021-02-16T12:37:12.349Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/01/16/late-static-bindings/</loc>
+    
+    <lastmod>2021-02-16T12:36:29.060Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/01/07/clean-code-solid/</loc>
+    
+    <lastmod>2021-02-16T12:22:37.649Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2017/12/25/clean-code-php-object/</loc>
+    
+    <lastmod>2021-02-16T12:22:21.230Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2018/12/17/clean-code-php-function/</loc>
+    
+    <lastmod>2021-02-16T12:22:05.419Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2017/11/25/RESTful/</loc>
+    
+    <lastmod>2021-02-16T12:21:12.191Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/2017/12/08/clean-code-php/</loc>
+    
+    <lastmod>2021-02-16T12:20:38.421Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.tenpercent.top/about-me.html</loc>
+    
+    <lastmod>2021-02-16T12:15:28.421Z</lastmod>
     
   </url>
   
@@ -65,13 +170,6 @@
   </url>
   
   <url>
-    <loc>http://www.tenpercent.top/about-me.html</loc>
-    
-    <lastmod>2020-04-18T01:37:38.105Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.tenpercent.top/2019/03/06/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%BC%9A%E4%BA%A7%E7%94%9F%20bug/</loc>
     
     <lastmod>2020-04-17T15:46:33.368Z</lastmod>
@@ -79,72 +177,9 @@
   </url>
   
   <url>
-    <loc>http://www.tenpercent.top/2018/06/23/%E6%B3%9B%E5%9E%8B%E6%80%BB%E7%BB%93/</loc>
-    
-    <lastmod>2020-04-06T03:05:41.915Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/09/10/AOP%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2020-04-05T15:17:06.568Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/08/12/IOC%20%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</loc>
-    
-    <lastmod>2020-04-05T15:16:51.828Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.tenpercent.top/2019/11/08/Innodb-buffer-pool/</loc>
     
     <lastmod>2019-12-29T13:25:47.912Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/04/23/review-php-03/</loc>
-    
-    <lastmod>2019-08-30T15:06:38.763Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/04/20/late-static-bindings/</loc>
-    
-    <lastmod>2019-08-30T14:02:32.509Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/03/23/clean-code-solid/</loc>
-    
-    <lastmod>2019-08-30T14:02:15.415Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/03/10/clean-code-php-object/</loc>
-    
-    <lastmod>2019-08-30T14:01:35.033Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/02/24/clean-code-php/</loc>
-    
-    <lastmod>2019-08-30T14:01:17.896Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/03/01/clean-code-php-function/</loc>
-    
-    <lastmod>2019-08-30T14:00:40.254Z</lastmod>
     
   </url>
   
@@ -180,20 +215,6 @@
     <loc>http://www.tenpercent.top/2019/01/18/depth-nginx/</loc>
     
     <lastmod>2019-02-23T11:10:46.351Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2018/12/21/php-fpm%20and%20nginx%20/</loc>
-    
-    <lastmod>2019-01-30T06:50:30.218Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/12/09/RESTful/</loc>
-    
-    <lastmod>2017-12-09T07:36:38.000Z</lastmod>
     
   </url>
   
@@ -243,41 +264,6 @@
     <loc>http://www.tenpercent.top/2017/07/10/factory-pattern/</loc>
     
     <lastmod>2017-07-30T09:28:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/05/24/php-closure/</loc>
-    
-    <lastmod>2017-06-24T08:30:13.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/05/10/review-php-04/</loc>
-    
-    <lastmod>2017-06-24T08:28:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/04/10/review-php-02/</loc>
-    
-    <lastmod>2017-06-24T08:28:21.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/03/11/review-php-01/</loc>
-    
-    <lastmod>2017-06-24T08:28:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.tenpercent.top/2017/03/22/Computer/</loc>
-    
-    <lastmod>2017-06-24T08:27:53.000Z</lastmod>
     
   </url>
   
