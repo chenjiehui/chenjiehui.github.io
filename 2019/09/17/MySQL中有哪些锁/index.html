@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> MySQL中有哪些锁 · 代码 | 自由</title><meta name="description" content="MySQL中有哪些锁 - Jeffrey"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.tenpercent.top/atom.xml" title="代码 | 自由"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon-logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/about-me.html" target="_self" class="nav-list-link">关于</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">MySQL中有哪些锁</h1><div class="post-info">Sep 17, 2019</div><div class="post-content"><h3 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h3><p>就是对整个数据库加锁，让整个数据库处于只读状态，所有更新操作停止。（如果是主库就不能执行更新语句，从库也不能执行同步过来的bin log）</p>
+<p>最常用的场景是对数据库加锁，让数据库只能读，然后对整个数据库做逻辑备份（就是将所有数据生成SQL写入备份文件。）</p>
+<a id="more"></a>
+<p>做逻辑备份有三种方式：</p>
+<h4 id="1-全局锁"><a href="#1-全局锁" class="headerlink" title="1.全局锁"></a>1.全局锁</h4><p>对数据库执行</p>
+<p>Flush tables with read lock命令让整个库处于只读状态。</p>
+<h4 id="2-利用innodb的事务隔离性（可重复读）"><a href="#2-利用innodb的事务隔离性（可重复读）" class="headerlink" title="2.利用innodb的事务隔离性（可重复读）"></a>2.利用innodb的事务隔离性（可重复读）</h4><p>就是通过官方自带的逻辑备份工具mysqldump来进行逻辑备份时，可以设置一个参数-single-transaction，这样导数据的时候就会开启一个事务，这样利用innodb的mvcc机制可以保证在事务执行过程中，读到的数据都跟事务开始时的一致，并且执行过程中，其他事务可以执行更新操作， 不会对他造成影响。这种方法必须要求数据库所有表的引擎都是innodb才行。</p>
+<h4 id="3-set-global-readonly-true"><a href="#3-set-global-readonly-true" class="headerlink" title="3.set global readonly=true"></a>3.set global readonly=true</h4><p>执行这个命令也可以让全库只能读，但是第一有些系统会使用readonly来做一个操作，例如根据readonly是否为true判断数据库是否是从库，第二是如果执行这个命令后，客户端断开连接后，数据库会一直处于只读状态，如果是FTWRL命令发送异常会释放全局锁。（如果是从库，设置read-only对super user权限无效）</p>
+<h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><p>表级别的锁有两种，一种是表锁，一种是元数据锁MDL。</p>
+<h4 id="表锁-lock-table"><a href="#表锁-lock-table" class="headerlink" title="表锁 lock table"></a>表锁 lock table</h4><p>就是使用lock table user_table read/write命令来对表进行加读锁或者写锁<br>加读锁后，表对所有线程都是只能读，即便是当前线程也只能读表，不然会数据不一致。<br>加写锁后，表是对当前线程写，其他线程不能读，不然会数据不一致。<br>可以通过unlock tables来解锁，客户端断开时也会自动释放锁，但是影响所有线程，影响面太大了。</p>
+<h4 id="元数据锁MDL-MetaData-Lock"><a href="#元数据锁MDL-MetaData-Lock" class="headerlink" title="元数据锁MDL(MetaData Lock)"></a>元数据锁MDL(MetaData Lock)</h4><p>分为读锁和写锁，加读锁时，所有的线程都可以读表，加写锁时，只能一个线程写，其他的不能读。<br>锁不用显式使用，是访问一个表时，自动加上的。<br>对表执行普通SQL语句对表数据进行增删改查时，会加读锁。<br>对表结构做修改时，会加写锁。</p>
+<p>元数据锁是为了修改表结构不会出现问题而设计的，因为一边修改表结构一边读数据可能会读到脏数据，所以在增删改查时会申请读锁，在这个期间不能修改表结构，要修改表结构需要先申请写锁，申请成功后对表结构进行修改，在这个期间不能进行增删改查。</p>
+<h4 id="自增锁"><a href="#自增锁" class="headerlink" title="自增锁"></a>自增锁</h4><p>插入语句主要分为两种：<br>1.能确定插入行数的，例如插入一条或者多条数据，INSERT…<br>2.不能确定行数的，例如从一个表查询出满足条件的数据，然后插入另外一个表，INSERT…SELECT</p>
+<p>在所有模式中，如果一个事务回滚，这些自增值将被“丢失”。</p>
+<p>innodb_autoinc_lock_mode为0<br>这种是tradition模式，每次执行一条插入语句时都会去申请表级别的auto_increment锁</p>
+<p>innodb_autoinc_lock_mode为1<br>这种是consecutive模式，执行不确定数量的插入语句时，才会去申请表级别的auto_increment锁，<br>执行确定数量的插入语句时，只需要执行前去获取 AUTO_INCREMENT 计数器的互斥锁并在获取主键后直接释放，<br>不需要等待当前语句执行完成。</p>
+<p>innodb_autoinc_lock_mode为2<br>交叉模式 所有的插入语句都不需要获取表级别的 AUTO_INCREMENT 锁，<br>如果binlog_format为statement模式，如果从服务器上的计数器的值可能会与主服务器不一致，<br>可能会有同一行数据在主从数据库上id不一样的情况，如果binlog_format为row模式，那么就不影响。</p>
+<h4 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h4><p>意向锁定的主要目的是表明有人正在锁定表中的行，或者打算锁定表中的行。意向锁的作用主要在于，当一个事务去申请表级别的排斥锁X，共享锁S时，需要去判断是否有其他事务在修改数据行，或者让数据行处于只读状态。假如没有意向锁，可能需要查询每一行数据，判断是否加了行锁。而如果有意向锁的情况下，可以快速进行判断，只需要判断当前表是否有加意向锁就可以了，减小了性能开销。</p>
+<p><strong>意向共享锁（IS锁）</strong></p>
+<p>事务让一行数据只能读，需要申请对这行数据加行级别的锁共享锁S，在申请S锁之前会主动申请表级别的共享意向锁IS锁。</p>
+<p><strong>意向排斥锁(IX锁)</strong></p>
+<p>事务在更新某一行数据时，需要申请对这行数据加行级别的锁排斥锁X，在申请X锁之前会申请IX</p>
+<p>意向锁之间是兼容的，IS锁和IX是兼容，因为可能我们对第一行数据加S锁，那么会申请IS锁，对第二行数据加X锁，此时跟第一行的数据的S锁不冲突，所以也会先申请IX锁，由此可见，IS锁和IX之间不冲突，IS锁，IX锁与行级别的S，行级别的X之间也不冲突。</p>
+<p>意向锁只是跟表级别的S，X锁可能会冲突，</p>
+<p>场景1：假设一个事务要加表级别的S锁，让整个表只能被读。那么如果当前有意向锁IX，说明有其他事务在改数据，那么不能加，只能进行等待，等事务改完是否意向锁IX。</p>
+<p>场景2：假设当前事务要加表级别的S锁时，让整个表只能被读。只有IS意向锁，没有IX锁，说明只是有其他事务在让数据只能被读取，不能被修改，那么加表级别S锁，也不会其他事务造成影响。</p>
+<p>场景3：假设当前事务要加表级别的X锁时，让整个表只能被这个事务写，不能被其他事务读。如果现在有其他事务加了意向读锁IS，说明有其他事务在让一些数据行只能被读，或者是一些写锁IX，说明其他事务让一些数据行正在被修改。那么当前要加表级别的X锁就不行，会跟其他事务冲突，只能等其他事务执行完毕才能申请成功。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>表级别的S锁</th>
+<th>表级别的X锁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>意向读锁IS</td>
+<td>兼容</td>
+<td>不兼容</td>
+</tr>
+<tr>
+<td>意向写锁IX</td>
+<td>不兼容</td>
+<td>不兼容</td>
+</tr>
+</tbody>
+</table>
+<h4 id="那么意向锁的作用是什么呢？"><a href="#那么意向锁的作用是什么呢？" class="headerlink" title="那么意向锁的作用是什么呢？"></a>那么意向锁的作用是什么呢？</h4><p>假如没有意向锁，我们执行lock table read命令来申请表锁，让整个表只能读，在获得表级别的只读锁之前，需要执行的步骤是：</p>
+<p>1.数据库会先判断当前表是否加了表级别的排斥锁，因为这个时候要是加了排斥锁，是只能由加了那个排斥锁的事务来更新数据，其他事务都不能读数据，只能阻塞等待。</p>
+<p>2.如果当前表没有加表级别的排斥锁，那么就需要对每一行数据进行判断，判断是否加了行级别的X锁，如果加了只能阻塞等待，这样需要对一行进行判断，性能开销太大了。</p>
+<p>所以才有了意向锁，在获得表级别的只读锁之前，需要执行的步骤是：</p>
+<p>1.第一步还是跟上面的步骤一一样</p>
+<p>2.第二步只需要判断当前锁是否加了表级别的意向排斥锁，因为如果加了意向排斥锁，说明正在有事务在对数据加行锁，对数据进行更新，这样避免了对每一行数据进行判断，判断是否加了行锁。</p>
+<h2 id="Innodb的锁"><a href="#Innodb的锁" class="headerlink" title="Innodb的锁"></a>Innodb的锁</h2><h3 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h3><ul>
+<li><p>共享锁 S锁，就是读锁，允许事务读一行数据，不能被修改。所以读锁之间不排斥</p>
+</li>
+<li><p>互斥锁 X锁，就是写锁，就是让当前事务可以修改这行数据，其他事务不能修改这行数据</p>
+</li>
+</ul>
+<h3 id="记录锁-record-lock"><a href="#记录锁-record-lock" class="headerlink" title="记录锁 record lock"></a>记录锁 record lock</h3><p> 记录锁定是对单条索引记录的锁定。例如， <code>SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE;</code> 可以防止从插入，更新或删除行。</p>
+<h3 id="间隙锁-gap-lock"><a href="#间隙锁-gap-lock" class="headerlink" title="间隙锁 gap lock"></a>间隙锁 gap lock</h3><p>间隙锁就会对记录之间的间隙加锁，防止数据插入。就是我们在使用实时读(SELECT  FOR … UPDATE)或者更新，为了防止读的过程中有新的数据插入，会对我们读的数据的左右区间进行加锁，防止其他事务插入数据，所以间隙锁之间是不排斥的，间隙锁排斥的只是插入数据的操作。</p>
+<h3 id="下一键锁-next-key-lock"><a href="#下一键锁-next-key-lock" class="headerlink" title="下一键锁 next-key lock"></a>下一键锁 next-key lock</h3><p> next-key lock就是会锁记录以及记录之间的间隙，就是 record lock 和 gap lock的组合，就是会对索引记录加记录锁 + 索引记录前面间隙上的锁”，就是对要更新的数据的左右两个端点加间隙锁，</p>
+<p>例如num是一个普通索引，非唯一性索引，已有数据是1，5，10，20，30</p>
+<p>那么 next-key lock可以锁定的区间是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(负无穷,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">(<span class="number">1</span>,<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">(<span class="number">5</span>,<span class="number">10</span>]</span><br><span class="line"></span><br><span class="line">(<span class="number">10</span>,<span class="number">20</span>]</span><br><span class="line"></span><br><span class="line">(<span class="number">20</span>,<span class="number">30</span>]</span><br><span class="line"></span><br><span class="line">(<span class="number">30</span>,正无穷)</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//更新操作</span></span><br><span class="line">update table set note = <span class="string">'1'</span> where num = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//或者是使用实时读</span></span><br><span class="line">SELECT * FROM table WHERE num = <span class="number">10</span> <span class="keyword">for</span> UPDATE;</span><br></pre></td></tr></table></figure>
+<p>如果num是唯一性索引，那么只需要对num为10的这条索引加锁就行了（就加一个Record lock锁），因为不用担心其他事务再插入一条num为10的数据，因为会有唯一性判断。但是如果num是非唯一性索引，为了防止事务执行过程中有num为10的数据插入，那么会对（5，10]和（10，20]这两个区间加锁。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/17/mysql-index-1/" class="prev">上一篇</a><a href="/2019/08/20/一条MySQL更新语句的执行过程是什么样的/" class="next">下一篇</a></div><div class="copyright"><p>© 2017 - 2021 <a href="http://www.tenpercent.top">Jeffrey</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-146782675-1",'auto');ga('send','pageview');</script></body></html>
